@@ -34,7 +34,9 @@ jobs:
       with:
         required-ros-distributions: ${{ matrix.ros_distribution }}
     - name: Setup
-      run: "source /opt/ros/${{ matrix.ros_distribution }}/setup.bash && rosnode --help"
+      run: |
+        sudo apt install -y python-catkin-tools
+        "source /opt/ros/${{ matrix.ros_distribution }}/setup.bash && rosnode --help"
     - name: Build
       run: catkin build
     - name: Test
