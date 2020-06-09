@@ -30,10 +30,10 @@ jobs:
             ros_distribution: melodic
             ros_version: 1
       steps:
-        - uses: ros-tooling/setup-ros@0.0.16
-          with:
-            required-ros-distributions: ${{ matrix.ros_distribution }}
-        - run: "source /opt/ros/${{ matrix.ros_distribution }}/setup.bash && rosnode --help"
-          if: ros_version == 1
-        - run: "source /opt/ros/${{ matrix.ros_distribution }}/setup.bash && ros2 run --help"
-          if: ros_version == 2
+      - uses: ros-tooling/setup-ros@0.0.16
+        with:
+          required-ros-distributions: ${{ matrix.ros_distribution }}
+      - run: "source /opt/ros/${{ matrix.ros_distribution }}/setup.bash && rosnode --help"
+        if: ros_version == 1
+      - run: "source /opt/ros/${{ matrix.ros_distribution }}/setup.bash && ros2 run --help"
+        if: ros_version == 2
