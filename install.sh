@@ -33,10 +33,11 @@ elif [[ $1 == "--carla-root" && $# -gt 1 ]]; then
     # General Packages
     sudo apt-get update
     sudo apt-get install -y \
+        software-properties-common \
+        apt-utils \
         python-pip \
-        python-pip3 \
-        python-protobuf \
-        software-properties-common
+        python3-pip \
+        python-protobuf
 
     # Carla Ros Bridge
     sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 81061A1A042F527D
