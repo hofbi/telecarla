@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
 echo 'Install package dependencies'
-sudo apt install -y libsdl2-dev nlohmann-json-dev
+sudo apt-get install -y libsdl2-dev nlohmann-json-dev

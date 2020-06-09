@@ -34,7 +34,7 @@ echo '  '
 echo '=========== [Install Dependencies] ================================================================='
 echo '  '
 
-sudo apt install -y \
+sudo apt-get install -y \
     autopoint \
     bison \
     flex \

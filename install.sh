@@ -31,19 +31,17 @@ elif [[ $1 == "--carla-root" && $# -gt 1 ]]; then
     pushd "$WS_SRC" || exit
 
     # General Packages
-    sudo apt install -y \
+    sudo apt-get install -y \
         python-pip \
         python-pip3 \
         python-protobuf \
         software-properties-common
 
     # Carla Ros Bridge
-    sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 9BE2A0CDC0161D6C
-    sudo add-apt-repository "deb [arch=amd64 trusted=yes] http://dist.carla.org/carla-ros-bridge-kinetic xenial main"
-    sudo apt update
-    sudo apt install carla-ros-bridge-${ROS_VERSION}
-    # shellcheck disable=SC1090
-    source /opt/carla-ros-bridge/${ROS_VERSION}/setup.bash
+    sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 81061A1A042F527D
+    sudo add-apt-repository "deb [arch=amd64 trusted=yes] http://dist.carla.org/carla-ros-bridge-melodic/ bionic main"
+    sudo apt-get update
+    sudo apt-get install -y carla-ros-bridge-${ROS_VERSION}
 
     # Carla Scenario Runner
     git clone https://github.com/carla-simulator/scenario_runner.git
