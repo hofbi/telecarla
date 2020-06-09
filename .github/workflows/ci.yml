@@ -33,7 +33,7 @@ jobs:
         sudo apt-get update
         sudo apt-get install -y carla-ros-bridge-melodic ros-melodic-pcl-ros
         source /opt/ros/melodic/setup.bash && source /opt/carla-ros-bridge/melodic/setup.bash && rosnode --help
-        sh $GITHUB_WORKSPACE/telecarla_rpc/script/install.sh
+        sh telecarla_rpc/script/install.sh
     - name: Init Workspace
       run: |
         mkdir -p catkin_ws/src
