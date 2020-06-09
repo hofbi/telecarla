@@ -1,0 +1,57 @@
+[
+  [
+    {
+      "type": "camera",
+      "key": "rear_left",
+      "w": 640,
+      "h": 480
+    },
+    {
+      "type": "static_text",
+      "w": 480,
+      "h": 480
+    },
+    {
+      "type": "vehicle_status",
+      "w": 480,
+      "h": 480
+    },
+    {
+      "type": "camera",
+      "key": "rear",
+      "w": 640,
+      "h": 480
+    },
+    {
+      "type": "space",
+      "w": 960,
+      "h": 480
+    },
+    {
+      "type": "camera",
+      "key": "rear_right",
+      "w": 640,
+      "h": 480
+    }
+  ],
+  [
+    {
+      "type": "camera",
+      "key": "front_left",
+      "w": 1280,
+      "h": 720
+    },
+    {
+      "type": "camera",
+      "key": "front",
+      "w": 1280,
+      "h": 720
+    },
+    {
+      "type": "camera",
+      "key": "front_right",
+      "w": 1280,
+      "h": 720
+    }
+  ]
+]

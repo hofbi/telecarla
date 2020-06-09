@@ -1,0 +1,16 @@
+[
+  [
+    {
+      "type": "camera",
+      "key": "front",
+      "w": 800,
+      "h": 600
+    },
+    {
+      "type": "camera",
+      "key": "front_left",
+      "w": 800,
+      "h": 600
+    }
+  ]
+]

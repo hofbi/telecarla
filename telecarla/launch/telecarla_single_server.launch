@@ -1,0 +1,21 @@
+<launch>
+    <arg name="bag_input" default="false"/>
+    <arg name="role_name" default="ego_vehicle"/>
+
+    <!--  Carla ROS bridge  -->
+    <include unless="$(arg bag_input)" file="$(find telecarla_manual_control)/launch/carla_ros_bridge_with_ego_vehicle.launch">
+        <arg name="sensor_definition_file" value="$(find telecarla_manual_control)/config/single_sensors.json"/>
+        <arg name='role_name' value='$(arg role_name)'/>
+    </include>
+
+    <!-- RPC Server -->
+    <include file="$(find telecarla_rpc)/launch/telecarla_rpc_server.launch">
+        <arg name='role_name' value='$(arg role_name)'/>
+    </include>
+
+    <!--  GStreamer Server  -->
+    <include file="$(find gstreaming)/launch/rtsp/rtsp_server.launch">
+        <arg name='in_topic' value='/carla/$(arg role_name)/camera/rgb/front/image_color'/>
+        <arg name='mount' value='front'/>
+    </include>
+</launch>

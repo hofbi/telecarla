@@ -1,0 +1,20 @@
+<launch>
+    <arg name="role_name" default="ego_vehicle"/>
+    <arg name="keyboard_control" default="True"/>
+    <arg name="carla_host" default="localhost"/>
+    <arg name="carla_port" default="2000"/>
+    <arg name="wheel_config" default="$(find telecarla_manual_control)/config/wheel_config.ini"/>
+
+    <include file="$(find carla_ros_bridge)/launch/carla_ros_bridge.launch"
+             unless="$(eval arg('carla_host') == 'localhost')">
+        <arg name='host' value='$(arg carla_host)'/>
+        <arg name='port' value='$(arg carla_port)'/>
+    </include>
+
+    <node pkg="telecarla_manual_control" type="telecarla_manual_control_ctrl.py"
+          name="telecarla_manual_control_ctrl_$(arg role_name)" output="screen">
+        <param name="role_name" value="$(arg role_name)"/>
+        <param name="config_file" value="$(arg wheel_config)"/>
+        <param name="keyboard_control" value="$(arg keyboard_control)"/>
+    </node>
+</launch>

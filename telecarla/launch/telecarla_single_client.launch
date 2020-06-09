@@ -1,0 +1,25 @@
+<launch>
+    <arg name="host" default="127.0.0.1"/>
+    <arg name='role_name' default='ego_vehicle'/>
+
+    <!--  GStreamer Client  -->
+    <include file="$(find gstreaming)/launch/rtsp/rtsp_client.launch">
+        <arg name='host' value='$(arg host)'/>
+        <arg name='mount' value='front'/>
+    </include>
+
+    <!-- RPC Client -->
+    <include file="$(find telecarla_rpc)/launch/telecarla_rpc_client.launch">
+        <arg name='rpc_host' value='$(arg host)'/>
+        <arg name='role_name' value='$(arg role_name)'/>
+    </include>
+
+    <!--  Teleop GUI  -->
+    <include file="$(find telecarla_gui)/launch/telecarla_gui.launch">
+        <arg name="sensor_definition_file_path" value="$(find telecarla_gui)/config/single_cam_gui_config.json"/>
+        <arg name="camera_topics" default="{
+            front: /client/front/rtsp_client/camera/rgb/image_color
+        }"/>
+        <arg name='role_name' value='$(arg role_name)'/>
+    </include>
+</launch>

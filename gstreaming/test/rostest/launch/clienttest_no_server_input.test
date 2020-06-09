@@ -1,0 +1,13 @@
+<launch>
+    <include file="$(find gstreaming)/launch/rtsp/rtsp_server.launch"/>
+    <include file="$(find gstreaming)/launch/rtsp/rtsp_client.launch"/>
+
+    <test name="clienttest_no_server_input" test-name="clienttest_no_server_input" pkg="rostest" type="publishtest">
+        <rosparam>
+            topics:
+            - name: /client/mainstream/rtsp_client/camera/rgb/image_color
+            timeout: 3
+            negative: True
+        </rosparam>
+    </test>
+</launch>

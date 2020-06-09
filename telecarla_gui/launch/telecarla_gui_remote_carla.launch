@@ -1,0 +1,29 @@
+<launch>
+    <arg name="sensor_definition_file" default="single_cam_gui_config"/>
+    <arg name="sensor_definition_file_path" default="$(find telecarla_gui)/config/$(arg sensor_definition_file).json"/>
+    <arg name="role_name" default="ego_vehicle"/>
+    <arg name="camera_topics" default="{
+        front: /carla/$(arg role_name)/camera/rgb/front/image_color,
+        front_left: /carla/$(arg role_name)/camera/rgb/front_left/image_color,
+        front_right: /carla/$(arg role_name)/camera/rgb/front_right/image_color,
+        rear: /carla/$(arg role_name)/camera/rgb/rear/image_color,
+        rear_left: /carla/$(arg role_name)/camera/rgb/rear_left/image_color,
+        rear_right: /carla/$(arg role_name)/camera/rgb/rear_right/image_color
+    }"/>
+    <arg name="wheel_config" default="$(find telecarla_gui)/config/wheel_config.yml"/>
+    <arg name="carla_host" default="localhost"/>
+    <arg name="carla_port" default="2000"/>
+
+    <include file="$(find carla_ros_bridge)/launch/carla_ros_bridge.launch" unless="$(eval arg('carla_host') == 'localhost')">
+        <arg name='host' value='$(arg carla_host)'/>
+        <arg name='port' value='$(arg carla_port)'/>
+    </include>
+
+    <include file="$(find telecarla_gui)/launch/telecarla_gui.launch">
+        <arg name="sensor_definition_file" value="$(arg sensor_definition_file)"/>
+        <arg name="sensor_definition_file_path" value="$(arg sensor_definition_file_path)"/>
+        <arg name="camera_topics" value="$(arg camera_topics)"/>
+        <arg name="wheel_config" value="$(arg wheel_config)"/>
+        <arg name="role_name" value="$(arg role_name)"/>
+    </include>
+</launch>

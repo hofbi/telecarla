@@ -1,0 +1,18 @@
+<launch>
+    <arg name="role_name" default="ego_vehicle"/>
+    <arg name="resolution_x_px" default='1280'/>
+    <arg name="resolution_y_px" default='720'/>
+    <arg name="window_pos_x_px" default='0'/>
+    <arg name="window_pos_y_px" default='0'/>
+    <arg name="no_frame" default='False'/>
+
+    <node pkg="telecarla_manual_control" type="telecarla_manual_control_view.py"
+          name="telecarla_manual_control_$(arg role_name)" output="screen">
+        <param name="role_name" value="$(arg role_name)"/>
+        <param name="resolution_x_px" value="$(arg resolution_x_px)"/>
+        <param name="resolution_y_px" value="$(arg resolution_y_px)"/>
+        <param name="window_pos_x_px" value="$(arg window_pos_x_px)"/>
+        <param name="window_pos_y_px" value="$(arg window_pos_y_px)"/>
+        <param name="no_frame" value="$(arg no_frame)"/>
+    </node>
+</launch>

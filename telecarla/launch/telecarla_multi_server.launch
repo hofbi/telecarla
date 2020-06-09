@@ -1,0 +1,53 @@
+<launch>
+    <arg name="bag_input" default="false"/>
+    <arg name="role_name" default="ego_vehicle"/>
+
+    <!--  Carla ROS bridge  -->
+    <include unless="$(arg bag_input)" file="$(find telecarla_manual_control)/launch/carla_ros_bridge_with_ego_vehicle.launch">
+        <arg name="sensor_definition_file" value="$(find telecarla_manual_control)/config/multi_sensors.json"/>
+        <arg name='role_name' value='$(arg role_name)'/>
+    </include>
+
+    <!-- RPC Server -->
+    <include file="$(find telecarla_rpc)/launch/telecarla_rpc_server.launch">
+        <arg name='role_name' value='$(arg role_name)'/>
+    </include>
+
+    <!--  GStreamer Server  -->
+    <include file="$(find gstreaming)/launch/rtsp/rtsp_server.launch">
+        <arg name='server_id' value='front'/>
+        <arg name='mount' value='front'/>
+        <arg name='port' value='8551'/>
+        <arg name='in_topic' value='/carla/ego_vehicle/camera/rgb/front/image_color'/>
+    </include>
+    <include file="$(find gstreaming)/launch/rtsp/rtsp_server.launch">
+        <arg name='server_id' value='front_left'/>
+        <arg name='mount' value='front_left'/>
+        <arg name='port' value='8552'/>
+        <arg name='in_topic' value='/carla/ego_vehicle/camera/rgb/front_left/image_color'/>
+    </include>
+    <include file="$(find gstreaming)/launch/rtsp/rtsp_server.launch">
+        <arg name='server_id' value='front_right'/>
+        <arg name='mount' value='front_right'/>
+        <arg name='port' value='8553'/>
+        <arg name='in_topic' value='/carla/ego_vehicle/camera/rgb/front_right/image_color'/>
+    </include>
+    <include file="$(find gstreaming)/launch/rtsp/rtsp_server.launch">
+        <arg name='server_id' value='rear'/>
+        <arg name='mount' value='rear'/>
+        <arg name='port' value='8554'/>
+        <arg name='in_topic' value='/carla/ego_vehicle/camera/rgb/rear/image_color'/>
+    </include>
+    <include file="$(find gstreaming)/launch/rtsp/rtsp_server.launch">
+        <arg name='server_id' value='rear_left'/>
+        <arg name='mount' value='rear_left'/>
+        <arg name='port' value='8555'/>
+        <arg name='in_topic' value='/carla/ego_vehicle/camera/rgb/rear_left/image_color'/>
+    </include>
+    <include file="$(find gstreaming)/launch/rtsp/rtsp_server.launch">
+        <arg name='server_id' value='rear_right'/>
+        <arg name='mount' value='rear_right'/>
+        <arg name='port' value='8556'/>
+        <arg name='in_topic' value='/carla/ego_vehicle/camera/rgb/rear_right/image_color'/>
+    </include>
+</launch>

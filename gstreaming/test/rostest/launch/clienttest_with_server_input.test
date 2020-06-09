@@ -1,0 +1,15 @@
+<launch>
+    <!--    <node pkg="rosbag" type="play" name="rosbag" args="$(find gstreaming)/resources/carla-6-cam.bag"/>-->
+
+    <include file="$(find gstreaming)/launch/rtsp/rtsp_server.launch"/>
+    <include file="$(find gstreaming)/launch/rtsp/rtsp_client.launch"/>
+
+    <test name="clienttest_with_server_input" test-name="clienttest_with_server_input" pkg="rostest" type="publishtest">
+        <rosparam>
+            topics:
+            - name: /client/mainstream/rtsp_client/camera/rgb/image_color
+            timeout: 3
+            negative: False
+        </rosparam>
+    </test>
+</launch>

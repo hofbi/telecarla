@@ -1,0 +1,20 @@
+<package format="2">
+    <name>telecarla_gui</name>
+    <version>0.0.0</version>
+    <description>The carla teleoperated driving gui package</description>
+    <maintainer email="name.surname@tum.de">Markus Hofbauer</maintainer>
+    <author email="name.surname@tum.de">Markus Hofbauer</author>
+    <license>MIT</license>
+    <url type="website">https://github.com/hofbi/telecarla</url>
+
+    <buildtool_depend>catkin</buildtool_depend>
+    <build_depend>roscpp</build_depend>
+    <build_depend>sensor_msgs</build_depend>
+    <build_depend>cv_bridge</build_depend>
+    <build_depend>roslaunch</build_depend>
+    <build_depend>carla_msgs</build_depend>
+    <build_depend>telecarla_msgs</build_depend>
+    <exec_depend>carla_ros_bridge</exec_depend>
+    <export>
+    </export>
+</package>

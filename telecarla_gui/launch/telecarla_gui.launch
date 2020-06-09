@@ -1,0 +1,25 @@
+<launch>
+    <arg name="sensor_definition_file" default="single_cam_gui_config"/>
+    <arg name="sensor_definition_file_path" default="$(find telecarla_gui)/config/$(arg sensor_definition_file).json"/>
+    <arg name="role_name" default="ego_vehicle"/>
+    <arg name="vehicle_status" default="/carla/$(arg role_name)/vehicle_status"/>
+    <arg name="camera_topics" default="{
+        front: /carla/$(arg role_name)/camera/rgb/front/image_color,
+        front_left: /carla/$(arg role_name)/camera/rgb/front_left/image_color,
+        front_right: /carla/$(arg role_name)/camera/rgb/front_right/image_color,
+        rear: /carla/$(arg role_name)/camera/rgb/rear/image_color,
+        rear_left: /carla/$(arg role_name)/camera/rgb/rear_left/image_color,
+        rear_right: /carla/$(arg role_name)/camera/rgb/rear_right/image_color
+    }"/>
+    <arg name="wheel_config" default="$(find telecarla_gui)/config/wheel_config.yml"/>
+
+    <group ns="gui">
+        <node name="telecarla_gui" pkg="telecarla_gui" type="telecarla_gui_node" output="screen">
+            <param name="sensor_definition_file_path" value="$(arg sensor_definition_file_path)"/>
+            <param name="role_name" value="$(arg role_name)"/>
+            <param name="vehicle_status" value="$(arg vehicle_status)"/>
+            <rosparam param="camera" subst_value="True">$(arg camera_topics)</rosparam>
+            <rosparam file="$(arg wheel_config)" command="load"/>
+        </node>
+    </group>
+</launch>

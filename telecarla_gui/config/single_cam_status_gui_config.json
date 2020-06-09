@@ -1,0 +1,22 @@
+[
+  [
+    {
+      "type": "camera",
+      "key": "front",
+      "w": 1280,
+      "h": 720
+    }
+  ],
+  [
+    {
+      "type": "static_text",
+      "w": 640,
+      "h": 300
+    },
+    {
+      "type": "vehicle_status",
+      "w": 640,
+      "h": 300
+    }
+  ]
+]

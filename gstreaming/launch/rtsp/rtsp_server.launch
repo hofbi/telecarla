@@ -1,0 +1,21 @@
+<launch>
+    <arg name='port' default='8551'/>
+    <arg name='mount' default='mainstream'/>
+    <arg name='stream_source' default='appsrc'/>
+    <arg name='server_id' default='$(arg mount)'/>
+    <arg name='in_topic' default='/carla/ego_vehicle/camera/rgb/front/image_color'/>
+    <arg name='graph_viz' default="false"/>
+
+    <env name="ROSCONSOLE_FORMAT" value="[${severity}] [${time}] [${node}]: ${message}"/>
+    <env name="GST_DEBUG" value="2"/>
+    <env name="GST_DEBUG_DUMP_DOT_DIR" value="." if="$(arg graph_viz)"/>
+
+    <group ns="server/$(arg server_id)">
+        <node name="rtsp_server" pkg="gstreaming" type="rtsp_server_node" output="screen">
+            <param name="port" value="$(arg port)"/>
+            <param name="mount" value="$(arg mount)"/>
+            <param name="stream_source" value="$(arg stream_source)"/>
+            <param name="in_topic" value="$(arg in_topic)"/>
+        </node>
+    </group>
+</launch>

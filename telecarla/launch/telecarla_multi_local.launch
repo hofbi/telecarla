@@ -1,0 +1,16 @@
+<launch>
+    <arg name="bag_input" default="false"/>
+    <arg name="role_name" default="ego_vehicle"/>
+
+    <!--  Carla ROS bridge  -->
+    <include unless="$(arg bag_input)" file="$(find telecarla_manual_control)/launch/carla_ros_bridge_with_ego_vehicle.launch">
+        <arg name="sensor_definition_file" value="$(find telecarla_manual_control)/config/multi_sensors.json"/>
+        <arg name="role_name" value="$(arg role_name)"/>
+    </include>
+
+    <!--  Teleop GUI  -->
+    <include file="$(find telecarla_gui)/launch/telecarla_gui.launch">
+        <arg name="sensor_definition_file_path" value="$(find telecarla_gui)/config/multi_cam_gui_config.json"/>
+        <arg name="role_name" value="$(arg role_name)"/>
+    </include>
+</launch>

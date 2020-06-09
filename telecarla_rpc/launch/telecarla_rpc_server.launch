@@ -1,0 +1,11 @@
+<launch>
+    <arg name='rpc_port' default='2002'/>
+    <arg name='role_name' default='ego_vehicle'/>
+
+    <group ns="rpc">
+        <node name="telecarla_rpc_server" pkg="telecarla_rpc" type="telecarla_rpc_server_node" output="screen">
+            <param name="rpc_port" value="$(arg rpc_port)"/>
+            <param name="role_name" value="$(arg role_name)"/>
+        </node>
+    </group>
+</launch>

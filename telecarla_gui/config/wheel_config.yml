@@ -1,0 +1,11 @@
+joy_axis:
+  steering_wheel: 0
+  throttle: 2
+  brake: 3
+
+joy_button:
+  manual: 0         # X
+  monitoring: 2     # Circle
+  reverse: 4        # Right flap
+
+force_feedback: false

@@ -1,0 +1,35 @@
+<launch>
+    <arg name='host' default='localhost'/>
+    <arg name='port' default='2000'/>
+    <arg name='role_name' default='ego_vehicle'/>
+    <arg name="resolution_x_px" default='1280'/>
+    <arg name="resolution_y_px" default='720'/>
+    <arg name="window_pos_x_px" default='0'/>
+    <arg name="window_pos_y_px" default='0'/>
+    <arg name="no_frame" default='False'/>
+    <arg name="vehicle_filter" default='vehicle.*'/>
+    <arg name="sensor_definition_file" default="$(find telecarla_manual_control)/config/single_sensors.json"/>
+    <arg name="keyboard_control" default="true"/>
+
+    <include file="$(find telecarla_manual_control)/launch/carla_ros_bridge_with_ego_vehicle.launch">
+        <arg name='host' value='$(arg host)'/>
+        <arg name='port' value='$(arg port)'/>
+        <arg name="vehicle_filter" value='$(arg vehicle_filter)'/>
+        <arg name="sensor_definition_file" value="$(find telecarla_manual_control)/config/single_sensors.json"/>
+        <arg name='role_name' value='$(arg role_name)'/>
+    </include>
+
+    <include file="$(find telecarla_manual_control)/launch/telecarla_manual_control_view.launch">
+        <arg name='role_name' value='$(arg role_name)'/>
+        <arg name="resolution_x_px" value='$(arg resolution_x_px)'/>
+        <arg name="resolution_y_px" value='$(arg resolution_y_px)'/>
+        <arg name="window_pos_x_px" value="$(arg window_pos_x_px)"/>
+        <arg name="window_pos_y_px" value="$(arg window_pos_y_px)"/>
+        <arg name="no_frame" value="$(arg no_frame)"/>
+    </include>
+
+    <include file="$(find telecarla_manual_control)/launch/telecarla_manual_control_ctrl.launch">
+        <arg name='role_name' value='$(arg role_name)'/>
+        <arg name="keyboard_control" value="$(arg keyboard_control)"/>
+    </include>
+</launch>

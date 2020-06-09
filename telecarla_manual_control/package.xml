@@ -1,0 +1,18 @@
+<package format="2">
+    <name>telecarla_manual_control</name>
+    <version>0.0.0</version>
+    <description>The carla teleoperated driving manual control package</description>
+    <maintainer email="name.surname@tum.de">Markus Hofbauer</maintainer>
+    <author email="name.surname@tum.de">Markus Hofbauer</author>
+    <license>MIT</license>
+    <url type="website">https://github.com/hofbi/telecarla</url>
+
+    <buildtool_depend>catkin</buildtool_depend>
+    <depend>rospy</depend>
+    <build_depend>roslaunch</build_depend>
+    <exec_depend>carla_ros_bridge</exec_depend>
+    <exec_depend>carla_ego_vehicle</exec_depend>
+
+    <export>
+    </export>
+</package>
