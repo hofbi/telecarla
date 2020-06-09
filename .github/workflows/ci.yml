@@ -27,14 +27,8 @@ jobs:
     - name: Setup
       run: |
         sudo apt-get update
-        sudo apt-get install -y python-catkin-tools libsdl2-dev nlohmann-json-dev software-properties-common apt-utils
-        sudo apt-get update
-        sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 81061A1A042F527D
-        sudo add-apt-repository "deb [arch=amd64 trusted=yes] http://dist.carla.org/carla-ros-bridge-melodic/ bionic main"
-        sudo apt-get update
-        sudo apt-get install -y carla-ros-bridge-melodic ros-melodic-pcl-ros
-        bash -c "$GITHUB_WORKSPACE/telecarla_rpc/script/install.sh"
-        bash -c "source /opt/ros/melodic/setup.bash && source /opt/carla-ros-bridge/melodic/setup.bash && rosnode --help"
+        sudo apt-get install -y python-catkin-tools
+        bash -c "$GITHUB_WORKSPACE/install.sh"
     - name: Init Workspace
       run: |
         mkdir -p $GITHUB_WORKSPACE/../catkin_ws/src
