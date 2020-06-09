@@ -40,6 +40,6 @@ jobs:
         cd ..
         catkin init
     - name: Build
-      run: catkin build --summarize --no-status --force-color
+      run: cd catkin_ws && catkin build --summarize --no-status --force-color
     - name: Test
-      run: catkin run_tests --no-status --force-color && catkin_test_results
+      run: cd catkin_ws && catkin run_tests --no-status --force-color && catkin_test_results
