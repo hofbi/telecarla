@@ -43,4 +43,4 @@ jobs:
     - name: Build
       run: bash -c "source /opt/ros/melodic/setup.bash && source /opt/carla-ros-bridge/melodic/setup.bash && cd catkin_ws && catkin build --summarize --no-status --force-color"
     - name: Test
-      run: cd catkin_ws && catkin run_tests --no-status --force-color && catkin_test_results
+      run: bash -c "source /opt/ros/melodic/setup.bash && source /opt/carla-ros-bridge/melodic/setup.bash && cd catkin_ws && catkin run_tests --no-status --force-color && catkin_test_results"
