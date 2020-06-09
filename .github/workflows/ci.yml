@@ -28,7 +28,7 @@ jobs:
       run: |
         sudo apt-get update
         sudo apt-get install -y python-catkin-tools
-        bash -c "$GITHUB_WORKSPACE/install.sh"
+        bash -c "$GITHUB_WORKSPACE/install.sh --carla-root /tmp"
     - name: Init Workspace
       run: |
         mkdir -p $GITHUB_WORKSPACE/../catkin_ws/src
