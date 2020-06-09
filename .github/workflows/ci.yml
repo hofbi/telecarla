@@ -32,7 +32,6 @@ jobs:
         sudo add-apt-repository "deb [arch=amd64 trusted=yes] http://dist.carla.org/carla-ros-bridge-melodic/ bionic main"
         sudo apt-get update
         sudo apt-get install -y carla-ros-bridge-melodic ros-melodic-pcl-ros
-        source /opt/ros/melodic/setup.bash && source /opt/carla-ros-bridge/melodic/setup.bash && rosnode --help
     - name: Init Workspace
       run: |
         mkdir -p catkin_ws/src
