@@ -21,23 +21,21 @@ jobs:
 
   ros:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        ros_distribution:
-        - melodic
-        include:
-        - docker_image: ubuntu:bionic
-          ros_distribution: melodic
-          ros_version: 1
     steps:
     - uses: ros-tooling/setup-ros@0.0.16
       with:
-        required-ros-distributions: ${{ matrix.ros_distribution }}
+        required-ros-distributions: melodic
     - name: Setup
       run: |
-        sudo apt install -y python-catkin-tools
-        "source /opt/ros/${{ matrix.ros_distribution }}/setup.bash && rosnode --help"
+        sudo apt-get update
+        sudo apt-get install -y python-catkin-tools libsdl2-dev nlohmann-json-dev git software-properties-common apt-utils
+        sudo apt-get update
+        sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 81061A1A042F527D
+        sudo add-apt-repository "deb [arch=amd64 trusted=yes] http://dist.carla.org/carla-ros-bridge-melodic/ bionic main"
+        sudo apt-get update
+        sudo apt-get install -y carla-ros-bridge-melodic ros-melodic-pcl-ros
+        source /opt/ros/melodic/setup.bash && source /opt/carla-ros-bridge/melodic/setup.bash && rosnode --help
     - name: Build
-      run: catkin build
+      run: catkin build --summarize --no-status --force-color
     - name: Test
-      run: catkin run_tests && catkin_test_results
+      run: catkin run_tests --no-status --force-color && catkin_test_results
