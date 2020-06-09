@@ -33,7 +33,15 @@ jobs:
       - uses: ros-tooling/setup-ros@0.0.16
         with:
           required-ros-distributions: ${{ matrix.ros_distribution }}
-      - run: "source /opt/ros/${{ matrix.ros_distribution }}/setup.bash && rosnode --help"
+      - name: Setup
+        run: "source /opt/ros/${{ matrix.ros_distribution }}/setup.bash && rosnode --help"
         if: ros_version == 1
-      - run: "source /opt/ros/${{ matrix.ros_distribution }}/setup.bash && ros2 run --help"
+      - name: Setup
+        run: "source /opt/ros/${{ matrix.ros_distribution }}/setup.bash && ros2 run --help"
         if: ros_version == 2
+      - name: Build
+        run: catkin build
+        if: ros_version == 1
+      - name: Test
+        run: catkin run_tests && catkin_test_results
+        if: ros_version == 1
