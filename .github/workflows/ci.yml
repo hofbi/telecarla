@@ -23,6 +23,7 @@ jobs:
     runs-on: ubuntu-latest
     container: ros:melodic-robot
     steps:
+    - uses: actions/checkout@v2
     - name: Setup
       run: |
         sudo apt-get update
@@ -32,15 +33,16 @@ jobs:
         sudo add-apt-repository "deb [arch=amd64 trusted=yes] http://dist.carla.org/carla-ros-bridge-melodic/ bionic main"
         sudo apt-get update
         sudo apt-get install -y carla-ros-bridge-melodic ros-melodic-pcl-ros
+        bash -c "$GITHUB_WORKSPACE/telecarla_rpc/script/install.sh"
         bash -c "source /opt/ros/melodic/setup.bash && source /opt/carla-ros-bridge/melodic/setup.bash && rosnode --help"
     - name: Init Workspace
       run: |
-        mkdir -p ../catkin_ws/src
-        cd ../catkin_ws/src
-        ln -s ../../telecarla
+        mkdir -p $GITHUB_WORKSPACE/../catkin_ws/src
+        cd $GITHUB_WORKSPACE/../catkin_ws/src
+        ln -s $GITHUB_WORKSPACE
         cd ..
         catkin init
     - name: Build
-      run: bash -c "source /opt/ros/melodic/setup.bash && source /opt/carla-ros-bridge/melodic/setup.bash && cd ../catkin_ws && catkin build --summarize --no-status --force-color"
+      run: bash -c "source /opt/ros/melodic/setup.bash && source /opt/carla-ros-bridge/melodic/setup.bash && cd $GITHUB_WORKSPACE/../catkin_ws && catkin build --summarize --no-status --force-color"
     - name: Test
-      run: bash -c "source /opt/ros/melodic/setup.bash && source /opt/carla-ros-bridge/melodic/setup.bash && cd ../catkin_ws && catkin run_tests --no-status --force-color && catkin_test_results"
+      run: bash -c "source /opt/ros/melodic/setup.bash && source /opt/carla-ros-bridge/melodic/setup.bash && cd $GITHUB_WORKSPACE/../catkin_ws && catkin run_tests --no-status --force-color && catkin_test_results"
