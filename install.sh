@@ -31,6 +31,7 @@ elif [[ $1 == "--carla-root" && $# -gt 1 ]]; then
     pushd "$WS_SRC" || exit
 
     # General Packages
+    sudo apt-get update
     sudo apt-get install -y \
         python-pip \
         python-pip3 \
