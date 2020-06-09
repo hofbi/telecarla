@@ -22,6 +22,7 @@ jobs:
   ros:
     runs-on: ubuntu-latest
     container: ros:melodic-robot
+    steps:
     - name: Setup
       run: |
         sudo apt-get update
