@@ -1,4 +1,4 @@
-# Tele Carla Manual Control
+# TELECARLA Manual Control
 
 Extension of Carla ROS bridge manual control for our teleoperated driving package.
 

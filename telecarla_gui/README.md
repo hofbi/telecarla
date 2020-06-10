@@ -1,4 +1,4 @@
-# Tele Carla GUI
+# TELECARLA GUI
 
 The Teleop GUI uses SDL2 to display all camera views, reads input commands from the keyboard and joystick and applies force feedback to the connected joystick.
 
