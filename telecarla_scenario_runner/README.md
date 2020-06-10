@@ -1,4 +1,4 @@
-# Tele Carla Scenario Runner
+# TELECARLA Scenario Runner
 
 Customization for the [carla scenario runner](https://github.com/carla-simulator/scenario_runner)
 

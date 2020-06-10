@@ -1,4 +1,4 @@
-# Tele Carla
+# TELECARLA
 
 Main module for carla teleoperated driving contains a collection of launch files for running in different modes (local and remote) and camera (single front camera and 6 cameras) setups.
 

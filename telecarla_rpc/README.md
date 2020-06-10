@@ -1,4 +1,4 @@
-# Tele Carla RPC
+# TELECARLA RPC
 
 This package sends control commands from the operator client to the vehicle server using the [rpclib](https://github.com/rpclib/rpclib).
 

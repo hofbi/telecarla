@@ -33,10 +33,10 @@ git clone https://github.com/carla-simulator/scenario_runner.git
 pip2 install -r scenario_runner/requirements.txt
 pip3 install -r scenario_runner/requirements.txt
 
-# Tele Carla GUI
+# TELECARLA GUI
 "$SCRIPT_DIR"/telecarla_gui/script/install_dependencies.sh
 
-# Tele Carla RPC
+# TELECARLA RPC
 "$SCRIPT_DIR"/telecarla_rpc/script/install.sh
 
 # GStreaming
