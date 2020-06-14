@@ -1,0 +1,10 @@
+version: '3'
+services:
+  telecarla:
+    build:
+      context: ./
+      dockerfile: docker/Dockerfile
+    image: telecarla
+    ports:
+      - '2000:2002'
+    command: bash

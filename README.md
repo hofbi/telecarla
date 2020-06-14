@@ -32,7 +32,7 @@ If you use TELECARLA please cite our paper.
 1. Install ROS: http://wiki.ros.org/ROS/Installation
 1. Create a workspace with `mkdir -p ~/catkin_ws_teleop/src`
 1. Clone the code into the workspace `src` folder
-1. Run the install script: `./install.sh --carla-root <abs_path_to_carla_root>`
+1. Run the install script: `./install.sh
 1. Build the workspace: `catkin build`
 1. Source your workspace `source ~/catkin_ws_teleop/devel/setup.<your_shell>`
 
