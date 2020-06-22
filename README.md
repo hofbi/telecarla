@@ -28,6 +28,8 @@ If you use TELECARLA please cite our paper.
 
 ## Setup
 
+Telecarla so far has been tested on Ubuntu 18.04 and ROS Melodic.
+
 1. Download [CARLA](https://github.com/carla-simulator/carla/releases/latest)
 1. Install ROS: http://wiki.ros.org/ROS/Installation
 1. Create a workspace with e.g. `mkdir -p ~/catkin_ws_teleop/src && cd ~/catkin_ws_teleop/src` 
