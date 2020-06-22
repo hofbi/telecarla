@@ -1,6 +1,6 @@
 # TELECARLA
 
-Main module for carla teleoperated driving contains a collection of launch files for running in different modes (local and remote) and camera (single front camera and 6 cameras) setups.
+The main module for carla teleoperated driving contains a collection of launch files for running in different modes (local and remote) and camera (single front camera and 6 cameras) setups.
 
 ## Run
 
@@ -18,7 +18,7 @@ roslaunch telecarla telecarla_multi_local.launch
 
 ### Remote Driving
 
-The *remote* setup launches the `carla_ros_bridge` and our streaming and RPC servers on the server side. On the client side the respective clients connect to them and the teleop GUI subscribes to these topics.
+The *remote* setup launches the `carla_ros_bridge` and our streaming and RPC servers on the server side. On the client side, the respective clients connect to them and the teleop GUI subscribes to these topics.
 
 ```shell
 # Single front camera

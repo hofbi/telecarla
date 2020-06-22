@@ -3,7 +3,7 @@
 [![Actions Status](https://github.com/hofbi/telecarla/workflows/CI/badge.svg)](https://github.com/hofbi/telecarla)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
-TELECARLA is an extension of the CARLA simulator for teleoperated driving. We use GStreamer for compression and transmission of the camera data. The interface between our framework and CARLA is via ROS.
+TELECARLA is an extension of the [CARLA simulator](https://carla.org/) for teleoperated driving. We use [GStreamer](https://gstreamer.freedesktop.org/) for compression and transmission of camera data. [ROS](https://www.ros.org/) acts as interface between our framework and CARLA.
 
 ![TELECARLA](doc/telecarla.jpg "TELECARLA Architecture")
 
@@ -28,10 +28,12 @@ If you use TELECARLA please cite our paper.
 
 ## Setup
 
-1. Download the carla simulator release from [GitHub](https://github.com/carla-simulator/carla/releases/latest)
+Telecarla so far has been tested on Ubuntu 18.04 and ROS Melodic.
+
+1. Download [CARLA](https://github.com/carla-simulator/carla/releases/latest)
 1. Install ROS: http://wiki.ros.org/ROS/Installation
-1. Create a workspace with `mkdir -p ~/catkin_ws_teleop/src`
-1. Clone the code into the workspace `src` folder
+1. Create a workspace with e.g. `mkdir -p ~/catkin_ws_teleop/src && cd ~/catkin_ws_teleop/src` 
+1. Clone this repository into the workspace's `src` folder with `git clone https://github.com/hofbi/telecarla.git` 
 1. Run the install script: `./install.sh`
 1. Build the workspace: `catkin build`
 1. Source your workspace `source ~/catkin_ws_teleop/devel/setup.<your_shell>`
