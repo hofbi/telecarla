@@ -13,7 +13,7 @@ If you use TELECARLA please cite our paper.
 
 *TELECARLA: An Open Source Extension of the CARLA Simulator for Teleoperated Driving Research Using Off-the-Shelf Components, Markus Hofbauer, Christopher B. Kuhn, Goran Petrovic, Eckehard Steinbach; IV 2020* [[PDF](https://www.researchgate.net/publication/341293636_TELECARLA_An_Open_Source_Extension_of_the_CARLA_Simulator_for_Teleoperated_Driving_Research_Using_Off-the-Shelf_Components)]
 
-```
+```tex
 @inproceedings{hofbauer_2020,
     title = {TELECARLA: An Open Source Extension of the CARLA Simulator for Teleoperated Driving Research Using Off-the-Shelf Components},
     booktitle = {31st IEEE Intelligent Vehicles Symposium 2020 (IV)},
@@ -28,12 +28,16 @@ If you use TELECARLA please cite our paper.
 
 ## Setup
 
-Telecarla so far has been tested on Ubuntu 18.04 and ROS Melodic.
+TELECARLA so far has been tested on
+
+| OS  | ROS Version |
+| --- | ----------- |
+| Ubuntu 18.04 | Melodic |
 
 1. Download [CARLA](https://github.com/carla-simulator/carla/releases/latest)
-1. Install ROS: http://wiki.ros.org/ROS/Installation
-1. Create a workspace with e.g. `mkdir -p ~/catkin_ws_teleop/src && cd ~/catkin_ws_teleop/src` 
-1. Clone this repository into the workspace's `src` folder with `git clone https://github.com/hofbi/telecarla.git` 
+1. Install [ROS](http://wiki.ros.org/ROS/Installation)
+1. Create a workspace with e.g. `mkdir -p ~/catkin_ws_teleop/src && cd ~/catkin_ws_teleop/src`
+1. Clone this repository into the workspace's `src` folder with `git clone https://github.com/hofbi/telecarla.git`
 1. Run the install script: `./install.sh`
 1. Build the workspace: `catkin build`
 1. Source your workspace `source ~/catkin_ws_teleop/devel/setup.<your_shell>`
