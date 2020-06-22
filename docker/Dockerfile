@@ -4,12 +4,13 @@ ENV DEBIAN_FRONTEND='noninteractive'
 ENV QT_X11_NO_MITSHM=1
 
 RUN apt-get update && \
-    apt-get install -y \
+    apt-get install --no-install-recommends -y \
     python-catkin-tools \
     x11-apps \
     socat \
     ubuntu-server \
-    ubuntu-desktop
+    ubuntu-desktop && \
+    rm -rf /var/lib/apt/lists/*
 
 COPY . /home/catkin_ws/src/telecarla
 WORKDIR /home/catkin_ws/src/telecarla

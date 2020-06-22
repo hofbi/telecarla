@@ -19,6 +19,13 @@ jobs:
     - name: Check
       run: make check
 
+  super-lint:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Lint Code Base
+      uses: docker://github/super-linter:v2.1.0
+
   ros:
     runs-on: ubuntu-latest
     container: ros:melodic-robot

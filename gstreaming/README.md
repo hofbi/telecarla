@@ -36,8 +36,8 @@ By default clion creates its own build folder. To use the catkin workspace build
   * `.dot` file is generated in `ROS_HOME` (usually `~/.ros`)
   * Convert to png with `dot -Tpng pipeline.dot > pipeline.png`
 * Set `GST_DEBUG` environment variable in server/client launch file to switch log level of GStreamer
-  * https://gstreamer.freedesktop.org/documentation/tutorials/basic/debugging-tools.html?gi-language=c
-  * https://developer.ridgerun.com/wiki/index.php?title=GStreamer_Debugging
+  * [GStreamer Debugging Tools](https://gstreamer.freedesktop.org/documentation/tutorials/basic/debugging-tools.html?gi-language=c)
+  * [GStreamer Debugging](https://developer.ridgerun.com/wiki/index.php?title=GStreamer_Debugging)
 
 ## Network
 
