@@ -6,7 +6,10 @@
 using namespace lmt;
 using namespace lmt::rtsp::server;
 
-GStreamingServer::GStreamingServer(ros::NodeHandle& nh, ros::NodeHandle& pnh, int argc, char* argv[])
+GStreamingServer::GStreamingServer(ros::NodeHandle& nh,
+                                   ros::NodeHandle& pnh,
+                                   int argc,
+                                   char* argv[])  // NOLINT(modernize-avoid-c-arrays)
     : gstLifecycle_(argc, argv),
       serverPort_(pnh.param("port", 8551)),
       mountName_(pnh.param("mount", std::string("mainstream"))),
