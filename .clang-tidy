@@ -1,0 +1,20 @@
+# TODO discuss whether we want to enable readability-implicit-bool-conversion and readability-magic-numbers
+
+FormatStyle: file
+
+Checks: '
+-*,
+bugprone*,
+cppcoreguidelines*
+google*,
+llvm*,
+misc*,
+modernize*,
+readability*,
+-modernize-use-trailing-return-type,
+-readability-implicit-bool-conversion,
+-readability-magic-numbers,
+'
+
+WarningsAsErrors: '*'
+
