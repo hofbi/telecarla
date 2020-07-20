@@ -28,7 +28,7 @@ GStreamingClient::GStreamingClient(ros::NodeHandle& nh, ros::NodeHandle& pnh, in
     start(ip, port, name);
 }
 
-void GStreamingClient::callbackImage(char* data, int size, int width, int height)
+void GStreamingClient::callbackImage(char* data, int /*size*/, int width, int height)
 {
     const auto image = cv::Mat(cv::Size(width, height), CV_8UC3, data, cv::Mat::AUTO_STEP);
 

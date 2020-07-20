@@ -1,4 +1,4 @@
-# TODO discuss whether we want to enable readability-implicit-bool-conversion and readability-magic-numbers
+# TODO discuss whether we want to enable modernize-avoid-bind, readability-implicit-bool-conversion, and readability-magic-numbers
 
 FormatStyle: file
 
@@ -11,6 +11,7 @@ llvm*,
 misc*,
 modernize*,
 readability*,
+-modernize-avoid-bind,
 -modernize-use-trailing-return-type,
 -readability-implicit-bool-conversion,
 -readability-magic-numbers,

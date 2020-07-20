@@ -47,7 +47,9 @@ void RTSPServer::stop()
         state_ = RTSPState::stopping;
 
         if (handle_ != -1)
+        {
             g_source_remove(handle_);
+        }
 
         handle_ = -1;
         state_ = RTSPState::stopped;
@@ -65,7 +67,7 @@ RTSPServer::~RTSPServer()
     stop();
 }
 
-void RTSPServer::rateControlCallback(gstreaming::RateControlConfig& config, uint32_t level)
+void RTSPServer::rateControlCallback(gstreaming::RateControlConfig& config, uint32_t /*level*/)
 {
     context_->encoder->updateRateControlParameter(config.bitrate);
     context_->app->updateSpatioTemporalResolution(config.fps, config.spatial_scale);
