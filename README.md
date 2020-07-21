@@ -35,7 +35,7 @@ TELECARLA so far has been tested on
 | Ubuntu 18.04 | Melodic |
 
 1. Download [CARLA](https://github.com/carla-simulator/carla/releases/latest)
-1. Install [ROS](http://wiki.ros.org/ROS/Installation)
+1. Install [ROS](http://wiki.ros.org/ROS/Installation) and [catkin_tools](https://catkin-tools.readthedocs.io/en/latest/installing.html#installing-catkin-tools)
 1. Create a workspace with e.g. `mkdir -p ~/catkin_ws_teleop/src && cd ~/catkin_ws_teleop/src`
 1. Clone this repository into the workspace's `src` folder with `git clone https://github.com/hofbi/telecarla.git`
 1. Run the install script: `./install.sh`
