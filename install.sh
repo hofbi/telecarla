@@ -16,11 +16,12 @@ pushd "$WS_SRC" || exit
 # General Packages
 sudo apt-get update
 sudo apt-get install -y \
-    software-properties-common \
     apt-utils \
+    clang-tidy-10 \
     python-pip \
     python3-pip \
-    python-protobuf
+    python-protobuf \
+    software-properties-common
 
 # Carla Ros Bridge
 sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 81061A1A042F527D

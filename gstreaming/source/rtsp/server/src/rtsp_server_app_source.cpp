@@ -20,7 +20,7 @@ void RTPSServerAppSource::setVideoData(const sensor_msgs::ImageConstPtr& msg)
     mutexLock_.unlock();
 }
 
-sensor_msgs::ImageConstPtr RTPSServerAppSource::getScaledImagePtr(const sensor_msgs::ImageConstPtr& msg)
+sensor_msgs::ImageConstPtr RTPSServerAppSource::getScaledImagePtr(const sensor_msgs::ImageConstPtr& msg) const
 {
     if (spatialScale_ != 100)
     {

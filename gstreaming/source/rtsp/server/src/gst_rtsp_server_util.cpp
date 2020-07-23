@@ -81,12 +81,12 @@ GstCaps* gstCapsFromImage(const sensor_msgs::Image::ConstPtr& msg, int framerate
                                nullptr);
 }
 
-void needData(GstElement* appSrc, guint unused, RTSPServerContext* context)
+void needData(GstElement* appSrc, guint /*unused*/, RTSPServerContext* context)
 {
     context->app->bufferNewData(appSrc);
 }
 
-void mediaConfigure(GstRTSPMediaFactory* factory, GstRTSPMedia* media, RTSPServerContext* context)
+void mediaConfigure(GstRTSPMediaFactory* /*factory*/, GstRTSPMedia* media, RTSPServerContext* context)
 {
     auto element =
         std::unique_ptr<GstElement, decltype(&gst_object_unref)>(gst_rtsp_media_get_element(media), gst_object_unref);

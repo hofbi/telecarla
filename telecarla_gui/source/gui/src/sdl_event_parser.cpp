@@ -1,6 +1,7 @@
 #include "sdl_event_parser.h"
 
 #include <cmath>
+
 #include <SDL2/SDL.h>
 #include <ros/ros.h>
 

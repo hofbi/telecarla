@@ -24,7 +24,7 @@ class RTPSServerAppSource
     const std::string& getName() const;
 
   private:
-    sensor_msgs::ImageConstPtr getScaledImagePtr(const sensor_msgs::ImageConstPtr& msg);
+    sensor_msgs::ImageConstPtr getScaledImagePtr(const sensor_msgs::ImageConstPtr& msg) const;
 
   private:
     GstClockTime timestamp_{0};
