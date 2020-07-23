@@ -5,7 +5,7 @@ PY_FILES = $(call file_finder,-name "*.py")
 CPP_FILES = $(call file_finder,-regex '.*\.\(cpp\|hpp\|cu\|c\|h\)')
 SH_FILES = $(call file_finder,-name "*.sh")
 
-check: check_format check_sh_format pylint shellcheck clang_tidy
+check: check_format check_sh_format pylint shellcheck
 
 format:
 	$(PY_FILES) | xargs black
@@ -25,7 +25,3 @@ check_sh_format:
 
 shellcheck:
 	$(SH_FILES) | xargs shellcheck
-
-clang_tidy:
-	catkin config --cmake-args -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_CXX_CLANG_TIDY="clang-tidy-10"
-	catkin build
