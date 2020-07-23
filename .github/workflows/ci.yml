@@ -16,8 +16,10 @@ jobs:
         sudo snap install shfmt
         python -m pip install --upgrade pip
         pip install -r requirements.txt
+        sudo apt-get update
         sudo apt-get install -y python-catkin-tools
         sudo apt-get install -y clang-tidy-10
+        bash -c "$GITHUB_WORKSPACE/install.sh"
     - name: Init Workspace
       run: |
         mkdir -p $GITHUB_WORKSPACE/../catkin_ws/src
