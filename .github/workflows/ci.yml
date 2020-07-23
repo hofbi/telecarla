@@ -35,6 +35,7 @@ jobs:
       run: |
         sudo apt-get update
         sudo apt-get install -y python-catkin-tools
+        sudo apt-get install -y clang-tidy-10
         bash -c "$GITHUB_WORKSPACE/install.sh"
     - name: Init Workspace
       run: |
@@ -44,27 +45,25 @@ jobs:
         cd ..
         catkin init
     - name: Build
-      run: bash -c "source /opt/ros/melodic/setup.bash && source /opt/carla-ros-bridge/melodic/setup.bash && cd $GITHUB_WORKSPACE/../catkin_ws && catkin build --summarize --no-status --force-color"
+      run: bash -c "source /opt/ros/melodic/setup.bash && source /opt/carla-ros-bridge/melodic/setup.bash && cd $GITHUB_WORKSPACE/../catkin_ws && catkin build --summarize --no-status --force-color --cmake-args -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_CXX_CLANG_TIDY=clang-tidy-10"
     - name: Test
       run: bash -c "source /opt/ros/melodic/setup.bash && source /opt/carla-ros-bridge/melodic/setup.bash && cd $GITHUB_WORKSPACE/../catkin_ws && catkin run_tests --no-status --force-color && catkin_test_results"
 
-  clang-tidy:
-    runs-on: ubuntu-latest
-    container: ros:melodic-robot
-    steps:
-    - uses: actions/checkout@v2
-    - name: Setup
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y python-catkin-tools
-        sudo apt-get install -y clang-tidy-10
-        bash -c "$GITHUB_WORKSPACE/install.sh"
-    - name: Create Workspace
-      run: |
-        mkdir -p $GITHUB_WORKSPACE/../catkin_ws/src
-        cd $GITHUB_WORKSPACE/../catkin_ws/src
-        ln -s $GITHUB_WORKSPACE
-      #  cd ../..
-      #  catkin init
-    - name: Build
-      run: bash -c "source /opt/ros/melodic/setup.bash && source /opt/carla-ros-bridge/melodic/setup.bash && cd $GITHUB_WORKSPACE/../catkin_ws && catkin config --cmake-args -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_CXX_CLANG_TIDY="clang-tidy-10" && catkin build
+  # clang-tidy:
+  #   runs-on: ubuntu-latest
+  #   container: ros:melodic-robot
+  #   steps:
+  #   - uses: actions/checkout@v2
+  #   - name: Setup
+  #     run: |
+  #       sudo apt-get update
+  #       sudo apt-get install -y python-catkin-tools
+  #       sudo apt-get install -y clang-tidy-10
+  #       bash -c "$GITHUB_WORKSPACE/install.sh"
+  #   - name: Create Workspace
+  #     run: |
+  #       mkdir -p $GITHUB_WORKSPACE/../catkin_ws/src
+  #       cd $GITHUB_WORKSPACE/../catkin_ws/src
+  #       ln -s $GITHUB_WORKSPACE
+  #   - name: Check
+  #     run: bash -c "source /opt/ros/melodic/setup.bash && source /opt/carla-ros-bridge/melodic/setup.bash && cd $GITHUB_WORKSPACE/../catkin_ws && catkin build --cmake-args -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_CXX_CLANG_TIDY=clang-tidy-10"
