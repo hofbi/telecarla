@@ -1,4 +1,4 @@
-# TODO discuss whether we want to enable modernize-avoid-bind, readability-implicit-bool-conversion, and readability-magic-numbers
+# TODO enable modernize-avoid-bind, readability-implicit-bool-conversion, and readability-magic-numbers
 
 FormatStyle: file
 
@@ -14,6 +14,7 @@ readability*,
 -modernize-avoid-bind,
 -modernize-use-trailing-return-type,
 -readability-implicit-bool-conversion,
+-readability-magic-numbers,
 '
 
 WarningsAsErrors: '*'
