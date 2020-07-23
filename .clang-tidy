@@ -14,7 +14,6 @@ readability*,
 -modernize-avoid-bind,
 -modernize-use-trailing-return-type,
 -readability-implicit-bool-conversion,
--readability-magic-numbers,
 '
 
 WarningsAsErrors: '*'
