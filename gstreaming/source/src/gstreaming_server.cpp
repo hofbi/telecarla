@@ -28,8 +28,7 @@ GStreamingServer::GStreamingServer(ros::NodeHandle& nh,
     subCamera_ = nh.subscribe(inTopic, 1, &RTSPServer::cameraImageCallback, rtspServer_.get());
     ROS_INFO_STREAM("Subscribed to image topic " << inTopic);
 
-    rateControl_.setCallback(
-        std::bind(&RTSPServer::rateControlCallback, rtspServer_.get(), std::placeholders::_1, std::placeholders::_2));
+    rateControl_.setCallback([this](auto... args) { rtspServer_->rateControlCallback(args...); });
 
     startStreaming();
 }
