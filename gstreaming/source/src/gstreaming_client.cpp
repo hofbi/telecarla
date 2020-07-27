@@ -12,12 +12,7 @@ GStreamingClient::GStreamingClient(ros::NodeHandle& nh,
     : gstLifecycle_(argc, argv),
       loop_(g_main_loop_new(nullptr, false)),
       threadGstreamer_(&GStreamingClient::thrGstreamer, this),
-      rtspClient_(std::make_unique<rtsp::client::RTSPClient>(std::bind(&GStreamingClient::callbackImage,
-                                                                       this,
-                                                                       std::placeholders::_1,
-                                                                       std::placeholders::_2,
-                                                                       std::placeholders::_3,
-                                                                       std::placeholders::_4)))
+      rtspClient_(std::make_unique<rtsp::client::RTSPClient>([this](auto... args) { callbackImage(args...); }))
 {
     image_transport::ImageTransport it(nh);
     const auto outTopic = pnh.param("out_topic", std::string("/camera/rgb/image_color"));
