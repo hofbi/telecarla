@@ -1,5 +1,7 @@
 #include "gstreaming_client.h"
 
+#include <utility>
+
 #include <cv_bridge/cv_bridge.h>
 #include <image_transport/image_transport.h>
 
@@ -12,7 +14,8 @@ GStreamingClient::GStreamingClient(ros::NodeHandle& nh,
     : gstLifecycle_(argc, argv),
       loop_(g_main_loop_new(nullptr, false)),
       threadGstreamer_(&GStreamingClient::thrGstreamer, this),
-      rtspClient_(std::make_unique<rtsp::client::RTSPClient>([this](auto... args) { callbackImage(args...); }))
+      rtspClient_(std::make_unique<rtsp::client::RTSPClient>(
+          [this](auto&&... args) { callbackImage(std::forward<decltype(args)>(args)...); }))
 {
     image_transport::ImageTransport it(nh);
     const auto outTopic = pnh.param("out_topic", std::string("/camera/rgb/image_color"));
