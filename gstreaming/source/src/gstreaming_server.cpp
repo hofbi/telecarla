@@ -1,5 +1,7 @@
 #include "gstreaming_server.h"
 
+#include <utility>
+
 #include <cv_bridge/cv_bridge.h>
 #include <ros/ros.h>
 
@@ -28,7 +30,7 @@ GStreamingServer::GStreamingServer(ros::NodeHandle& nh,
     subCamera_ = nh.subscribe(inTopic, 1, &RTSPServer::cameraImageCallback, rtspServer_.get());
     ROS_INFO_STREAM("Subscribed to image topic " << inTopic);
 
-    rateControl_.setCallback([this](auto... args) { rtspServer_->rateControlCallback(args...); });
+    rateControl_.setCallback([this](auto&&... args) { rtspServer_->rateControlCallback(std::forward(args...)); });
 
     startStreaming();
 }
