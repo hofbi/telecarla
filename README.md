@@ -48,8 +48,17 @@ See the main module for running the application: [telecarla](telecarla/README.md
 
 ## Code format
 
+To install formatting tools, call
+
 ```shell
-# Fomrat the code
+python3 -m pip install -r requirements.txt
+sudo snap install shfmt
+```
+
+from the source of this directory. Then, you can call
+
+```shell
+# Format the code
 make format
 
 # Check format
