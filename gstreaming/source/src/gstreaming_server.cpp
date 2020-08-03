@@ -13,7 +13,7 @@ GStreamingServer::GStreamingServer(ros::NodeHandle& nh,
                                    int argc,
                                    char* argv[])  // NOLINT(modernize-avoid-c-arrays)
     : gstLifecycle_(argc, argv),
-      serverPort_(pnh.param("port", 8551)),
+      serverPort_(pnh.param("port", 8551)),  // NOLINT(readability-magic-numbers)
       mountName_(pnh.param("mount", std::string("mainstream"))),
       streamSource_(pnh.param("stream_source", std::string("appsrc"))),
       loop_(g_main_loop_new(nullptr, false)),
@@ -50,7 +50,7 @@ void GStreamingServer::startStreaming()
 
 void GStreamingServer::thrGstreamer()
 {
-    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000));  // NOLINT(readability-magic-numbers)
     g_main_loop_run(loop_);
     g_main_loop_quit(loop_);
     g_main_loop_unref(loop_);

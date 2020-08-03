@@ -4,8 +4,15 @@
 
 using namespace lmt;
 
+namespace
+{
+const auto time_diff_history_buffer_size{20U};
+}  // namespace
+
 ImageCallback::ImageCallback(const SDL_Rect& position, RenderCallback renderCallback) noexcept
-    : position_(position), renderCallback_(std::move(renderCallback)), callbackTimeDiffHistory_(20, 0.0)
+    : position_(position),
+      renderCallback_(std::move(renderCallback)),
+      callbackTimeDiffHistory_(time_diff_history_buffer_size, 0.0)
 {
 }
 

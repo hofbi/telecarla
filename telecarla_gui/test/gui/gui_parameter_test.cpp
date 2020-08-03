@@ -14,9 +14,9 @@ constexpr auto notExistingCameraTestFilePath = "notExisting.json";
 TEST(GuiParameter, getWindowWidth_WhenOneCameraTestFile)
 {
     GuiParameter unit(oneCameraTestFilePath);
-    auto expectedWidth = 800;
+    const auto expectedWidth{800};
 
-    auto actualWidth = unit.getWindowWidth();
+    const auto actualWidth = unit.getWindowWidth();
 
     EXPECT_EQ(expectedWidth, actualWidth);
 }
@@ -24,9 +24,9 @@ TEST(GuiParameter, getWindowWidth_WhenOneCameraTestFile)
 TEST(GuiParameter, getWindowWidth_WhenTwoCameraTestFile)
 {
     GuiParameter unit(twoCameraTestFilePath);
-    auto expectedWidth = 1600;
+    const auto expectedWidth{1600};
 
-    auto actualWidth = unit.getWindowWidth();
+    const auto actualWidth = unit.getWindowWidth();
 
     EXPECT_EQ(expectedWidth, actualWidth);
 }
@@ -34,9 +34,9 @@ TEST(GuiParameter, getWindowWidth_WhenTwoCameraTestFile)
 TEST(GuiParameter, getWindowWidth_WhenValidThreeCameraTestFile)
 {
     GuiParameter unit(threeCameraTestFilePath);
-    auto expectedWidth = 1600;
+    const auto expectedWidth{1600};
 
-    auto actualWidth = unit.getWindowWidth();
+    const auto actualWidth = unit.getWindowWidth();
 
     EXPECT_EQ(expectedWidth, actualWidth);
 }
@@ -44,9 +44,9 @@ TEST(GuiParameter, getWindowWidth_WhenValidThreeCameraTestFile)
 TEST(GuiParameter, getWindowWidth_WhenNotExistingCameraTestFile)
 {
     GuiParameter unit(notExistingCameraTestFilePath);
-    auto expectedWidth = 0;
+    const auto expectedWidth{0};
 
-    auto actualWidth = unit.getWindowWidth();
+    const auto actualWidth = unit.getWindowWidth();
 
     EXPECT_EQ(expectedWidth, actualWidth);
 }
@@ -54,9 +54,9 @@ TEST(GuiParameter, getWindowWidth_WhenNotExistingCameraTestFile)
 TEST(GuiParameter, getWindowHeight_WhenOneCameraTestFile)
 {
     GuiParameter unit(oneCameraTestFilePath);
-    auto expectedHeight = 600;
+    const auto expectedHeight{600};
 
-    auto actualHeight = unit.getWindowHeight();
+    const auto actualHeight = unit.getWindowHeight();
 
     EXPECT_EQ(expectedHeight, actualHeight);
 }
@@ -64,9 +64,9 @@ TEST(GuiParameter, getWindowHeight_WhenOneCameraTestFile)
 TEST(GuiParameter, getWindowHeight_WhenTwoCameraTestFile)
 {
     GuiParameter unit(twoCameraTestFilePath);
-    auto expectedHeight = 600;
+    const auto expectedHeight{600};
 
-    auto actualHeight = unit.getWindowHeight();
+    const auto actualHeight = unit.getWindowHeight();
 
     EXPECT_EQ(expectedHeight, actualHeight);
 }
@@ -74,9 +74,9 @@ TEST(GuiParameter, getWindowHeight_WhenTwoCameraTestFile)
 TEST(GuiParameter, getWindowHeight_WhenValidThreeCameraTestFile)
 {
     GuiParameter unit(threeCameraTestFilePath);
-    auto expectedHeight = 1200;
+    const auto expectedHeight{1200};
 
-    auto actualHeight = unit.getWindowHeight();
+    const auto actualHeight = unit.getWindowHeight();
 
     EXPECT_EQ(expectedHeight, actualHeight);
 }
@@ -84,9 +84,9 @@ TEST(GuiParameter, getWindowHeight_WhenValidThreeCameraTestFile)
 TEST(GuiParameter, getWindowHeight_WhenNotExistingCameraTestFile)
 {
     GuiParameter unit(notExistingCameraTestFilePath);
-    auto expectedHeight = 0;
+    const auto expectedHeight{0};
 
-    auto actualHeight = unit.getWindowHeight();
+    const auto actualHeight = unit.getWindowHeight();
 
     EXPECT_EQ(expectedHeight, actualHeight);
 }
@@ -94,9 +94,9 @@ TEST(GuiParameter, getWindowHeight_WhenNotExistingCameraTestFile)
 TEST(GuiParameter, getCameraParameterSize_WhenValidOneCameraTestFile)
 {
     GuiParameter unit(oneCameraTestFilePath);
-    auto expectedSize = 1;
+    const auto expectedSize{1};
 
-    auto actualSize = unit.getCameraParameter().size();
+    const auto actualSize = unit.getCameraParameter().size();
 
     EXPECT_EQ(expectedSize, actualSize);
 }
@@ -104,9 +104,9 @@ TEST(GuiParameter, getCameraParameterSize_WhenValidOneCameraTestFile)
 TEST(GuiParameter, getCameraParameterSize_WhenValidThreeCameraTestFile)
 {
     GuiParameter unit(threeCameraTestFilePath);
-    auto expectedSize = 3;
+    const auto expectedSize{3};
 
-    auto actualSize = unit.getCameraParameter().size();
+    const auto actualSize = unit.getCameraParameter().size();
 
     EXPECT_EQ(expectedSize, actualSize);
 }
@@ -114,9 +114,9 @@ TEST(GuiParameter, getCameraParameterSize_WhenValidThreeCameraTestFile)
 TEST(GuiParameter, getCameraParameter_WhenValidOneCameraTestFile_Width)
 {
     GuiParameter unit(oneCameraTestFilePath);
-    auto expectedWidth = 800;
+    const auto expectedWidth{800};
 
-    auto actualWidth = unit.getCameraParameter().at("camera/front").w;
+    const auto actualWidth = unit.getCameraParameter().at("camera/front").w;
 
     EXPECT_EQ(expectedWidth, actualWidth);
 }
@@ -124,9 +124,9 @@ TEST(GuiParameter, getCameraParameter_WhenValidOneCameraTestFile_Width)
 TEST(GuiParameter, getCameraParameter_WhenValidOneCameraTestFile_Height)
 {
     GuiParameter unit(oneCameraTestFilePath);
-    auto expectedHeight = 600;
+    const auto expectedHeight{600};
 
-    auto actualWidth = unit.getCameraParameter().at("camera/front").h;
+    const auto actualWidth = unit.getCameraParameter().at("camera/front").h;
 
     EXPECT_EQ(expectedHeight, actualWidth);
 }
@@ -143,7 +143,12 @@ TEST(GuiParameter, getVehicleStatusParameters_WhenValidTestFileWithoutStatus_Emp
 TEST(GuiParameter, getVehicleStatusParameters_WhenValidTestFile_CorrectParameters)
 {
     GuiParameter unit(vehicleStatusTestFilePath);
-    SDL_Rect expectedParameter{0, 720, 640, 200};
+
+    const int x{0};
+    const int y{720};
+    const int w{640};
+    const int h{200};
+    const SDL_Rect expectedParameter{x, y, w, h};
 
     const auto& actualParameters = unit.getVehicleStatusParameters();
 
@@ -157,7 +162,12 @@ TEST(GuiParameter, getVehicleStatusParameters_WhenValidTestFile_CorrectParameter
 TEST(GuiParameter, getStaticTextParameters_WhenValidTestFile_CorrectParameters)
 {
     GuiParameter unit(staticTextTestFilePath);
-    SDL_Rect expectedParameter{0, 720, 640, 200};
+
+    const int x{0};
+    const int y{720};
+    const int w{640};
+    const int h{200};
+    const SDL_Rect expectedParameter{x, y, w, h};
 
     const auto& actualParameters = unit.getStaticTextParameters();
 

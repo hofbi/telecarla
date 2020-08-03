@@ -19,14 +19,21 @@ sensor_msgs::ImageConstPtr getDefaultImage(int width, int height, int frameCount
     header.stamp = ros::Time::now();
 
     cv::Mat overlay(height, width, CV_8UC3, cv::Scalar(0, 0, 0));
-    cv::rectangle(overlay, cvPoint(10, 10), cvPoint(200, 50), cvScalar(1, 1, 1), cv::FILLED, 8, 0);
 
+    const CvPoint top_left{10, 10};
+    const CvPoint bottom_right{200, 50};
+    const int line_type{8};
+    cv::rectangle(overlay, top_left, bottom_right, cvScalar(1, 1, 1), cv::FILLED, line_type, 0);
+
+    const CvPoint bottom_left_of_text{30, 30};
+    const auto font_scale{0.8};
+    const CvScalar white{255, 255, 255};
     cv::putText(overlay,
                 "Frame " + std::to_string(frameCount),
-                cvPoint(30, 30),
+                bottom_left_of_text,
                 cv::FONT_HERSHEY_COMPLEX_SMALL,
-                0.8,
-                cvScalar(255, 255, 255),
+                font_scale,
+                white,
                 1,
                 CV_AA);
 
