@@ -41,7 +41,7 @@ void GStreamingClient::callbackImage(char* data, int /*size*/, int width, int he
 
 void GStreamingClient::thrGstreamer()
 {
-    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000));  // NOLINT(readability-magic-numbers)
     g_main_loop_run(loop_);
     g_main_loop_quit(loop_);
     g_main_loop_unref(loop_);

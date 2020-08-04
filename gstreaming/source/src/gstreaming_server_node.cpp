@@ -14,7 +14,8 @@ int main(int argc, char* argv[])
 
     GStreamingServer serverRos(nh, pnh, argc, argv);
 
-    ros::Rate loop(10);
+    const auto loopFrequencyInHz{10.0};
+    ros::Rate loop(loopFrequencyInHz);
 
     while (ros::ok())
     {

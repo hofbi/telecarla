@@ -22,11 +22,12 @@ void RTPSServerAppSource::setVideoData(const sensor_msgs::ImageConstPtr& msg)
 
 sensor_msgs::ImageConstPtr RTPSServerAppSource::getScaledImagePtr(const sensor_msgs::ImageConstPtr& msg) const
 {
-    if (spatialScale_ != 100)
+    const auto defaultSpatialScale{100};
+    if (spatialScale_ != defaultSpatialScale)
     {
         cv::Mat image;
-        const auto newWidth = spatialScale_ * msg->width / 100;
-        const auto newHeight = spatialScale_ * msg->height / 100;
+        const auto newWidth = spatialScale_ * msg->width / defaultSpatialScale;
+        const auto newHeight = spatialScale_ * msg->height / defaultSpatialScale;
 
         cv::resize(cv_bridge::toCvShare(msg)->image, image, cv::Size(newWidth, newHeight));
 
@@ -49,9 +50,11 @@ void RTPSServerAppSource::bufferNewData(GstElement* appSrc)
     {
         ++timeOut_;
 
-        if (timeOut_ >= 40)
+        const auto timeout{40};
+        if (timeOut_ >= timeout)
         {
-            timeOut_ = 50;
+            const auto maximumTimeout{50};
+            timeOut_ = maximumTimeout;
             imageMsg_ = getDefaultImage(imageMsg_->width, imageMsg_->height, nFrames_);
         }
     }
@@ -78,7 +81,8 @@ void RTPSServerAppSource::bufferNewData(GstElement* appSrc)
 
     GST_BUFFER_FLAG_SET(buffer, GST_BUFFER_FLAG_LIVE);
     GST_BUFFER_PTS(buffer) = timestamp_;
-    GST_BUFFER_DURATION(buffer) = gst_util_uint64_scale_int(1, GST_SECOND, 20);
+    const auto denominator{20};
+    GST_BUFFER_DURATION(buffer) = gst_util_uint64_scale_int(1, GST_SECOND, denominator);
     timestamp_ += GST_BUFFER_DURATION(buffer);
 
     GST_BUFFER_DTS(buffer) = GST_BUFFER_PTS(buffer);

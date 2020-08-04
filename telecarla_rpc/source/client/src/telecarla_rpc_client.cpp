@@ -8,7 +8,9 @@ using namespace lmt::client;
 using namespace lmt::common;
 
 TeleCarlaRpcClient::TeleCarlaRpcClient(ros::NodeHandle& nh, ros::NodeHandle& pnh)
-    : host_(pnh.param("rpc_host", std::string("localhost"))), port_(pnh.param("rpc_port", 2002)), client_(host_, port_)
+    : host_(pnh.param("rpc_host", std::string("localhost"))),
+      port_(pnh.param("rpc_port", 2002)),  // NOLINT(readability-magic-numbers)
+      client_(host_, port_)
 {
     while (client_.get_connection_state() == rpc::client::connection_state::initial)
     {

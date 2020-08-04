@@ -10,9 +10,11 @@
 using namespace lmt::server;
 using namespace lmt::common;
 
-TeleCarlaRpcServer::TeleCarlaRpcServer(ros::NodeHandle& nh, ros::NodeHandle& pnh) : server_(pnh.param("rpc_port", 2002))
+TeleCarlaRpcServer::TeleCarlaRpcServer(ros::NodeHandle& nh, ros::NodeHandle& pnh)
+    : server_(pnh.param("rpc_port", 2002)  // NOLINT(readability-magic-numbers)
+      )
 {
-    ROS_INFO_STREAM("Opening RPC Server at port " << pnh.param("rpc_port", 2002));
+    ROS_INFO_STREAM("Opening RPC Server at port " << pnh.param("rpc_port", 2002));  // NOLINT(readability-magic-numbers)
 
     const auto prefix = "/carla/" + pnh.param("role_name", std::string("ego_vehicle"));
 

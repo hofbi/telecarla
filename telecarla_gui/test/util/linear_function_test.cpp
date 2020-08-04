@@ -28,14 +28,16 @@ TEST_P(LinearFunctionTestFromGradientAndYIntercept, constructor_fromGradientAndY
     EXPECT_EQ(params.expectedValue, actualValue);
 }
 
-INSTANTIATE_TEST_CASE_P(LinearFunctionTest,
-                        LinearFunctionTestFromGradientAndYIntercept,
-                        ::testing::Values(LinearFunctionFromGradientAndYIntercept_params{0.0, 0.0, 0.0, 0.0},
-                                          LinearFunctionFromGradientAndYIntercept_params{0.0, 0.0, 1.0, 0.0},
-                                          LinearFunctionFromGradientAndYIntercept_params{1.0, 0.0, 1.0, 1.0},
-                                          LinearFunctionFromGradientAndYIntercept_params{0.0, 1.0, 0.0, 1.0},
-                                          LinearFunctionFromGradientAndYIntercept_params{1.0, 1.0, 3.0, 4.0},
-                                          LinearFunctionFromGradientAndYIntercept_params{-1.0, 0.0, 1.0, -1.0}));
+INSTANTIATE_TEST_CASE_P(
+    LinearFunctionTest,
+    LinearFunctionTestFromGradientAndYIntercept,
+    ::testing::Values(
+        LinearFunctionFromGradientAndYIntercept_params{0.0, 0.0, 0.0, 0.0},
+        LinearFunctionFromGradientAndYIntercept_params{0.0, 0.0, 1.0, 0.0},
+        LinearFunctionFromGradientAndYIntercept_params{1.0, 0.0, 1.0, 1.0},
+        LinearFunctionFromGradientAndYIntercept_params{0.0, 1.0, 0.0, 1.0},
+        LinearFunctionFromGradientAndYIntercept_params{1.0, 1.0, 3.0, 4.0},  // NOLINT(readability-magic-numbers)
+        LinearFunctionFromGradientAndYIntercept_params{-1.0, 0.0, 1.0, -1.0}));
 
 struct LinearFunctionFromPoint_params
 {

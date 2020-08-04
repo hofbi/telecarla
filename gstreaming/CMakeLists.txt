@@ -27,8 +27,14 @@ generate_dynamic_reconfigure_options(cfg/RateControl.cfg)
 find_package(OpenCV REQUIRED)
 
 # GStreamer
-find_package(GStreamer COMPONENTS GSTREAMER_NET GSTREAMER_RTSP_SERVER REQUIRED)
-find_package(GLIB COMPONENTS gobject REQUIRED)
+find_package(
+  GStreamer
+  COMPONENTS GSTREAMER_NET GSTREAMER_RTSP_SERVER
+  REQUIRED)
+find_package(
+  GLIB
+  COMPONENTS gobject
+  REQUIRED)
 
 # Package
 catkin_package(DEPENDS OpenCV GSTREAMER GLIB dynamic_reconfigure)

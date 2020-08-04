@@ -73,7 +73,10 @@ void SDL_GUI::renderImage(const SDL_Rect& pos, const sensor_msgs::ImageConstPtr&
     std::ostringstream text;
     text << "Cam: " << msg->header.frame_id.substr(msg->header.frame_id.find_last_of('/') + 1)
          << " | Size: " << msg->width << "x" << msg->height << " | FPS: " << imageFrequency;
-    cv::putText(image, text.str(), cv::Point(15, 30), cv::FONT_HERSHEY_PLAIN, 1.5, cv::Scalar(125, 125, 125), 2);
+    const cv::Point bottomLeftOfText{15, 30};  // NOLINT(readability-magic-numbers)
+    const auto fontScale{1.5};
+    const cv::Scalar grey{125, 125, 125};
+    cv::putText(image, text.str(), bottomLeftOfText, cv::FONT_HERSHEY_PLAIN, fontScale, grey, 2);
 
     renderCvMat(pos, image);
 }
@@ -81,19 +84,19 @@ void SDL_GUI::renderImage(const SDL_Rect& pos, const sensor_msgs::ImageConstPtr&
 void SDL_GUI::renderStaticText(const SDL_Rect& pos, const TextLines& textLines) const
 {
     cv::Mat image(pos.h, pos.w, CV_8UC3, cv::Scalar(0, 0, 0));
-    cv::Point textPos(15, 30);
+
+    cv::Point bottomLeftOfText{15, 30};  // NOLINT(readability-magic-numbers)
+    const cv::Scalar grey{125, 125, 125};
+    const auto verticalOffsetBetweenTextLines{20};
 
     for (const auto& line : textLines)
     {
-        cv::putText(image, line.first.data(), textPos, cv::FONT_HERSHEY_PLAIN, 1.0, cv::Scalar(125, 125, 125), 1);
-        cv::putText(image,
-                    line.second.data(),
-                    textPos + cv::Point(150, 0),
-                    cv::FONT_HERSHEY_PLAIN,
-                    1.0,
-                    cv::Scalar(125, 125, 125),
-                    1);
-        textPos.y += 20;
+        cv::putText(image, line.first.data(), bottomLeftOfText, cv::FONT_HERSHEY_PLAIN, 1.0, grey, 1);
+
+        cv::Point horizontalOffset{150, 0};  // NOLINT(readability-magic-numbers)
+        cv::putText(
+            image, line.second.data(), bottomLeftOfText + horizontalOffset, cv::FONT_HERSHEY_PLAIN, 1.0, grey, 1);
+        bottomLeftOfText.y += verticalOffsetBetweenTextLines;
     }
 
     renderCvMat(pos, image);
