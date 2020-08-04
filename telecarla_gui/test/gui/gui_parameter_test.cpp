@@ -144,11 +144,7 @@ TEST(GuiParameter, getVehicleStatusParameters_WhenValidTestFile_CorrectParameter
 {
     GuiParameter unit(vehicleStatusTestFilePath);
 
-    const int x{0};
-    const int y{720};
-    const int w{640};
-    const int h{200};
-    const SDL_Rect expectedParameter{x, y, w, h};
+    const SDL_Rect expectedParameter{.x = 0, .y = 720, .w = 640, .h = 200};
 
     const auto& actualParameters = unit.getVehicleStatusParameters();
 
@@ -163,11 +159,7 @@ TEST(GuiParameter, getStaticTextParameters_WhenValidTestFile_CorrectParameters)
 {
     GuiParameter unit(staticTextTestFilePath);
 
-    const int x{0};
-    const int y{720};
-    const int w{640};
-    const int h{200};
-    const SDL_Rect expectedParameter{x, y, w, h};
+    const SDL_Rect expectedParameter{.x = 0, .y = 720, .w = 640, .h = 200};
 
     const auto& actualParameters = unit.getStaticTextParameters();
 
