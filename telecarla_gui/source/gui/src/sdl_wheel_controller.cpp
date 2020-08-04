@@ -29,14 +29,14 @@ SDL_WheelController::SDL_WheelController(const SDL_EventParser& parser) : parser
 
 void SDL_WheelController::setTargetWheelPosition(double targetPosition)
 {
-    const auto number_of_steps{10U};
-    const auto control_error_abort_threshold{0.015};
-    for (size_t step{0}; step < number_of_steps; ++step)
+    const auto numberOfSteps{10U};
+    const auto controlErrorAbortThreshold{0.015};
+    for (size_t step{0}; step < numberOfSteps; ++step)
     {
         const auto currentAngle = parser_.getSteerCache();
         const auto controlError = targetPosition - currentAngle;
         SDL_HapticEffect effect;
-        if (fabs(controlError) < control_error_abort_threshold)
+        if (fabs(controlError) < controlErrorAbortThreshold)
         {
             break;
         }
@@ -52,8 +52,8 @@ void SDL_WheelController::setTargetWheelPosition(double targetPosition)
 
         const auto effectId = SDL_HapticNewEffect(wheel_.get(), &effect);
         SDL_HapticRunEffect(wheel_.get(), effectId, 1);
-        const auto delay_ms{5};
-        SDL_Delay(delay_ms);
+        const auto delayMs{5};
+        SDL_Delay(delayMs);
         SDL_HapticDestroyEffect(wheel_.get(), effectId);
     }
 }

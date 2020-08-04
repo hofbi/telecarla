@@ -59,9 +59,9 @@ void RTSPServer::stop()
 RTSPServer::RTSPServer(const std::string& mountName)
     : context_(std::make_unique<RTSPServerContext>(mountName, "x264encoder"))
 {
-    const auto video_width_pixels{640};
-    const auto video_height_pixels{480};
-    context_->app->setVideoData(getDefaultImage(video_width_pixels, video_height_pixels, 0));
+    const auto videoWidthPixels{640};
+    const auto videoHeightPixels{480};
+    context_->app->setVideoData(getDefaultImage(videoWidthPixels, videoHeightPixels, 0));
 }
 
 RTSPServer::~RTSPServer()

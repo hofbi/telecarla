@@ -22,12 +22,12 @@ void RTPSServerAppSource::setVideoData(const sensor_msgs::ImageConstPtr& msg)
 
 sensor_msgs::ImageConstPtr RTPSServerAppSource::getScaledImagePtr(const sensor_msgs::ImageConstPtr& msg) const
 {
-    const auto default_spatial_scale{100};
-    if (spatialScale_ != default_spatial_scale)
+    const auto defaultSpatialScale{100};
+    if (spatialScale_ != defaultSpatialScale)
     {
         cv::Mat image;
-        const auto newWidth = spatialScale_ * msg->width / default_spatial_scale;
-        const auto newHeight = spatialScale_ * msg->height / default_spatial_scale;
+        const auto newWidth = spatialScale_ * msg->width / defaultSpatialScale;
+        const auto newHeight = spatialScale_ * msg->height / defaultSpatialScale;
 
         cv::resize(cv_bridge::toCvShare(msg)->image, image, cv::Size(newWidth, newHeight));
 
@@ -53,8 +53,8 @@ void RTPSServerAppSource::bufferNewData(GstElement* appSrc)
         const auto timeout{40};
         if (timeOut_ >= timeout)
         {
-            const auto maximum_timeout{50};
-            timeOut_ = maximum_timeout;
+            const auto maximumTimeout{50};
+            timeOut_ = maximumTimeout;
             imageMsg_ = getDefaultImage(imageMsg_->width, imageMsg_->height, nFrames_);
         }
     }

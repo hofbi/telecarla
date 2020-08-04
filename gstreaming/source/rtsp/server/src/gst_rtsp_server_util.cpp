@@ -20,19 +20,19 @@ sensor_msgs::ImageConstPtr getDefaultImage(int width, int height, int frameCount
 
     cv::Mat overlay(height, width, CV_8UC3, cv::Scalar(0, 0, 0));
 
-    const CvPoint top_left{10, 10};
-    const CvPoint bottom_right{200, 50};
-    const int line_type{8};
-    cv::rectangle(overlay, top_left, bottom_right, cvScalar(1, 1, 1), cv::FILLED, line_type, 0);
+    const CvPoint topLeft{10, 10};
+    const CvPoint bottomRight{200, 50};
+    const int lineType{8};
+    cv::rectangle(overlay, topLeft, bottomRight, cvScalar(1, 1, 1), cv::FILLED, lineType, 0);
 
-    const CvPoint bottom_left_of_text{30, 30};
-    const auto font_scale{0.8};
+    const CvPoint bottomLeftOfText{30, 30};
+    const auto fontScale{0.8};
     const CvScalar white{255, 255, 255};
     cv::putText(overlay,
                 "Frame " + std::to_string(frameCount),
-                bottom_left_of_text,
+                bottomLeftOfText,
                 cv::FONT_HERSHEY_COMPLEX_SMALL,
-                font_scale,
+                fontScale,
                 white,
                 1,
                 CV_AA);
