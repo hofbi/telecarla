@@ -72,7 +72,7 @@ TEST(SteerCacheTest, set_setToMinusOne_valueEqualToMinCache)
 TEST(SteerCacheTest, reset_valueIsZero)
 {
     SteerCache unit;
-    unit.set(0.5);  //NOLINT(readability-magic-numbers)
+    unit.set(0.5);  // NOLINT(readability-magic-numbers)
 
     unit.reset();
 
