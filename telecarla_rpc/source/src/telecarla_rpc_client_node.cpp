@@ -13,8 +13,8 @@ int main(int argc, char* argv[])
 
     TeleCarlaRpcClient client(nh, pnh);
 
-    const auto loopFrequencyHz{50.0};
-    ros::Rate loop(loopFrequencyHz);
+    const auto loopFrequencyInHz{50.0};
+    ros::Rate loop(loopFrequencyInHz);
 
     while (ros::ok())
     {

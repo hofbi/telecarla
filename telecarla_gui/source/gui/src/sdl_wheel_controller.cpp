@@ -52,8 +52,8 @@ void SDL_WheelController::setTargetWheelPosition(double targetPosition)
 
         const auto effectId = SDL_HapticNewEffect(wheel_.get(), &effect);
         SDL_HapticRunEffect(wheel_.get(), effectId, 1);
-        const auto delayMs{5};
-        SDL_Delay(delayMs);
+        const auto delayInMs{5};
+        SDL_Delay(delayInMs);
         SDL_HapticDestroyEffect(wheel_.get(), effectId);
     }
 }

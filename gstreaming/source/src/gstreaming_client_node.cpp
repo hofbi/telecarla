@@ -13,8 +13,8 @@ int main(int argc, char* argv[])
 
     GStreamingClient clientRos(nh, pnh, argc, argv);
 
-    const auto loopFrequencyHz{10.0};
-    ros::Rate loop(loopFrequencyHz);
+    const auto loopFrequencyInHz{10.0};
+    ros::Rate loop(loopFrequencyInHz);
 
     while (ros::ok())
     {
