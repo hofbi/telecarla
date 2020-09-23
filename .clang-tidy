@@ -1,4 +1,4 @@
-# TODO enable readability-implicit-bool-conversion and readability-magic-numbers
+# TODO enable readability-implicit-bool-conversion
 
 FormatStyle: file
 
