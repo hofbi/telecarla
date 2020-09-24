@@ -13,7 +13,7 @@ GstFlowReturn RTSPClient::onNewSampleFromSink(GstAppSink* appSink, RTSPClient* d
     GstSample* sample = gst_app_sink_pull_sample(appSink);
     GstCaps* caps = gst_sample_get_caps(sample);
 
-    if (!caps)
+    if (caps == nullptr)
     {
         GST_ERROR("Could not get image info from filter caps");
         return GST_FLOW_ERROR;
