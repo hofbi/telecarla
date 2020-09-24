@@ -1,5 +1,3 @@
-# TODO enable readability-implicit-bool-conversion and readability-magic-numbers
-
 FormatStyle: file
 
 Checks: '
