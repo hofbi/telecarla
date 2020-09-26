@@ -39,8 +39,8 @@ TeleCarlaGui::TeleCarlaGui(ros::NodeHandle& nh, ros::NodeHandle& pnh)
             1,
             ImageCallback(
                 topicParam.second,
-                [ObjectPtr = &sdlGui_](const SDL_Rect& pos, const sensor_msgs::ImageConstPtr& msg, int imageFrequency) {
-                    ObjectPtr->renderImage(pos, msg, imageFrequency);
+                [objectPtr = &sdlGui_](const SDL_Rect& pos, const sensor_msgs::ImageConstPtr& msg, int imageFrequency) {
+                    objectPtr->renderImage(pos, msg, imageFrequency);
                 })));
         ROS_INFO_STREAM("Subscribed to image topic for camera " << topicParam.first << ": " << inTopic);
     }
@@ -58,8 +58,8 @@ TeleCarlaGui::TeleCarlaGui(ros::NodeHandle& nh, ros::NodeHandle& pnh)
             inTopic,
             1,
             StatusCallback(*guiParameter.getVehicleStatusParameters(),
-                           [ObjectPtr = &sdlGui_](const SDL_Rect& pos, const SDL_GUI::TextLines& textLines) {
-                               ObjectPtr->renderStaticText(pos, textLines);
+                           [objectPtr = &sdlGui_](const SDL_Rect& pos, const SDL_GUI::TextLines& textLines) {
+                               objectPtr->renderStaticText(pos, textLines);
                            })));
         ROS_INFO_STREAM("Subscribed to vehicle status topic: " << inTopic);
     }

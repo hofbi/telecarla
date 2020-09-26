@@ -45,7 +45,7 @@ sensor_msgs::ImageConstPtr getDefaultImage(int width, int height, int frameCount
 GstCaps* gstCapsFromImage(const sensor_msgs::Image::ConstPtr& msg, int framerate)
 {
     // http://gstreamer.freedesktop.org/data/doc/gstreamer/head/pwg/html/section-types-definitions.html
-    static const ros::M_string known_formats = {{
+    static const ros::M_string knownFormats = {{
         {sensor_msgs::image_encodings::RGB8, "RGB"},
         {sensor_msgs::image_encodings::RGB16, "RGB16"},
         {sensor_msgs::image_encodings::RGBA8, "RGBA"},
@@ -64,8 +64,8 @@ GstCaps* gstCapsFromImage(const sensor_msgs::Image::ConstPtr& msg, int framerate
         return nullptr;
     }
 
-    auto format = known_formats.find(msg->encoding);
-    if (format == known_formats.end())
+    auto format = knownFormats.find(msg->encoding);
+    if (format == knownFormats.end())
     {
         ROS_ERROR("GST: image format '%s' unknown", msg->encoding.c_str());
         return nullptr;
