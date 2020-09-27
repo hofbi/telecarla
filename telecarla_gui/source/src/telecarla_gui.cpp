@@ -35,13 +35,9 @@ TeleCarlaGui::TeleCarlaGui(ros::NodeHandle& nh, ros::NodeHandle& pnh)
         }
 
         subscribers_.push_back(nh.subscribe<sensor_msgs::Image>(
-            inTopic,
-            1,
-            ImageCallback(
-                topicParam.second,
-                [objectPtr = &sdlGui_](const SDL_Rect& pos, const sensor_msgs::ImageConstPtr& msg, int imageFrequency) {
-                    objectPtr->renderImage(pos, msg, imageFrequency);
-                })));
+            inTopic, 1, ImageCallback(topicParam.second, [objectPtr = &sdlGui_](auto&&... args) {
+                objectPtr->renderImage(std::forward<decltype(args)>(args)...);
+            })));
         ROS_INFO_STREAM("Subscribed to image topic for camera " << topicParam.first << ": " << inTopic);
     }
 
@@ -57,10 +53,9 @@ TeleCarlaGui::TeleCarlaGui(ros::NodeHandle& nh, ros::NodeHandle& pnh)
         subscribers_.push_back(nh.subscribe<carla_msgs::CarlaEgoVehicleStatus>(
             inTopic,
             1,
-            StatusCallback(*guiParameter.getVehicleStatusParameters(),
-                           [objectPtr = &sdlGui_](const SDL_Rect& pos, const SDL_GUI::TextLines& textLines) {
-                               objectPtr->renderStaticText(pos, textLines);
-                           })));
+            StatusCallback(*guiParameter.getVehicleStatusParameters(), [objectPtr = &sdlGui_](auto&&... args) {
+                objectPtr->renderStaticText(std::forward<decltype(args)>(args)...);
+            })));
         ROS_INFO_STREAM("Subscribed to vehicle status topic: " << inTopic);
     }
     if (sdlWheelController_.isAvailable())
