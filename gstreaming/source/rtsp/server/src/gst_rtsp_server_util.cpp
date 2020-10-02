@@ -35,7 +35,7 @@ sensor_msgs::ImageConstPtr getDefaultImage(int width, int height, int frameCount
                 fontScale,
                 white,
                 1,
-                CV_AA);
+                CV_AVX);
 
     imgBridge = cv_bridge::CvImage(header, sensor_msgs::image_encodings::RGB8, overlay);
 
