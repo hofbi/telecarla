@@ -34,6 +34,7 @@ TELECARLA so far has been tested on
 | OS  | ROS Version |
 | --- | ----------- |
 | Ubuntu 18.04 | Melodic |
+| Ubuntu 20.04 | Noetic |
 
 1. Download [CARLA](https://github.com/carla-simulator/carla/releases/latest)
 1. Install [ROS](http://wiki.ros.org/ROS/Installation) and [catkin_tools](https://catkin-tools.readthedocs.io/en/latest/installing.html#installing-catkin-tools)
@@ -47,12 +48,13 @@ TELECARLA so far has been tested on
 
 See the main module for running the application: [telecarla](telecarla/README.md#Run)
 
-## Code format
+## Development
 
-To install formatting tools, call
+To install the additional tools required for the development, call
 
 ```shell
 python3 -m pip install -r requirements.txt
+sudo apt install -y clang-format
 sudo snap install shfmt
 ```
 
