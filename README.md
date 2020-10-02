@@ -1,6 +1,7 @@
 # TELECARLA
 
 [![Actions Status](https://github.com/hofbi/telecarla/workflows/CI/badge.svg)](https://github.com/hofbi/telecarla)
+[![Actions Status](https://github.com/hofbi/telecarla/workflows/CodeQL/badge.svg)](https://github.com/hofbi/telecarla)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
 TELECARLA is an extension of the [CARLA simulator](https://carla.org/) for teleoperated driving. We use [GStreamer](https://gstreamer.freedesktop.org/) for compression and transmission of camera data. [ROS](https://www.ros.org/) acts as interface between our framework and CARLA.

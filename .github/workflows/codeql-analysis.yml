@@ -47,13 +47,14 @@ jobs:
       with:
         languages: ${{ matrix.language }}
         # If you wish to specify custom queries, you can do so here or in a config file.
-        # By default, queries listed here will override any specified in a config file. 
+        # By default, queries listed here will override any specified in a config file.
         # Prefix the list here with "+" to use these queries and those in the config file.
         # queries: ./path/to/local/query, your-org/your-repo/queries@main
 
     # Autobuild attempts to build any compiled languages  (C/C++, C#, or Java).
     # If this step fails, then you should remove it and run the build manually (see below)
-    - name: Autobuild
+    - if: matrix.language != 'cpp'
+      name: Autobuild
       uses: github/codeql-action/autobuild@v1
 
     # ℹ️ Command-line programs to run using the OS shell.
@@ -63,9 +64,19 @@ jobs:
     #    and modify them (or add more) to build your code if your project
     #    uses a compiled language
 
-    #- run: |
-    #   make bootstrap
-    #   make release
+    - if: matrix.language == 'cpp'
+      name: Cpp Build
+      container: ros:melodic-robot
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y python-catkin-tools
+        bash -c "$GITHUB_WORKSPACE/install.sh"
+        mkdir -p $GITHUB_WORKSPACE/../catkin_ws/src
+        cd $GITHUB_WORKSPACE/../catkin_ws/src
+        ln -s $GITHUB_WORKSPACE
+        cd ..
+        catkin init
+        bash -c "source /opt/ros/melodic/setup.bash && source /opt/carla-ros-bridge/melodic/setup.bash && cd $GITHUB_WORKSPACE/../catkin_ws && catkin build --summarize --no-status --force-color
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v1
