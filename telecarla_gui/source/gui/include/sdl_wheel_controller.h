@@ -2,6 +2,7 @@
 #define TELECARLA_GUI_SDL_WHEEL_CONTROLLER_H
 
 #include <memory>
+
 #include <SDL2/SDL_haptic.h>
 
 namespace lmt::gui

@@ -1,11 +1,12 @@
 #ifndef _LMT_RTSP_CLIENT_HH_
 #define _LMT_RTSP_CLIENT_HH_
 
-#include "rtsp_state.h"
-
 #include <functional>
+
 #include <gst/app/gstappsink.h>
 #include <gst/gstpipeline.h>
+
+#include "rtsp_state.h"
 
 namespace lmt
 {

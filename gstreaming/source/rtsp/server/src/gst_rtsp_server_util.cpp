@@ -1,10 +1,11 @@
 #include "gst_rtsp_server_util.h"
-#include "rtsp_server_context.h"
 
 #include <cv_bridge/cv_bridge.h>
 #include <glib.h>
 #include <ros/console.h>
 #include <sensor_msgs/image_encodings.h>
+
+#include "rtsp_server_context.h"
 
 namespace lmt
 {

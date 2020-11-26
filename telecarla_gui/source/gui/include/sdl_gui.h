@@ -2,6 +2,7 @@
 #define TELECARLA_GUI_SDL_GUI_H
 
 #include <memory>
+
 #include <SDL2/SDL_rect.h>
 #include <carla_msgs/CarlaEgoVehicleStatus.h>
 #include <sensor_msgs/Image.h>

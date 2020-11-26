@@ -1,12 +1,11 @@
 #ifndef _LMT_RTSP_SERVER_HH_
 #define _LMT_RTSP_SERVER_HH_
 
-#include "rtsp_server_context.h"
-
-#include "rtsp_state.h"
-
 #include <gst/rtsp-server/rtsp-media-factory.h>
 #include <gstreaming/RateControlConfig.h>
+
+#include "rtsp_server_context.h"
+#include "rtsp_state.h"
 
 namespace lmt
 {

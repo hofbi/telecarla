@@ -1,11 +1,11 @@
 #include "telecarla_rpc_server.h"
-#include "bool_callback.h"
-#include "control_command_callback.h"
-
-#include "vehicle_status.h"
 
 #include <ros/ros.h>
 #include <std_msgs/Bool.h>
+
+#include "bool_callback.h"
+#include "control_command_callback.h"
+#include "vehicle_status.h"
 
 using namespace lmt::server;
 using namespace lmt::common;

@@ -48,8 +48,7 @@ RTSPState RTSPClient::start(const std::string& serverHost, int serverPort, const
 {
     switch (state_)
     {
-        case RTSPState::stopped:
-        {
+        case RTSPState::stopped: {
             // rtspsrc default: protocols=tcp+udp-mcast+udp
             std::string cmd =
                 "rtspsrc location=rtsp://" + serverHost + ":" + std::to_string(serverPort) + "/" + serverMount +
@@ -76,8 +75,7 @@ RTSPState RTSPClient::start(const std::string& serverHost, int serverPort, const
             }
             break;
         }
-        case RTSPState::paused:
-        {
+        case RTSPState::paused: {
             resume();
             break;
         }

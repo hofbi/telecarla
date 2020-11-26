@@ -1,7 +1,7 @@
 #include "telecarla_rpc_client.h"
+
 #include "bool_msg_callback.h"
 #include "control_command_msg_callback.h"
-
 #include "vehicle_status.h"
 
 using namespace lmt::client;

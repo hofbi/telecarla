@@ -1,9 +1,9 @@
 #ifndef GSTREAMING_GST_RTSP_SERVER_UTIL_H
 #define GSTREAMING_GST_RTSP_SERVER_UTIL_H
 
-#include "rtsp_server_context.h"
-
 #include <gst/rtsp-server/rtsp-media-factory.h>
+
+#include "rtsp_server_context.h"
 
 namespace lmt
 {

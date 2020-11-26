@@ -1,9 +1,10 @@
 #include "rtsp_server_app_source.h"
-#include "gst_rtsp_server_util.h"
 
 #include <cv_bridge/cv_bridge.h>
 #include <gst/base/gstbasetransform.h>
 #include <gst/video/video.h>
+
+#include "gst_rtsp_server_util.h"
 
 using namespace lmt::rtsp::server;
 

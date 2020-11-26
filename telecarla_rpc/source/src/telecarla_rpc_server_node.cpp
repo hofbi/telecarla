@@ -1,6 +1,6 @@
-#include "telecarla_rpc_server.h"
-
 #include <ros/ros.h>
+
+#include "telecarla_rpc_server.h"
 
 using namespace lmt::server;
 

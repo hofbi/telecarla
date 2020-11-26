@@ -1,10 +1,10 @@
 #ifndef TELECARLA_RPC_VEHICLE_STATUS_H
 #define TELECARLA_RPC_VEHICLE_STATUS_H
 
-#include "control_commands.h"
-
 #include <carla_msgs/CarlaEgoVehicleStatus.h>
 #include <rpc/msgpack.hpp>
+
+#include "control_commands.h"
 
 namespace lmt
 {

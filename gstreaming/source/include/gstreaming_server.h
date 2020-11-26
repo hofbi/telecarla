@@ -1,12 +1,13 @@
 #ifndef _LMT_SERVER_ROS_HH_
 #define _LMT_SERVER_ROS_HH_
 
-#include "gst_lifecycle.h"
-#include "rtsp_server.h"
-
 #include <thread>
+
 #include <dynamic_reconfigure/server.h>
 #include <ros/subscriber.h>
+
+#include "gst_lifecycle.h"
+#include "rtsp_server.h"
 
 namespace lmt
 {
