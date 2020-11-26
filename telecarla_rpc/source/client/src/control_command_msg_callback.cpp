@@ -1,10 +1,10 @@
 #include "control_command_msg_callback.h"
 
-#include "control_commands.h"
-
 #include <ros/console.h>
 #include <rpc/client.h>
 #include <rpc/rpc_error.h>
+
+#include "control_commands.h"
 
 using namespace lmt::client;
 

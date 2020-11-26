@@ -4,7 +4,7 @@ on: [push, pull_request]
 
 jobs:
   check:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
     - uses: actions/checkout@v2
     - name: Set up Python 3.8
@@ -14,6 +14,7 @@ jobs:
     - name: Install dependencies
       run: |
         sudo snap install shfmt
+        sudo apt update && sudo apt install clang-format
         python -m pip install --upgrade pip
         pip install -r requirements.txt
     - name: Check
@@ -24,7 +25,11 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Lint Code Base
-      uses: docker://github/super-linter:v2.1.0
+      uses: docker://github/super-linter:v3.10.2
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        VALIDATE_BASH: false # Already configured in make check
+        VALIDATE_DOCKERFILE_HADOLINT: false
 
   ros:
     runs-on: ubuntu-latest

@@ -1,11 +1,12 @@
 #ifndef _LMT_CLIENT_ROS_HH_
 #define _LMT_CLIENT_ROS_HH_
 
+#include <thread>
+
+#include <image_transport/publisher.h>
+
 #include "gst_lifecycle.h"
 #include "rtsp_client.h"
-
-#include <thread>
-#include <image_transport/publisher.h>
 
 namespace lmt
 {

@@ -16,6 +16,7 @@ format:
 check_format:
 	$(PY_FILES) | xargs black --diff --check
 	$(CMAKE_FILES) | xargs cmake-format --check
+	$(CPP_FILES) | xargs clang-format --style=file --dry-run --Werror
 
 pylint:
 	$(PY_FILES) | xargs pylint --rcfile=.pylintrc

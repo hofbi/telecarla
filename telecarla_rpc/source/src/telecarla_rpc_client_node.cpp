@@ -1,6 +1,6 @@
-#include "telecarla_rpc_client.h"
-
 #include <ros/ros.h>
+
+#include "telecarla_rpc_client.h"
 
 using namespace lmt::client;
 

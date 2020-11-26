@@ -3,6 +3,7 @@
 
 #include <functional>
 #include <memory>
+
 #include <SDL2/SDL_rect.h>
 #include <boost/circular_buffer.hpp>
 #include <sensor_msgs/Image.h>

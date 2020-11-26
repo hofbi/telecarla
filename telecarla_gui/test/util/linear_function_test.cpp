@@ -1,6 +1,7 @@
 #include "linear_function.h"
 
 #include <cmath>
+
 #include <gtest/gtest.h>
 
 using namespace lmt::util;

@@ -1,7 +1,8 @@
-#include "gstreaming_server.h"
-
 #include <memory>
+
 #include <ros/ros.h>
+
+#include "gstreaming_server.h"
 
 using namespace lmt;
 

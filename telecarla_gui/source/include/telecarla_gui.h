@@ -1,13 +1,13 @@
 #ifndef TELECARLA_GUI_TELECARLA_GUI_H
 #define TELECARLA_GUI_TELECARLA_GUI_H
 
+#include <ros/publisher.h>
+#include <ros/subscriber.h>
+
 #include "sdl_event_parser.h"
 #include "sdl_gui.h"
 #include "sdl_lifecycle.h"
 #include "sdl_wheel_controller.h"
-
-#include <ros/publisher.h>
-#include <ros/subscriber.h>
 
 namespace lmt
 {

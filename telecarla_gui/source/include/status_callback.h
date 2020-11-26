@@ -2,6 +2,7 @@
 #define TELECARLA_GUI_STATUS_CALLBACK_H
 
 #include <functional>
+
 #include <SDL2/SDL_rect.h>
 #include <carla_msgs/CarlaEgoVehicleStatus.h>
 

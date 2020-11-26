@@ -177,15 +177,16 @@ def get_scenario_results(scenario_result_files):
 
 def fix_cdata(scenario_result_file):
     """
-    Currently the scenario runner produces invalid XML CDATA, which is fixed by this function to have a valid XML for the parser
+    Currently the scenario runner produces invalid XML CDATA,
+    which is fixed by this function to have a valid XML for the parser
     :param scenario_result_file:
     :return:
     """
     with open(scenario_result_file, "r") as file:
         file_data = file.read()
 
-    file_data = file_data.replace("\[CDATA\[", "[CDATA[")
-    file_data = file_data.replace("\]\]", "]]")
+    file_data = file_data.replace(r"\[CDATA\[", r"[CDATA[")
+    file_data = file_data.replace(r"\]\]", "]]")
 
     with open(scenario_result_file, "w") as file:
         file.write(file_data)

@@ -1,6 +1,6 @@
-#include "gstreaming_client.h"
-
 #include <ros/ros.h>
+
+#include "gstreaming_client.h"
 
 using namespace lmt;
 

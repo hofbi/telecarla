@@ -1,12 +1,12 @@
 #include "telecarla_gui.h"
-#include "gui_parameter.h"
-
-#include "image_callback.h"
-#include "status_callback.h"
 
 #include <carla_msgs/CarlaEgoVehicleStatus.h>
 #include <ros/ros.h>
 #include <std_msgs/Bool.h>
+
+#include "gui_parameter.h"
+#include "image_callback.h"
+#include "status_callback.h"
 
 using namespace lmt;
 using namespace lmt::gui;
@@ -90,8 +90,7 @@ void TeleCarlaGui::teleopModeCallback(const telecarla_msgs::TeleopMode& teleopMo
     teleopMode_ = teleopMode;
     switch (teleopMode.teleopMode)
     {
-        case telecarla_msgs::TeleopMode::MONITORING:
-        {
+        case telecarla_msgs::TeleopMode::MONITORING: {
             std_msgs::Bool boolMsg;
             boolMsg.data = false;
             controlOverridePublisher_.publish(boolMsg);
@@ -100,8 +99,7 @@ void TeleCarlaGui::teleopModeCallback(const telecarla_msgs::TeleopMode& teleopMo
             ROS_INFO("Switch to teleop mode: Monitoring");
             break;
         }
-        case telecarla_msgs::TeleopMode::MANUAL:
-        {
+        case telecarla_msgs::TeleopMode::MANUAL: {
             std_msgs::Bool boolMsg;
             boolMsg.data = true;
             controlOverridePublisher_.publish(boolMsg);

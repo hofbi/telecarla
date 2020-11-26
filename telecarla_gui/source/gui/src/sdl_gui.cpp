@@ -1,9 +1,10 @@
 #include "sdl_gui.h"
-#include "gui_parameter.h"
 
 #include <SDL2/SDL.h>
 #include <cv_bridge/cv_bridge.h>
 #include <ros/console.h>
+
+#include "gui_parameter.h"
 
 using namespace lmt::gui;
 
