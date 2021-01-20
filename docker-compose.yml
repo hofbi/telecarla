@@ -5,6 +5,8 @@ services:
       context: ./
       dockerfile: docker/Dockerfile
     image: telecarla
-    ports:
-      - '2000:2002'
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+    environment:
+      DISPLAY: $DISPLAY
     command: bash
