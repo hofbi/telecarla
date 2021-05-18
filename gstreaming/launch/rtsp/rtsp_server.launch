@@ -3,7 +3,8 @@
     <arg name='mount' default='mainstream'/>
     <arg name='stream_source' default='appsrc'/>
     <arg name='server_id' default='$(arg mount)'/>
-    <arg name='in_topic' default='/carla/ego_vehicle/camera/rgb/front/image_color'/>
+    <arg name='stat_topic' default='/camera/stats'/>
+    <arg name='in_topic' default='/carla/ego_vehicle/camera/front/image'/>
     <arg name='graph_viz' default="false"/>
 
     <env name="ROSCONSOLE_FORMAT" value="[${severity}] [${time}] [${node}]: ${message}"/>
@@ -16,6 +17,7 @@
             <param name="mount" value="$(arg mount)"/>
             <param name="stream_source" value="$(arg stream_source)"/>
             <param name="in_topic" value="$(arg in_topic)"/>
+            <param name="stat_topic" value="$(arg stat_topic)"/>
         </node>
     </group>
 </launch>

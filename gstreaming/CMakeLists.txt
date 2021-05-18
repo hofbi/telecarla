@@ -16,6 +16,7 @@ find_package(
   COMPONENTS roscpp
              std_msgs
              sensor_msgs
+             telecarla_msgs
              cv_bridge
              image_transport
              roslaunch

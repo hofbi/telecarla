@@ -13,34 +13,10 @@ namespace rtsp
 {
 namespace server
 {
-sensor_msgs::ImageConstPtr getDefaultImage(int width, int height, int frameCount)
+sensor_msgs::ImageConstPtr getDefaultImage(int width, int height) noexcept
 {
-    cv_bridge::CvImage imgBridge;
-    std_msgs::Header header;
-    header.stamp = ros::Time::now();
-
-    cv::Mat overlay(height, width, CV_8UC3, cv::Scalar(0, 0, 0));
-
-    const CvPoint topLeft{10, 10};
-    const CvPoint bottomRight{200, 50};
-    const int lineType{8};
-    cv::rectangle(overlay, topLeft, bottomRight, cvScalar(1, 1, 1), cv::FILLED, lineType, 0);
-
-    const CvPoint bottomLeftOfText{30, 30};
-    const auto fontScale{0.8};
-    const CvScalar white{255, 255, 255};
-    cv::putText(overlay,
-                "Frame " + std::to_string(frameCount),
-                bottomLeftOfText,
-                cv::FONT_HERSHEY_COMPLEX_SMALL,
-                fontScale,
-                white,
-                1,
-                CV_AVX);
-
-    imgBridge = cv_bridge::CvImage(header, sensor_msgs::image_encodings::RGB8, overlay);
-
-    return imgBridge.toImageMsg();
+    return cv_bridge::CvImage(std_msgs::Header(), sensor_msgs::image_encodings::RGB8, cv::Mat(height, width, CV_8UC3))
+        .toImageMsg();
 }
 
 GstCaps* gstCapsFromImage(const sensor_msgs::Image::ConstPtr& msg, int framerate)
@@ -65,7 +41,7 @@ GstCaps* gstCapsFromImage(const sensor_msgs::Image::ConstPtr& msg, int framerate
         return nullptr;
     }
 
-    auto format = knownFormats.find(msg->encoding);
+    const auto format = knownFormats.find(msg->encoding);
     if (format == knownFormats.end())
     {
         ROS_ERROR("GST: image format '%s' unknown", msg->encoding.c_str());
@@ -102,7 +78,7 @@ void mediaConfigure(GstRTSPMediaFactory* /*factory*/, GstRTSPMedia* media, RTSPS
     auto appSrc = std::unique_ptr<GstElement, decltype(&gst_object_unref)>(
         gst_bin_get_by_name_recurse_up(GST_BIN(element.get()), context->app->getName().c_str()), gst_object_unref);
 
-    context->encoder->setEncoderElement(std::unique_ptr<GstElement>(
+    context->encoder->configureEncoderElement(std::unique_ptr<GstElement>(
         gst_bin_get_by_name_recurse_up(GST_BIN(element.get()), context->encoder->getName().c_str())));
 
     gst_util_set_object_arg(G_OBJECT(appSrc.get()), "format", "time");

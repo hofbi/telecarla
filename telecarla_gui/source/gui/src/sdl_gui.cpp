@@ -92,11 +92,11 @@ void SDL_GUI::renderStaticText(const SDL_Rect& pos, const TextLines& textLines) 
 
     for (const auto& line : textLines)
     {
-        cv::putText(image, line.first.data(), bottomLeftOfText, cv::FONT_HERSHEY_PLAIN, 1.0, grey, 1);
+        cv::putText(image, std::string(line.first), bottomLeftOfText, cv::FONT_HERSHEY_PLAIN, 1.0, grey, 1);
 
         cv::Point horizontalOffset{150, 0};  // NOLINT(readability-magic-numbers)
         cv::putText(
-            image, line.second.data(), bottomLeftOfText + horizontalOffset, cv::FONT_HERSHEY_PLAIN, 1.0, grey, 1);
+            image, std::string(line.second), bottomLeftOfText + horizontalOffset, cv::FONT_HERSHEY_PLAIN, 1.0, grey, 1);
         bottomLeftOfText.y += verticalOffsetBetweenTextLines;
     }
 

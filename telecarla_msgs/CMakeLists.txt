@@ -3,7 +3,7 @@ project(telecarla_msgs)
 
 find_package(catkin REQUIRED COMPONENTS message_generation)
 
-add_message_files(FILES TeleopMode.msg)
+add_message_files(DIRECTORY msg FILES TeleopMode.msg FrameStatistics.msg)
 
 generate_messages(DEPENDENCIES telecarla_msgs)
 

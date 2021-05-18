@@ -19,8 +19,11 @@ RTSPState RTSPServer::start(int serverPort, const std::string& src)
 
         std::stringstream command;
         command << src << " name=" << context_->app->getName()
-                << " is-live=true ! videorate !  videoconvert ! x264enc tune=zerolatency speed-preset=ultrafast "
-                   "sliced-threads=true byte-stream=true threads=1 key-int-max=15 intra-refresh=true name="
+                << " is-live=true ! videorate ! videoconvert ! timeoverlay halignment=right valignment=top text=\""
+                << context_->app->getName()
+                << "\" font-desc=\"12\" !"
+                   " x264enc tune=zerolatency speed-preset=ultrafast"
+                   " sliced-threads=true byte-stream=true threads=1 key-int-max=15 intra-refresh=true name="
                 << context_->encoder->getName() << " ! h264parse ! rtph264pay pt=96 name=pay0";
 
         GstRTSPMediaFactory* factory = gst_rtsp_media_factory_new();
@@ -29,7 +32,7 @@ RTSPState RTSPServer::start(int serverPort, const std::string& src)
         //        gst_rtsp_media_factory_set_protocols(factory, GST_RTSP_LOWER_TRANS_TCP);
         //        gst_rtsp_media_factory_set_protocols(factory, GST_RTSP_LOWER_TRANS_UDP);
 
-        std::string path = "/" + context_->app->getName();
+        const auto path = "/" + context_->app->getName();
         gst_rtsp_mount_points_add_factory(mounts.get(), path.c_str(), factory);
 
         g_signal_connect(factory, "media-configure", (GCallback)mediaConfigure, context_.get());
@@ -57,12 +60,12 @@ void RTSPServer::stop()
     }
 }
 
-RTSPServer::RTSPServer(const std::string& mountName)
-    : context_(std::make_unique<RTSPServerContext>(mountName, "x264encoder"))
+RTSPServer::RTSPServer(const std::string& mountName, const RTSPServerEncoder::PadProbeCallback& encoderProbeCallback)
+    : context_(std::make_unique<RTSPServerContext>(mountName, "x264encoder", encoderProbeCallback))
 {
-    const auto videoWidthInPixels{640};
-    const auto videoHeightInPixels{480};
-    context_->app->setVideoData(getDefaultImage(videoWidthInPixels, videoHeightInPixels, 0));
+    constexpr auto videoWidthInPixels{640};
+    constexpr auto videoHeightInPixels{480};
+    context_->app->setVideoData(getDefaultImage(videoWidthInPixels, videoHeightInPixels));
 }
 
 RTSPServer::~RTSPServer()

@@ -15,6 +15,7 @@ class GStreamingServer
 {
   public:
     GStreamingServer(ros::NodeHandle& nh, ros::NodeHandle& pnh, int argc, char* argv[]);
+    GstPadProbeReturn frameStatCallback(GstPad* pad, GstPadProbeInfo* info);
 
   private:
     void startStreaming();
@@ -29,6 +30,7 @@ class GStreamingServer
     std::thread threadGstreamer_;
     std::unique_ptr<rtsp::server::RTSPServer> rtspServer_{nullptr};
     ros::Subscriber subCamera_;
+    ros::Publisher pubStat_;
     dynamic_reconfigure::Server<gstreaming::RateControlConfig> rateControl_;
 };
 

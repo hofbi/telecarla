@@ -13,16 +13,16 @@ namespace rtsp
 {
 namespace server
 {
-class RTPSServerAppSource
+class RTSPServerAppSource
 {
   public:
-    explicit RTPSServerAppSource(std::string mountName);
+    explicit RTSPServerAppSource(std::string mountName) noexcept;
 
     void setVideoData(const sensor_msgs::ImageConstPtr& msg);
-    void updateSpatioTemporalResolution(uint8_t fps, uint8_t spatialScale);
+    void updateSpatioTemporalResolution(uint8_t fps, uint8_t spatialScale) noexcept;
     void bufferNewData(GstElement* appSrc);
 
-    const std::string& getName() const;
+    const std::string& getName() const noexcept;
 
   private:
     sensor_msgs::ImageConstPtr getScaledImagePtr(const sensor_msgs::ImageConstPtr& msg) const;
@@ -32,9 +32,6 @@ class RTPSServerAppSource
     GstCaps* caps_{nullptr};
     sensor_msgs::ImageConstPtr imageMsg_;
 
-    bool isImageUpdated_{false};
-    int timeOut_{0};
-    gint64 nFrames_{0};
     std::string name_;
 
     uint8_t fps_{0};

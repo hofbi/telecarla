@@ -3,7 +3,7 @@
     <arg name='port' default='8551'/>
     <arg name='mount' default='mainstream'/>
     <arg name='client_id' default='$(arg mount)'/>
-    <arg name='out_topic' default='/camera/rgb/image_color'/>
+    <arg name='out_topic' default='/camera/rgb/image'/>
     <arg name='graph_viz' default="false"/>
 
     <env name="ROSCONSOLE_FORMAT" value="[${severity}] [${time}] [${node}]: ${message}"/>

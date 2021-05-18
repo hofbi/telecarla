@@ -4,21 +4,31 @@
 
 using namespace lmt::rtsp::server;
 
-RTSPServerEncoder::RTSPServerEncoder(std::string name) : name_(std::move(name)) {}
+RTSPServerEncoder::RTSPServerEncoder(std::string name, PadProbeCallback encoderProbeCallback) noexcept
+    : name_(std::move(name)), encoderProbeCallback_(std::make_unique<PadProbeCallback>(std::move(encoderProbeCallback)))
+{
+}
 
-void RTSPServerEncoder::setEncoderElement(std::unique_ptr<GstElement> encoderElement)
+void RTSPServerEncoder::configureEncoderElement(std::unique_ptr<GstElement> encoderElement) noexcept
 {
     if (encoderElement == nullptr)
     {
         GST_ERROR("Could not get encoder with name %s from pipeline", name_.c_str());
+        return;
     }
-    else
-    {
-        encoderElement_ = std::move(encoderElement);
-    }
+
+    encoderElement_ = std::move(encoderElement);
+    auto x264EncPad = std::unique_ptr<GstPad, decltype(&gst_object_unref)>(
+        gst_element_get_static_pad(encoderElement_.get(), "src"), gst_object_unref);
+    auto wrappedProbeCallback = [](GstPad* pad, GstPadProbeInfo* info, void* userdata) {
+        auto& callback = *static_cast<RTSPServerEncoder::PadProbeCallback*>(userdata);
+        return callback(pad, info);
+    };
+    gst_pad_add_probe(
+        x264EncPad.get(), GST_PAD_PROBE_TYPE_BUFFER, wrappedProbeCallback, encoderProbeCallback_.get(), nullptr);
 }
 
-const std::string& RTSPServerEncoder::getName() const
+const std::string& RTSPServerEncoder::getName() const noexcept
 {
     return name_;
 }

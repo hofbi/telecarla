@@ -18,7 +18,7 @@ GStreamingClient::GStreamingClient(ros::NodeHandle& nh,
           [this](auto&&... args) { callbackImage(std::forward<decltype(args)>(args)...); }))
 {
     image_transport::ImageTransport it(nh);
-    const auto outTopic = pnh.param("out_topic", std::string("/camera/rgb/image_color"));
+    const auto outTopic = pnh.param("out_topic", std::string("/camera/rgb/image"));
     pub_ = it.advertise(pnh.getNamespace() + outTopic, 1);
     ROS_INFO_STREAM("Provide topic " << pnh.getNamespace() << outTopic);
 

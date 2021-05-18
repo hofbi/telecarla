@@ -20,8 +20,8 @@ GstFlowReturn RTSPClient::onNewSampleFromSink(GstAppSink* appSink, RTSPClient* d
     }
 
     GstStructure* s = gst_caps_get_structure(caps, 0);
-    int width = 0;
-    int height = 0;
+    int width{0};
+    int height{0};
     if (!(gst_structure_get_int(s, "width", &width) && gst_structure_get_int(s, "height", &height)))
     {
         GST_ERROR("Could not get image width and height from filter caps");
@@ -50,7 +50,7 @@ RTSPState RTSPClient::start(const std::string& serverHost, int serverPort, const
     {
         case RTSPState::stopped: {
             // rtspsrc default: protocols=tcp+udp-mcast+udp
-            std::string cmd =
+            const auto cmd =
                 "rtspsrc location=rtsp://" + serverHost + ":" + std::to_string(serverPort) + "/" + serverMount +
                 " ! rtph264depay ! avdec_h264 ! videoconvert ! video/x-raw,format=RGB ! appsink name=" + serverMount +
                 " sync=false";

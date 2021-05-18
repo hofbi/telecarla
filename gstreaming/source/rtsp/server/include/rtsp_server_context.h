@@ -12,9 +12,11 @@ namespace server
 {
 struct RTSPServerContext
 {
-    RTSPServerContext(const std::string& mountName, const std::string& encoderName) noexcept;
+    RTSPServerContext(const std::string& mountName,
+                      const std::string& encoderName,
+                      const RTSPServerEncoder::PadProbeCallback& encoderProbeCallback) noexcept;
 
-    std::unique_ptr<RTPSServerAppSource> app{nullptr};
+    std::unique_ptr<RTSPServerAppSource> app{nullptr};
     std::unique_ptr<RTSPServerEncoder> encoder{nullptr};
 };
 }  // namespace server

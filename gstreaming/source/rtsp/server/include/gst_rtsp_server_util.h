@@ -11,7 +11,7 @@ namespace rtsp
 {
 namespace server
 {
-sensor_msgs::ImageConstPtr getDefaultImage(int width, int height, int frameCount);
+sensor_msgs::ImageConstPtr getDefaultImage(int width, int height) noexcept;
 
 GstCaps* gstCapsFromImage(const sensor_msgs::Image::ConstPtr& msg, int framerate);
 

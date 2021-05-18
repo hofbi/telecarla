@@ -16,7 +16,7 @@ namespace server
 class RTSPServer
 {
   public:
-    explicit RTSPServer(const std::string& mountName);
+    RTSPServer(const std::string& mountName, const RTSPServerEncoder::PadProbeCallback& encoderProbeCallback);
     ~RTSPServer();
 
     RTSPServer(const RTSPServer& rhs) = delete;
@@ -41,4 +41,4 @@ class RTSPServer
 }  // namespace rtsp
 }  // namespace lmt
 
-#endif /* _LMT_VIDEO_STREAM_ROS_HH_ */
+#endif /* _LMT_RTSP_SERVER_HH_ */
