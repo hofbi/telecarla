@@ -65,7 +65,7 @@ jobs:
       run: |
         mkdir -p $GITHUB_WORKSPACE/../catkin_ws/src
         cd $GITHUB_WORKSPACE/../catkin_ws/src
-        ln -s $GITHUB_WORKSPACE
+        ln -s $GITHUB_WORKSPACE/..
         cd ..
         catkin init
     - name: Build and Check
