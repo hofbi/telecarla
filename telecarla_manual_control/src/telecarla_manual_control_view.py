@@ -63,7 +63,7 @@ class World(object):
         self.hud = hud
         self.role_name = role_name
         self.image_subscriber = rospy.Subscriber(
-            "/carla/{}/camera/rgb/front/image_color".format(self.role_name),
+            "/carla/{}/front/image".format(self.role_name),
             Image,
             self.on_view_image,
         )

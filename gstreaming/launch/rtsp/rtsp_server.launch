@@ -6,9 +6,10 @@
     <arg name='stat_topic' default='/camera/stats'/>
     <arg name='in_topic' default='/carla/ego_vehicle/camera/front/image'/>
     <arg name='graph_viz' default="false"/>
+    <arg name='GST_DEBUG' default="2"/>
 
     <env name="ROSCONSOLE_FORMAT" value="[${severity}] [${time}] [${node}]: ${message}"/>
-    <env name="GST_DEBUG" value="2"/>
+    <env name="GST_DEBUG" value="$(arg GST_DEBUG)"/>
     <env name="GST_DEBUG_DUMP_DOT_DIR" value="." if="$(arg graph_viz)"/>
 
     <group ns="server/$(arg server_id)">

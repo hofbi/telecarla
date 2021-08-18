@@ -8,8 +8,6 @@
 
 namespace lmt
 {
-namespace server
-{
 class TeleCarlaRpcServer
 {
   public:
@@ -26,7 +24,6 @@ class TeleCarlaRpcServer
     ros::Subscriber vehicleStatusSubscriber_;
     carla_msgs::CarlaEgoVehicleStatusConstPtr egoVehicleStatus_;
 };
-}  // namespace server
 }  // namespace lmt
 
 #endif  // TELECARLA_RPC_TELECARLA_RPC_SERVER_H

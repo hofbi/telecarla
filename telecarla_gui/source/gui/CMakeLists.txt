@@ -23,9 +23,9 @@ target_link_libraries(
 target_include_directories(
   gui
   PRIVATE include
-  PRIVATE ${catkin_INCLUDE_DIRS} SYSTEM
+  PRIVATE ${catkin_INCLUDE_DIRS} ${SDL2_INCLUDE_DIRS} SYSTEM
   INTERFACE include SYSTEM
-  INTERFACE ${catkin_INCLUDE_DIRS})
+  INTERFACE ${catkin_INCLUDE_DIRS} ${SDL2_INCLUDE_DIRS})
 
 target_compile_features(gui PUBLIC cxx_std_17)
 

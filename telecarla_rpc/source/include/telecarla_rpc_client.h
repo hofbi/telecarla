@@ -8,8 +8,6 @@
 
 namespace lmt
 {
-namespace client
-{
 class TeleCarlaRpcClient
 {
   public:
@@ -24,7 +22,6 @@ class TeleCarlaRpcClient
     std::vector<ros::Subscriber> subscribers_;
     ros::Publisher vehicleStatusPublisher_;
 };
-}  // namespace client
 }  // namespace lmt
 
 #endif  // TELECARLA_RPC_TELECARLA_RPC_CLIENT_H

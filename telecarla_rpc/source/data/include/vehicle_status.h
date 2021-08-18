@@ -8,7 +8,7 @@
 
 namespace lmt
 {
-namespace common
+namespace data
 {
 class VehicleStatus
 {
@@ -16,7 +16,7 @@ class VehicleStatus
     VehicleStatus() = default;
     explicit VehicleStatus(const carla_msgs::CarlaEgoVehicleStatusConstPtr& statusMsg) noexcept;
 
-    carla_msgs::CarlaEgoVehicleStatus getMessage() const noexcept;
+    carla_msgs::CarlaEgoVehicleStatus toROSMessage() const noexcept;
 
     MSGPACK_DEFINE_MAP(velocity, control);
 
@@ -24,7 +24,7 @@ class VehicleStatus
     float velocity;
     ControlCommands control;
 };
-}  // namespace common
+}  // namespace data
 }  // namespace lmt
 
 #endif  // TELECARLA_RPC_VEHICLE_STATUS_H

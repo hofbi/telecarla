@@ -1,0 +1,8 @@
+[flake8]
+max-line-length = 120
+
+ignore =
+    # Ignore "whitespace before ':'" because it conflicts with black
+	E203,
+    # Ignore "linebrak before binary operator" because it conflicts with black
+    W503

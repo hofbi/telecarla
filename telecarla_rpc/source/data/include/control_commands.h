@@ -6,7 +6,7 @@
 
 namespace lmt
 {
-namespace common
+namespace data
 {
 class ControlCommands
 {
@@ -15,7 +15,7 @@ class ControlCommands
     explicit ControlCommands(const carla_msgs::CarlaEgoVehicleControlConstPtr& controlMsg) noexcept;
     explicit ControlCommands(const carla_msgs::CarlaEgoVehicleControl& controlMsg) noexcept;
 
-    carla_msgs::CarlaEgoVehicleControl getMessage() const noexcept;
+    carla_msgs::CarlaEgoVehicleControl toROSMessage() const noexcept;
 
     MSGPACK_DEFINE_MAP(throttle, steer, brake, hand_brake, reverse);
 
@@ -26,7 +26,7 @@ class ControlCommands
     bool hand_brake;
     bool reverse;
 };
-}  // namespace common
+}  // namespace data
 }  // namespace lmt
 
 #endif  // TELECARLA_RPC_CONTROL_COMMANDS_H

@@ -50,12 +50,12 @@
     <include file="$(find telecarla_gui)/launch/telecarla_gui.launch">
         <arg name="sensor_definition_file_path" value="$(find telecarla_gui)/config/multi_cam_gui_config.json"/>
         <arg name="camera_topics" value="{
-            front: /client/front/rtsp_client/camera/rgb/image_color,
-            front_left: /client/front_left/rtsp_client/camera/rgb/image_color,
-            front_right: /client/front_right/rtsp_client/camera/rgb/image_color,
-            rear: /client/rear/rtsp_client/camera/rgb/image_color,
-            rear_left: /client/rear_left/rtsp_client/camera/rgb/image_color,
-            rear_right: /client/rear_right/rtsp_client/camera/rgb/image_color
+            front: /client/front/rtsp_client/camera/rgb/image,
+            front_left: /client/front_left/rtsp_client/camera/rgb/image,
+            front_right: /client/front_right/rtsp_client/camera/rgb/image,
+            rear: /client/rear/rtsp_client/camera/rgb/image,
+            rear_left: /client/rear_left/rtsp_client/camera/rgb/image,
+            rear_right: /client/rear_right/rtsp_client/camera/rgb/image
         }"/>
         <arg name='role_name' value='$(arg role_name)'/>
     </include>

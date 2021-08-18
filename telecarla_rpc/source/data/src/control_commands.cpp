@@ -1,13 +1,13 @@
 #include "control_commands.h"
 
-using namespace lmt::common;
+using namespace lmt::data;
 
 ControlCommands::ControlCommands(const carla_msgs::CarlaEgoVehicleControlConstPtr& controlMsg) noexcept
     : ControlCommands(*controlMsg)
 {
 }
 
-carla_msgs::CarlaEgoVehicleControl ControlCommands::getMessage() const noexcept
+carla_msgs::CarlaEgoVehicleControl ControlCommands::toROSMessage() const noexcept
 {
     carla_msgs::CarlaEgoVehicleControl carlaEgoVehicleControl;
 

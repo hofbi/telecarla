@@ -4,20 +4,10 @@
 #include <memory>
 
 #include <SDL2/SDL_rect.h>
+#include <SDL2/SDL_render.h>
+#include <SDL2/SDL_video.h>
 #include <carla_msgs/CarlaEgoVehicleStatus.h>
 #include <sensor_msgs/Image.h>
-
-extern "C" {
-class SDL_Window;
-class SDL_Renderer;
-class SDL_Texture;
-
-extern DECLSPEC void SDLCALL SDL_DestroyWindow(SDL_Window* window);
-
-extern DECLSPEC void SDLCALL SDL_DestroyRenderer(SDL_Renderer* renderer);
-
-extern DECLSPEC void SDLCALL SDL_DestroyTexture(SDL_Texture* texture);
-}
 
 namespace cv
 {

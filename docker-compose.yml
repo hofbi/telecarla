@@ -1,10 +1,21 @@
 version: '3'
 services:
+  carla:
+    image: carlasim/carla:0.9.11
+    runtime: nvidia
+    network_mode: host
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+    environment:
+      SDL_VIDEODRIVER: x11
+      DISPLAY: $DISPLAY
+    command: ./CarlaUE4.sh -opengl
   telecarla:
     build:
       context: ./
       dockerfile: docker/Dockerfile
     image: telecarla
+    network_mode: host
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix:rw
     environment:

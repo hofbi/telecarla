@@ -1,6 +1,10 @@
 name: CI
 
-on: [push, pull_request]
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
 
 jobs:
   check:
@@ -25,21 +29,24 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Lint Code Base
-      uses: docker://github/super-linter:v3.10.2
+      uses: docker://github/super-linter:v4.6.1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         VALIDATE_BASH: false # Already configured in make check
         VALIDATE_DOCKERFILE_HADOLINT: false
+        VALIDATE_PYTHON_FLAKE8: false  # Already configured in make check
+        VALIDATE_PYTHON_PYLINT: false  # Already configured in make check
+        VALIDATE_PYTHON_ISORT: false
 
   ros:
     runs-on: ubuntu-latest
-    container: ros:melodic-robot
+    container: ros:noetic-robot
     steps:
     - uses: actions/checkout@v2
     - name: Setup
       run: |
         sudo apt-get update
-        sudo apt-get install -y python-catkin-tools
+        sudo apt-get install -y python3-catkin-tools python3-osrf-pycommon
         bash -c "$GITHUB_WORKSPACE/install.sh"
     - name: Init Workspace
       run: |
@@ -49,6 +56,14 @@ jobs:
         cd ..
         catkin init
     - name: Build and Check
-      run: bash -c "source /opt/ros/melodic/setup.bash && source /opt/carla-ros-bridge/melodic/setup.bash && cd $GITHUB_WORKSPACE/../catkin_ws && catkin build --summarize --no-status --force-color --cmake-args -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_CXX_CLANG_TIDY=clang-tidy-10"
+      shell: bash
+      run: |
+        source /opt/ros/noetic/setup.bash
+        cd $GITHUB_WORKSPACE/../catkin_ws
+        catkin build --summarize --no-status --force-color --cmake-args -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_CXX_CLANG_TIDY=clang-tidy-10
     - name: Test
-      run: bash -c "source /opt/ros/melodic/setup.bash && source /opt/carla-ros-bridge/melodic/setup.bash && cd $GITHUB_WORKSPACE/../catkin_ws && catkin run_tests --no-status --force-color && catkin_test_results"
+      shell: bash
+      run: |
+        source /opt/ros/noetic/setup.bash
+        cd $GITHUB_WORKSPACE/../catkin_ws
+        catkin run_tests --no-status --force-color && catkin_test_results

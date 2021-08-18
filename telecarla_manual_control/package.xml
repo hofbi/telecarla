@@ -11,7 +11,7 @@
     <depend>rospy</depend>
     <build_depend>roslaunch</build_depend>
     <exec_depend>carla_ros_bridge</exec_depend>
-    <exec_depend>carla_ego_vehicle</exec_depend>
+    <exec_depend>carla_spawn_objects</exec_depend>
 
     <export>
     </export>
