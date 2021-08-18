@@ -1,4 +1,4 @@
-ARG CARLA_VERSION='0.9.11'
+ARG CARLA_VERSION='0.9.12'
 
 FROM carlasim/carla:${CARLA_VERSION} as carla
 

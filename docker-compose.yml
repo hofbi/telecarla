@@ -1,7 +1,7 @@
 version: '3'
 services:
   carla:
-    image: carlasim/carla:0.9.11
+    image: carlasim/carla:0.9.12
     runtime: nvidia
     network_mode: host
     volumes:
