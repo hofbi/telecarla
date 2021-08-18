@@ -42,18 +42,26 @@ jobs:
 
   ros:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - ros_distro: melodic
+            python_suffix: ""
+          - ros_distro: noetic
+            python_suffix: 3
     container:
-      image: ros:noetic-robot
-      env:
-        DEBIAN_FRONTEND: noninteractive
+      image: ros:${{ matrix.ros_distro }}-robot
+    env:
+      SCENARIO_RUNNER_PATH: ""
+      DEBIAN_FRONTEND: "noninteractive"
     steps:
     - uses: actions/checkout@v2
     - name: Setup
       shell: bash
       run: |
         sudo apt-get update
-        sudo apt-get install -y python3-catkin-tools python3-osrf-pycommon apt-utils
-        DEBIAN_FRONTEND=noninteractive $GITHUB_WORKSPACE/install.sh
+        sudo apt-get install -y python${{ matrix.python_suffix }}-catkin-tools python${{ matrix.python_suffix }}-osrf-pycommon apt-utils
+        $GITHUB_WORKSPACE/install.sh
     - name: Init Workspace
       run: |
         mkdir -p $GITHUB_WORKSPACE/../catkin_ws/src
