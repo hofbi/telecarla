@@ -33,6 +33,7 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         VALIDATE_BASH: false # Already configured in make check
+        VALIDATE_CPP: false
         VALIDATE_DOCKERFILE_HADOLINT: false
         VALIDATE_GITHUB_ACTIONS: false
         VALIDATE_PYTHON_FLAKE8: false  # Already configured in make check

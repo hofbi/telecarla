@@ -30,7 +30,7 @@ sudo apt-get install -y \
     clang-tidy-10 \
     python3-pip
 
-if [ -z "$PYTHON_VERSION" ]; then
+if [ -z "$PYTHON_SUFFIX" ]; then
     sudo apt-get install -y \
         apt-utils \
         python-pip \
@@ -39,7 +39,7 @@ if [ -z "$PYTHON_VERSION" ]; then
 fi
 
 # Carla Ros Bridge
-sudo apt-get install -y \
+DEBIAN_FRONTEND=noninteractive sudo apt-get install -y \
     ros-$ROS_VERSION-opencv-apps \
     ros-$ROS_VERSION-ackermann-msgs \
     ros-$ROS_VERSION-derived-object-msgs \
@@ -49,13 +49,13 @@ rm -rf "$WS_SRC"/ros-bridge/rqt_carla_control "$WS_SRC"/ros-bridge/rviz_carla_pl
 rosdep update
 rosdep install --from-paths src --ignore-src -r
 pip3 install -r "$WS_SRC"/ros-bridge/requirements.txt
-if [ -z "$PYTHON_VERSION" ]; then
+if [ -z "$PYTHON_SUFFIX" ]; then
     pip install -r "$WS_SRC"/ros-bridge/requirements.txt
 fi
 
 # Carla Scenario Runner
 git clone https://github.com/carla-simulator/scenario_runner.git
-if [ -z "$PYTHON_VERSION" ]; then
+if [ -z "$PYTHON_SUFFIX" ]; then
     pip2 install -r "$WS_SRC"/scenario_runner/requirements.txt
 fi
 pip3 install -r "$WS_SRC"/scenario_runner/requirements.txt
