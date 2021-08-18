@@ -18,7 +18,7 @@
     <include file="$(find telecarla_gui)/launch/telecarla_gui.launch">
         <arg name="sensor_definition_file_path" value="$(find telecarla_gui)/config/single_cam_gui_config.json"/>
         <arg name="camera_topics" default="{
-            front: /client/front/rtsp_client/camera/rgb/image_color
+            front: /client/front/rtsp_client/camera/rgb/image
         }"/>
         <arg name='role_name' value='$(arg role_name)'/>
     </include>

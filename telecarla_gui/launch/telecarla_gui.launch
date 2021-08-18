@@ -4,12 +4,12 @@
     <arg name="role_name" default="ego_vehicle"/>
     <arg name="vehicle_status" default="/carla/$(arg role_name)/vehicle_status"/>
     <arg name="camera_topics" default="{
-        front: /carla/$(arg role_name)/camera/rgb/front/image_color,
-        front_left: /carla/$(arg role_name)/camera/rgb/front_left/image_color,
-        front_right: /carla/$(arg role_name)/camera/rgb/front_right/image_color,
-        rear: /carla/$(arg role_name)/camera/rgb/rear/image_color,
-        rear_left: /carla/$(arg role_name)/camera/rgb/rear_left/image_color,
-        rear_right: /carla/$(arg role_name)/camera/rgb/rear_right/image_color
+        front: /carla/$(arg role_name)/front/image,
+        front_left: /carla/$(arg role_name)/front_left/image,
+        front_right: /carla/$(arg role_name)/front_right/image,
+        rear: /carla/$(arg role_name)/rear/image,
+        rear_left: /carla/$(arg role_name)/rear_left/image,
+        rear_right: /carla/$(arg role_name)/rear_right/image
     }"/>
     <arg name="wheel_config" default="$(find telecarla_gui)/config/wheel_config.yml"/>
 

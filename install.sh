@@ -17,49 +17,66 @@ fi
 exec > >(tee telecarla-install.log)
 exec 2>&1
 
-echo "Setup TeleCarla for ROS $ROS_VERSION"
+echo "Setup TELECARLA for ROS $ROS_VERSION"
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 WS_SRC="${SCRIPT_DIR}"/..
 
 pushd "$WS_SRC" || exit
 
-# General Packages
+echo "Installing General Packages"
 sudo apt-get update
 sudo apt-get install -y \
-    clang-tidy-10 \
-    python3-pip
+    git \
+    software-properties-common \
+    apt-utils
 
-if [ -z "$PYTHON_VERSION" ]; then
+sudo apt-get install -y \
+    python3-pip \
+    clang-tidy-10
+
+if [ -z "$PYTHON_SUFFIX" ]; then
     sudo apt-get install -y \
-        apt-utils \
         python-pip \
-        python-protobuf \
-        software-properties-common
+        python-protobuf
 fi
 
-# Carla Ros Bridge
-sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 1AF1527DE64CB8D9
-sudo add-apt-repository "deb [arch=amd64] http://dist.carla.org/carla $(lsb_release -sc) main"
-sudo apt-get update
-sudo apt-get install -y carla-ros-bridge
+echo "Installing Carla Ros Bridge"
+sudo apt-get install -y \
+    ros-$ROS_VERSION-opencv-apps \
+    ros-$ROS_VERSION-ackermann-msgs \
+    ros-$ROS_VERSION-derived-object-msgs \
+    ros-$ROS_VERSION-vision-opencv \
+    ros-$ROS_VERSION-rospy-message-converter \
+    ros-$ROS_VERSION-rviz \
+    ros-$ROS_VERSION-rqt-image-view \
+    ros-$ROS_VERSION-pcl-ros
+git clone --recurse-submodules https://github.com/carla-simulator/ros-bridge.git
+rm -rf "$WS_SRC"/ros-bridge/rqt_carla_control \
+    "$WS_SRC"/ros-bridge/rviz_carla_plugin \
+    "$WS_SRC"/ros-bridge/pcl_recorder \
+    "$WS_SRC"/ros-bridge/carla_ad_demo
+rosdep update
+rosdep install --from-paths src --ignore-src -r
+pip3 install -r "$WS_SRC"/ros-bridge/requirements.txt
+if [ -z "$PYTHON_SUFFIX" ]; then
+    pip install -r "$WS_SRC"/ros-bridge/requirements.txt
+fi
 
-# Carla Scenario Runner
+echo "Installing Carla Scenario Runner"
 git clone https://github.com/carla-simulator/scenario_runner.git
-if [ -z "$PYTHON_VERSION" ]; then
-    pip2 install -r scenario_runner/requirements.txt
+if [ -z "$PYTHON_SUFFIX" ]; then
+    pip2 install -r "$WS_SRC"/scenario_runner/requirements.txt
 fi
-pip3 install -r scenario_runner/requirements.txt
+pip3 install -r "$WS_SRC"/scenario_runner/requirements.txt
 
-# TELECARLA GUI
+echo "Installing TELECARLA GUI dependencies"
 "$SCRIPT_DIR"/telecarla_gui/script/install_dependencies.sh "$PYTHON_SUFFIX"
 
-# TELECARLA RPC
+echo "Installing TELECARLA RPC dependencies"
 "$SCRIPT_DIR"/telecarla_rpc/script/install.sh
 
-# GStreaming
+echo "Installing GStreaming dependencies"
 "$SCRIPT_DIR"/gstreaming/setup/install_gstreamer.sh
 
-# Final Notes
-echo "You should add the following commands to your shell config"
-echo "source /opt/carla-ros-bridge/$ROS_VERSION/setup.bash"
+echo "Finished TELECARLA Setup"

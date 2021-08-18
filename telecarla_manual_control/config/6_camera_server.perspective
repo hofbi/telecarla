@@ -45,7 +45,7 @@
                 },
                 "mouse_pub_topic": {
                   "type": "repr",
-                  "repr": "u'/carla/ego_vehicle/camera/rgb/rear_right/image_color_mouse_left'"
+                  "repr": "u'/carla/ego_vehicle/rear_right/image_mouse_left'"
                 },
                 "num_gridlines": {
                   "type": "repr",
@@ -65,7 +65,7 @@
                 },
                 "topic": {
                   "type": "repr",
-                  "repr": "u'/carla/ego_vehicle/camera/rgb/rear_right/image_color'"
+                  "repr": "u'/carla/ego_vehicle/rear_right/image'"
                 },
                 "publish_click_location": {
                   "type": "repr",
@@ -112,7 +112,7 @@
                 },
                 "mouse_pub_topic": {
                   "type": "repr",
-                  "repr": "u'/carla/ego_vehicle/camera/rgb/rear_left/image_color_mouse_left'"
+                  "repr": "u'/carla/ego_vehicle/rear_left/image_mouse_left'"
                 },
                 "num_gridlines": {
                   "type": "repr",
@@ -132,7 +132,7 @@
                 },
                 "topic": {
                   "type": "repr",
-                  "repr": "u'/carla/ego_vehicle/camera/rgb/rear_left/image_color'"
+                  "repr": "u'/carla/ego_vehicle/rear_left/image'"
                 },
                 "publish_click_location": {
                   "type": "repr",
@@ -179,7 +179,7 @@
                 },
                 "mouse_pub_topic": {
                   "type": "repr",
-                  "repr": "u'/carla/ego_vehicle/camera/rgb/rear/image_color_mouse_left'"
+                  "repr": "u'/carla/ego_vehicle/rear/image_mouse_left'"
                 },
                 "num_gridlines": {
                   "type": "repr",
@@ -199,7 +199,7 @@
                 },
                 "topic": {
                   "type": "repr",
-                  "repr": "u'/carla/ego_vehicle/camera/rgb/rear/image_color'"
+                  "repr": "u'/carla/ego_vehicle/rear/image'"
                 },
                 "publish_click_location": {
                   "type": "repr",
@@ -246,7 +246,7 @@
                 },
                 "mouse_pub_topic": {
                   "type": "repr",
-                  "repr": "u'/carla/ego_vehicle/camera/rgb/front/image_color_mouse_left'"
+                  "repr": "u'/carla/ego_vehicle/front/image_mouse_left'"
                 },
                 "num_gridlines": {
                   "type": "repr",
@@ -266,7 +266,7 @@
                 },
                 "topic": {
                   "type": "repr",
-                  "repr": "u'/carla/ego_vehicle/camera/rgb/front/image_color'"
+                  "repr": "u'/carla/ego_vehicle/front/image'"
                 },
                 "publish_click_location": {
                   "type": "repr",
@@ -313,7 +313,7 @@
                 },
                 "mouse_pub_topic": {
                   "type": "repr",
-                  "repr": "u'/carla/ego_vehicle/camera/rgb/front_right/image_color_mouse_left'"
+                  "repr": "u'/carla/ego_vehicle/front_right/image_mouse_left'"
                 },
                 "num_gridlines": {
                   "type": "repr",
@@ -333,7 +333,7 @@
                 },
                 "topic": {
                   "type": "repr",
-                  "repr": "u'/carla/ego_vehicle/camera/rgb/front_right/image_color'"
+                  "repr": "u'/carla/ego_vehicle/front_right/image'"
                 },
                 "publish_click_location": {
                   "type": "repr",
@@ -380,7 +380,7 @@
                 },
                 "mouse_pub_topic": {
                   "type": "repr",
-                  "repr": "u'/carla/ego_vehicle/camera/rgb/front_left/image_color_mouse_left'"
+                  "repr": "u'/carla/ego_vehicle/front_left/image_mouse_left'"
                 },
                 "num_gridlines": {
                   "type": "repr",
@@ -400,7 +400,7 @@
                 },
                 "topic": {
                   "type": "repr",
-                  "repr": "u'/carla/ego_vehicle/camera/rgb/front_left/image_color'"
+                  "repr": "u'/carla/ego_vehicle/front_left/image'"
                 },
                 "publish_click_location": {
                   "type": "repr",

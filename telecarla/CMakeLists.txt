@@ -4,6 +4,4 @@ project(telecarla)
 find_package(catkin REQUIRED COMPONENTS roslaunch)
 
 # Roslaunch Checks
-if(NOT DEFINED ENV{CI_PIPELINE_ID})
-  roslaunch_add_file_check(launch)
-endif()
+roslaunch_add_file_check(launch)

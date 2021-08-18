@@ -2,7 +2,7 @@
 
 #include "telecarla_rpc_server.h"
 
-using namespace lmt::server;
+using namespace lmt;
 
 int main(int argc, char* argv[])
 {

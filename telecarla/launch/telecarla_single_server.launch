@@ -15,7 +15,7 @@
 
     <!--  GStreamer Server  -->
     <include file="$(find gstreaming)/launch/rtsp/rtsp_server.launch">
-        <arg name='in_topic' value='/carla/$(arg role_name)/camera/rgb/front/image_color'/>
+        <arg name='in_topic' value='/carla/$(arg role_name)/front/image'/>
         <arg name='mount' value='front'/>
     </include>
 </launch>

@@ -28,7 +28,7 @@ class GStreamingServer
     std::string streamSource_;
     GMainLoop* loop_{nullptr};
     std::thread threadGstreamer_;
-    std::unique_ptr<rtsp::server::RTSPServer> rtspServer_{nullptr};
+    std::unique_ptr<server::RTSPServer> rtspServer_{nullptr};
     ros::Subscriber subCamera_;
     ros::Publisher pubStat_;
     dynamic_reconfigure::Server<gstreaming::RateControlConfig> rateControl_;

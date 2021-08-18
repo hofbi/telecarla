@@ -11,6 +11,14 @@ constexpr auto vehicleStatusTestFilePath = "gui/config/vehicle_status_config.jso
 constexpr auto staticTextTestFilePath = "gui/config/static_text_config.json";
 constexpr auto notExistingCameraTestFilePath = "notExisting.json";
 
+void expectSDLRectEqual(const SDL_Rect& expected, const SDL_Rect& actual) noexcept
+{
+    EXPECT_EQ(expected.x, actual.x);
+    EXPECT_EQ(expected.y, actual.y);
+    EXPECT_EQ(expected.w, actual.w);
+    EXPECT_EQ(expected.h, actual.h);
+}
+
 TEST(GuiParameter, getWindowWidth_WhenOneCameraTestFile)
 {
     GuiParameter unit(oneCameraTestFilePath);
@@ -137,37 +145,29 @@ TEST(GuiParameter, getVehicleStatusParameters_WhenValidTestFileWithoutStatus_Emp
 
     const auto& parameters = unit.getVehicleStatusParameters();
 
-    ASSERT_FALSE(parameters);
+    EXPECT_FALSE(parameters);
 }
 
 TEST(GuiParameter, getVehicleStatusParameters_WhenValidTestFile_CorrectParameters)
 {
     GuiParameter unit(vehicleStatusTestFilePath);
-
     const SDL_Rect expectedParameter{.x = 0, .y = 720, .w = 640, .h = 200};
 
     const auto& actualParameters = unit.getVehicleStatusParameters();
 
-    ASSERT_TRUE(actualParameters);
-    EXPECT_EQ(expectedParameter.x, actualParameters->x);
-    EXPECT_EQ(expectedParameter.y, actualParameters->y);
-    EXPECT_EQ(expectedParameter.w, actualParameters->w);
-    EXPECT_EQ(expectedParameter.h, actualParameters->h);
+    EXPECT_TRUE(actualParameters);
+    expectSDLRectEqual(expectedParameter, *actualParameters);
 }
 
 TEST(GuiParameter, getStaticTextParameters_WhenValidTestFile_CorrectParameters)
 {
     GuiParameter unit(staticTextTestFilePath);
-
     const SDL_Rect expectedParameter{.x = 0, .y = 720, .w = 640, .h = 200};
 
     const auto& actualParameters = unit.getStaticTextParameters();
 
-    ASSERT_TRUE(actualParameters);
-    EXPECT_EQ(expectedParameter.x, actualParameters->x);
-    EXPECT_EQ(expectedParameter.y, actualParameters->y);
-    EXPECT_EQ(expectedParameter.w, actualParameters->w);
-    EXPECT_EQ(expectedParameter.h, actualParameters->h);
+    EXPECT_TRUE(actualParameters);
+    expectSDLRectEqual(expectedParameter, *actualParameters);
 }
 
 TEST(GuiParameter, getCameraParameterSize_WhenNotExistingCameraTestFile)
