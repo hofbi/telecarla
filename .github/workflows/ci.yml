@@ -42,10 +42,14 @@ jobs:
 
   ros:
     runs-on: ubuntu-latest
-    container: ros:noetic-robot
+    container:
+      image: ros:noetic-robot
+      env:
+        DEBIAN_FRONTEND: noninteractive
     steps:
     - uses: actions/checkout@v2
     - name: Setup
+      shell: bash
       run: |
         sudo apt-get update
         sudo apt-get install -y python3-catkin-tools python3-osrf-pycommon
