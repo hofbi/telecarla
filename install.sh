@@ -25,14 +25,15 @@ WS_SRC="${SCRIPT_DIR}"/..
 pushd "$WS_SRC" || exit
 
 echo "Installing General Packages"
-export DEBIAN_FRONTEND=noninteractive
 sudo apt-get update
 sudo apt-get install -y \
     git \
     software-properties-common \
-    apt-utils \
-    clang-tidy-10 \
-    python3-pip
+    apt-utils
+
+sudo apt-get install -y \
+    python3-pip \
+    clang-tidy-10
 
 if [ -z "$PYTHON_SUFFIX" ]; then
     sudo apt-get install -y \
