@@ -6,11 +6,9 @@
 #include <gst/app/gstappsink.h>
 #include <gst/gstpipeline.h>
 
-#include "rtsp_state.h"
+#include "pipeline_state.h"
 
 namespace lmt
-{
-namespace rtsp
 {
 namespace client
 {
@@ -28,7 +26,7 @@ class RTSPClient
     RTSPClient(RTSPClient&& rhs) = delete;
     RTSPClient& operator=(RTSPClient&& rhs) = delete;
 
-    common::RTSPState start(const std::string& serverHost, int serverPort, const std::string& serverMount);
+    common::PipelineState start(const std::string& serverHost, int serverPort, const std::string& serverMount);
     void stop();
     void resume();
 
@@ -39,10 +37,9 @@ class RTSPClient
     ImageCallback callBack_;
     GstElement* pipeline_{nullptr};
     GstAppSink* receiverAppSink_{nullptr};
-    common::RTSPState state_{common::RTSPState::stopped};
+    common::PipelineState state_{common::PipelineState::stopped};
 };
 }  // namespace client
-}  // namespace rtsp
 }  // namespace lmt
 
 #endif /* _LMT_RTSP_CLIENT_HH_ */

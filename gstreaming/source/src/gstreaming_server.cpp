@@ -8,7 +8,7 @@
 #include <telecarla_msgs/FrameStatistics.h>
 
 using namespace lmt;
-using namespace lmt::rtsp::server;
+using namespace lmt::server;
 
 GStreamingServer::GStreamingServer(ros::NodeHandle& nh,
                                    ros::NodeHandle& pnh,
@@ -44,7 +44,7 @@ GStreamingServer::GStreamingServer(ros::NodeHandle& nh,
 
 void GStreamingServer::startStreaming()
 {
-    if (rtsp::common::RTSPState::started == rtspServer_->start(serverPort_, streamSource_))
+    if (common::PipelineState::started == rtspServer_->start(serverPort_, streamSource_))
     {
         ROS_INFO_STREAM("RTSP SERVER started and ready at rtsp://127.0.0.1:" << serverPort_ << "/" << mountName_);
     }

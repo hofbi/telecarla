@@ -14,7 +14,7 @@ GStreamingClient::GStreamingClient(ros::NodeHandle& nh,
     : gstLifecycle_(argc, argv),
       loop_(g_main_loop_new(nullptr, false)),
       threadGstreamer_(&GStreamingClient::thrGstreamer, this),
-      rtspClient_(std::make_unique<rtsp::client::RTSPClient>(
+      rtspClient_(std::make_unique<client::RTSPClient>(
           [this](auto&&... args) { callbackImage(std::forward<decltype(args)>(args)...); }))
 {
     image_transport::ImageTransport it(nh);
@@ -49,7 +49,7 @@ void GStreamingClient::thrGstreamer()
 
 void GStreamingClient::start(const std::string& ip, int port, const std::string& name)
 {
-    if (rtsp::common::RTSPState::started == rtspClient_->start(ip, port, name))
+    if (common::PipelineState::started == rtspClient_->start(ip, port, name))
     {
         ROS_INFO_STREAM("RTSP Client connected to " << ip << ":" << port << "/" << name);
     }

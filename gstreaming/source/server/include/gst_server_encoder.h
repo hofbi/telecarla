@@ -1,5 +1,5 @@
-#ifndef GSTREAMING_RTSP_SERVER_ENCODER_H
-#define GSTREAMING_RTSP_SERVER_ENCODER_H
+#ifndef GSTREAMING_GST_SERVER_ENCODER_H
+#define GSTREAMING_GST_SERVER_ENCODER_H
 
 #include <functional>
 #include <memory>
@@ -9,16 +9,14 @@
 
 namespace lmt
 {
-namespace rtsp
-{
 namespace server
 {
-class RTSPServerEncoder
+class GstServerEncoder
 {
   public:
     using PadProbeCallback = std::function<GstPadProbeReturn(GstPad*, GstPadProbeInfo*)>;
 
-    RTSPServerEncoder(std::string name, PadProbeCallback encoderProbeCallback) noexcept;
+    GstServerEncoder(std::string name, PadProbeCallback encoderProbeCallback) noexcept;
 
     void configureEncoderElement(std::unique_ptr<GstElement> encoderElement) noexcept;
     void updateRateControlParameter(int bitrate);
@@ -31,7 +29,6 @@ class RTSPServerEncoder
     std::unique_ptr<GstElement> encoderElement_{nullptr};
 };
 }  // namespace server
-}  // namespace rtsp
 }  // namespace lmt
 
-#endif  // GSTREAMING_RTSP_SERVER_ENCODER_H
+#endif  // GSTREAMING_GST_SERVER_ENCODER_H

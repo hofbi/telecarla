@@ -1,5 +1,5 @@
-#ifndef GSTREAMING_RTSP_SERVER_APP_SOURCE_H
-#define GSTREAMING_RTSP_SERVER_APP_SOURCE_H
+#ifndef GSTREAMING_GST_SERVER_APP_SOURCE_H
+#define GSTREAMING_GST_SERVER_APP_SOURCE_H
 
 #include <mutex>
 
@@ -9,14 +9,12 @@
 
 namespace lmt
 {
-namespace rtsp
-{
 namespace server
 {
-class RTSPServerAppSource
+class GstServerAppSource
 {
   public:
-    explicit RTSPServerAppSource(std::string mountName) noexcept;
+    explicit GstServerAppSource(std::string mountName) noexcept;
 
     void setVideoData(const sensor_msgs::ImageConstPtr& msg);
     void updateSpatioTemporalResolution(uint8_t fps, uint8_t spatialScale) noexcept;
@@ -41,7 +39,6 @@ class RTSPServerAppSource
     std::mutex mutexLock_;
 };
 }  // namespace server
-}  // namespace rtsp
 }  // namespace lmt
 
-#endif  // GSTREAMING_RTSP_SERVER_APP_SOURCE_H
+#endif  // GSTREAMING_GST_SERVER_APP_SOURCE_H

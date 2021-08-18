@@ -5,8 +5,8 @@
 #include <glib.h>
 #include <gst/gst.h>
 
-using namespace lmt::rtsp::client;
-using namespace lmt::rtsp::common;
+using namespace lmt::client;
+using namespace lmt::common;
 
 GstFlowReturn RTSPClient::onNewSampleFromSink(GstAppSink* appSink, RTSPClient* data)
 {
@@ -44,11 +44,11 @@ GstFlowReturn RTSPClient::onNewSampleFromSink(GstAppSink* appSink, RTSPClient* d
     return GST_FLOW_OK;
 }
 
-RTSPState RTSPClient::start(const std::string& serverHost, int serverPort, const std::string& serverMount)
+PipelineState RTSPClient::start(const std::string& serverHost, int serverPort, const std::string& serverMount)
 {
     switch (state_)
     {
-        case RTSPState::stopped: {
+        case PipelineState::stopped: {
             // rtspsrc default: protocols=tcp+udp-mcast+udp
             const auto cmd =
                 "rtspsrc location=rtsp://" + serverHost + ":" + std::to_string(serverPort) + "/" + serverMount +
@@ -71,11 +71,11 @@ RTSPState RTSPClient::start(const std::string& serverHost, int serverPort, const
             else
             {
                 GST_INFO("Client is PLAYING\n");
-                state_ = RTSPState::started;
+                state_ = PipelineState::started;
             }
             break;
         }
-        case RTSPState::paused: {
+        case PipelineState::paused: {
             resume();
             break;
         }
@@ -87,7 +87,7 @@ RTSPState RTSPClient::start(const std::string& serverHost, int serverPort, const
 
 void RTSPClient::resume()
 {
-    if (state_ == RTSPState::paused)
+    if (state_ == PipelineState::paused)
     {
         if (gst_element_set_state(pipeline_, GST_STATE_PLAYING) == GST_STATE_CHANGE_FAILURE)
         {
@@ -103,12 +103,12 @@ void RTSPClient::resume()
 
 void RTSPClient::stop()
 {
-    if (state_ != RTSPState::stopped)
+    if (state_ != PipelineState::stopped)
     {
         GST_INFO("Gstreamer client terminating...\n");
         gst_element_set_state(pipeline_, GST_STATE_NULL);
         g_object_unref(pipeline_);
-        state_ = RTSPState::stopped;
+        state_ = PipelineState::stopped;
         GST_INFO("Gstreamer client terminated\n");
     }
 }

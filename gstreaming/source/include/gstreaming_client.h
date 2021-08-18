@@ -24,7 +24,7 @@ class GStreamingClient
     common::GstLifecycle gstLifecycle_;
     GMainLoop* loop_{nullptr};
     std::thread threadGstreamer_;
-    std::unique_ptr<rtsp::client::RTSPClient> rtspClient_{nullptr};
+    std::unique_ptr<client::RTSPClient> rtspClient_{nullptr};
     image_transport::Publisher pub_;
 };
 

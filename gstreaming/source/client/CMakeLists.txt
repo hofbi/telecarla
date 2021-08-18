@@ -2,8 +2,7 @@ add_library(rtsp_client src/rtsp_client.cpp include/rtsp_client.h)
 
 target_link_libraries(
   rtsp_client
-  PUBLIC rtsp_common
-  PRIVATE gstreaming_common
+  PUBLIC gstreaming_common
   PUBLIC ${GSTREAMER_LIBRARIES}
   PUBLIC ${GLIB_LIBRARIES}
   PUBLIC ${GSTREAMER_APP_LIBRARIES}

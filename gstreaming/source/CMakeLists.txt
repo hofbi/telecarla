@@ -1,6 +1,7 @@
 # Libraries
 add_subdirectory(common)
-add_subdirectory(rtsp)
+add_subdirectory(server)
+add_subdirectory(client)
 
 # Executeables
 add_executable(

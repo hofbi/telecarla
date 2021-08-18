@@ -1,16 +1,16 @@
-#include "rtsp_server_app_source.h"
+#include "gst_server_app_source.h"
 
 #include <cv_bridge/cv_bridge.h>
 #include <gst/base/gstbasetransform.h>
 #include <gst/video/video.h>
 
-#include "gst_rtsp_server_util.h"
+#include "gst_server_util.h"
 
-using namespace lmt::rtsp::server;
+using namespace lmt::server;
 
-RTSPServerAppSource::RTSPServerAppSource(std::string mountName) noexcept : name_(std::move(mountName)) {}
+GstServerAppSource::GstServerAppSource(std::string mountName) noexcept : name_(std::move(mountName)) {}
 
-void RTSPServerAppSource::setVideoData(const sensor_msgs::ImageConstPtr& msg)
+void GstServerAppSource::setVideoData(const sensor_msgs::ImageConstPtr& msg)
 {
     mutexLock_.lock();
 
@@ -20,7 +20,7 @@ void RTSPServerAppSource::setVideoData(const sensor_msgs::ImageConstPtr& msg)
     mutexLock_.unlock();
 }
 
-sensor_msgs::ImageConstPtr RTSPServerAppSource::getScaledImagePtr(const sensor_msgs::ImageConstPtr& msg) const
+sensor_msgs::ImageConstPtr GstServerAppSource::getScaledImagePtr(const sensor_msgs::ImageConstPtr& msg) const
 {
     const auto defaultSpatialScale{100};
     if (spatialScale_ != defaultSpatialScale)
@@ -37,12 +37,12 @@ sensor_msgs::ImageConstPtr RTSPServerAppSource::getScaledImagePtr(const sensor_m
     return msg;
 }
 
-const std::string& RTSPServerAppSource::getName() const noexcept
+const std::string& GstServerAppSource::getName() const noexcept
 {
     return name_;
 }
 
-void RTSPServerAppSource::bufferNewData(GstElement* appSrc)
+void GstServerAppSource::bufferNewData(GstElement* appSrc)
 {
     mutexLock_.lock();
     g_object_set(G_OBJECT(appSrc), "caps", caps_, nullptr);
@@ -72,7 +72,7 @@ void RTSPServerAppSource::bufferNewData(GstElement* appSrc)
     g_signal_emit_by_name(appSrc, "push-buffer", buffer, &ret);
 }
 
-void RTSPServerAppSource::updateSpatioTemporalResolution(uint8_t fps, uint8_t spatialScale) noexcept
+void GstServerAppSource::updateSpatioTemporalResolution(uint8_t fps, uint8_t spatialScale) noexcept
 {
     fps_ = fps;
     if (spatialScale_ != spatialScale)

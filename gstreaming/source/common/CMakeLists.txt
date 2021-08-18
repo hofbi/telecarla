@@ -1,4 +1,5 @@
-add_library(gstreaming_common include/gst_lifecycle.h src/gst_lifecycle.cpp)
+add_library(gstreaming_common include/gst_lifecycle.h src/gst_lifecycle.cpp
+                              include/pipeline_state.h src/pipeline_state.cpp)
 
 target_link_libraries(
   gstreaming_common

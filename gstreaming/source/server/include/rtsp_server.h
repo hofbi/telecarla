@@ -4,19 +4,17 @@
 #include <gst/rtsp-server/rtsp-media-factory.h>
 #include <gstreaming/RateControlConfig.h>
 
-#include "rtsp_server_context.h"
-#include "rtsp_state.h"
+#include "gst_server_context.h"
+#include "pipeline_state.h"
 
 namespace lmt
-{
-namespace rtsp
 {
 namespace server
 {
 class RTSPServer
 {
   public:
-    RTSPServer(const std::string& mountName, const RTSPServerEncoder::PadProbeCallback& encoderProbeCallback);
+    RTSPServer(const std::string& mountName, const GstServerEncoder::PadProbeCallback& encoderProbeCallback);
     ~RTSPServer();
 
     RTSPServer(const RTSPServer& rhs) = delete;
@@ -25,7 +23,7 @@ class RTSPServer
     RTSPServer& operator=(const RTSPServer& rhs) = delete;
     RTSPServer& operator=(RTSPServer&& rhs) = delete;
 
-    common::RTSPState start(int serverPort, const std::string& src);
+    common::PipelineState start(int serverPort, const std::string& src);
     void stop();
 
     void rateControlCallback(gstreaming::RateControlConfig& config, uint32_t level);
@@ -34,11 +32,10 @@ class RTSPServer
   private:
     std::unique_ptr<GstRTSPServer, decltype(&g_object_unref)> server_{nullptr, g_object_unref};
     int handle_{-1};
-    common::RTSPState state_{common::RTSPState::stopped};
-    std::unique_ptr<RTSPServerContext> context_{nullptr};
+    common::PipelineState state_{common::PipelineState::stopped};
+    std::unique_ptr<GstServerContext> context_{nullptr};
 };
 }  // namespace server
-}  // namespace rtsp
 }  // namespace lmt
 
 #endif /* _LMT_RTSP_SERVER_HH_ */

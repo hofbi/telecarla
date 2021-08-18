@@ -1,15 +1,16 @@
 #include "rtsp_server.h"
 
-#include "gst_rtsp_server_util.h"
+#include "gst_server_util.h"
+#include "rtsp_server_util.h"
 
-using namespace lmt::rtsp::server;
-using namespace lmt::rtsp::common;
+using namespace lmt::server;
+using namespace lmt::common;
 
-RTSPState RTSPServer::start(int serverPort, const std::string& src)
+PipelineState RTSPServer::start(int serverPort, const std::string& src)
 {
-    if (state_ == RTSPState::stopped)
+    if (state_ == PipelineState::stopped)
     {
-        state_ = RTSPState::starting;
+        state_ = PipelineState::starting;
 
         server_.reset(gst_rtsp_server_new());
         gst_rtsp_server_set_service(server_.get(), std::to_string(serverPort).c_str());
@@ -39,16 +40,16 @@ RTSPState RTSPServer::start(int serverPort, const std::string& src)
 
         handle_ = gst_rtsp_server_attach(server_.get(), nullptr);
 
-        state_ = RTSPState::started;
+        state_ = PipelineState::started;
     }
     return state_;
 }
 
 void RTSPServer::stop()
 {
-    if (state_ == RTSPState::started)
+    if (state_ == PipelineState::started)
     {
-        state_ = RTSPState::stopping;
+        state_ = PipelineState::stopping;
 
         if (handle_ != -1)
         {
@@ -56,12 +57,12 @@ void RTSPServer::stop()
         }
 
         handle_ = -1;
-        state_ = RTSPState::stopped;
+        state_ = PipelineState::stopped;
     }
 }
 
-RTSPServer::RTSPServer(const std::string& mountName, const RTSPServerEncoder::PadProbeCallback& encoderProbeCallback)
-    : context_(std::make_unique<RTSPServerContext>(mountName, "x264encoder", encoderProbeCallback))
+RTSPServer::RTSPServer(const std::string& mountName, const GstServerEncoder::PadProbeCallback& encoderProbeCallback)
+    : context_(std::make_unique<GstServerContext>(mountName, "x264encoder", encoderProbeCallback))
 {
     constexpr auto videoWidthInPixels{640};
     constexpr auto videoHeightInPixels{480};
