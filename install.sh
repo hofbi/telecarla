@@ -29,11 +29,8 @@ sudo apt-get update
 sudo apt-get install -y \
     git \
     software-properties-common \
-    apt-utils
-
-sudo apt-get install -y \
-    python3-pip \
-    clang-tidy-10
+    apt-utils \
+    python3-pip
 
 if [ -z "$PYTHON_SUFFIX" ]; then
     sudo apt-get install -y \

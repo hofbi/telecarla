@@ -5,7 +5,7 @@
 
 namespace lmt
 {
-namespace common
+namespace com
 {
 template <class RPCMessageType>
 class RPCMsgCallback
@@ -18,7 +18,7 @@ class RPCMsgCallback
   private:
     ros::Publisher msgPublisher_;
 };
-}  // namespace common
+}  // namespace com
 }  // namespace lmt
 
 #endif  // TELECARLA_RPC_RPC_MSG_CALLBACK_H

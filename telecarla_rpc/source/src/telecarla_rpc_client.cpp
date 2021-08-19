@@ -31,13 +31,13 @@ TeleCarlaRpcClient::TeleCarlaRpcClient(ros::NodeHandle& nh, ros::NodeHandle& pnh
     subscribers_.push_back(nh.subscribe<std_msgs::Bool>(
         prefix + "/enable_autopilot",
         1,
-        common::ROSMsgCallback<std_msgs::BoolConstPtr, data::Bool>(client_, "set_enable_autopilot")));
+        com::ROSMsgCallback<std_msgs::BoolConstPtr, data::Bool>(client_, "set_enable_autopilot")));
     ROS_INFO_STREAM("Subscribed to topic " << prefix + "/enable_autopilot -> set_enable_autopilot");
 
     subscribers_.push_back(nh.subscribe<std_msgs::Bool>(
         prefix + "/vehicle_control_manual_override",
         1,
-        common::ROSMsgCallback<std_msgs::BoolConstPtr, data::Bool>(client_, "set_vehicle_control_manual_override")));
+        com::ROSMsgCallback<std_msgs::BoolConstPtr, data::Bool>(client_, "set_vehicle_control_manual_override")));
     ROS_INFO_STREAM("Subscribed to topic " << prefix +
                                                   "/vehicle_control_manual_override -> "
                                                   "set_vehicle_control_manual_override");
@@ -45,13 +45,13 @@ TeleCarlaRpcClient::TeleCarlaRpcClient(ros::NodeHandle& nh, ros::NodeHandle& pnh
     subscribers_.push_back(nh.subscribe<carla_msgs::CarlaEgoVehicleControl>(
         prefix + "/vehicle_control_cmd_manual",
         1,
-        common::ROSMsgCallback<carla_msgs::CarlaEgoVehicleControlConstPtr, data::ControlCommands>(client_,
-                                                                                                  "set_"
-                                                                                                  "vehicle_"
-                                                                                                  "control_"
-                                                                                                  "cmd_"
-                                                                                                  "manua"
-                                                                                                  "l")));
+        com::ROSMsgCallback<carla_msgs::CarlaEgoVehicleControlConstPtr, data::ControlCommands>(client_,
+                                                                                               "set_"
+                                                                                               "vehicle_"
+                                                                                               "control_"
+                                                                                               "cmd_"
+                                                                                               "manua"
+                                                                                               "l")));
     ROS_INFO_STREAM("Subscribed to topic " << prefix + "/vehicle_control_cmd_manual -> set_vehicle_control_cmd_manual");
 
     vehicleStatusPublisher_ = nh.advertise<carla_msgs::CarlaEgoVehicleStatus>(prefix + "/vehicle_status", 1);

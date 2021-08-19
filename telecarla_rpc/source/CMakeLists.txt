@@ -1,5 +1,5 @@
+add_subdirectory(com)
 add_subdirectory(data)
-add_subdirectory(common)
 
 add_library(rpc_server STATIC src/telecarla_rpc_server.cpp
                               include/telecarla_rpc_server.h)
@@ -11,7 +11,7 @@ target_include_directories(
   INTERFACE include
   INTERFACE ${catkin_INCLUDE_DIRS} SYSTEM)
 
-target_link_libraries(rpc_server PRIVATE rpc_common rpc_data)
+target_link_libraries(rpc_server PRIVATE rpc_com rpc_data)
 
 add_library(rpc_client STATIC src/telecarla_rpc_client.cpp
                               include/telecarla_rpc_client.h)
@@ -23,7 +23,7 @@ target_include_directories(
   INTERFACE include
   INTERFACE ${catkin_INCLUDE_DIRS} SYSTEM)
 
-target_link_libraries(rpc_client PRIVATE rpc_common rpc_data)
+target_link_libraries(rpc_client PRIVATE rpc_com rpc_data)
 
 # Nodes
 add_executable(telecarla_rpc_server_node src/telecarla_rpc_server_node.cpp)

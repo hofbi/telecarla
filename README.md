@@ -54,7 +54,7 @@ To install the additional tools required for the development, call
 
 ```shell
 python3 -m pip install -r requirements.txt
-sudo apt install -y clang-format
+sudo apt install -y clang-format clang-tidy-10
 sudo snap install shfmt
 ```
 
@@ -64,9 +64,6 @@ from the source of this directory. Then, you can call
 # Format the code
 make format
 
-# Check format
-make check_format
-
-# Pylint
-make pylint
+# Check format and lint
+make check
 ```

@@ -7,7 +7,7 @@
 
 namespace lmt
 {
-namespace common
+namespace com
 {
 template <class ROSMessageType, class RPCMessageType>
 class ROSMsgCallback
@@ -37,7 +37,7 @@ class ROSMsgCallback
     rpc::client& client_;
     std::string functionName_;
 };
-}  // namespace common
+}  // namespace com
 }  // namespace lmt
 
 #endif  // TELECARLA_RPC_ROS_MSG_CALLBACK_H
