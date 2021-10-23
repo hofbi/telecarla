@@ -73,6 +73,12 @@ echo "Installing TELECARLA GUI dependencies"
 echo "Installing TELECARLA RPC dependencies"
 "$SCRIPT_DIR"/telecarla_rpc/script/install.sh
 
+echo "Installing TELECARLA Scenario Evaluation Runner dependencies"
+if [ -z "$PYTHON_SUFFIX" ]; then
+    pip2 install -r "$SCRIPT_DIR"/telecarla_scenario_runner/requirements.txt
+fi
+pip3 install -r "$SCRIPT_DIR"/telecarla_scenario_runner/requirements.txt
+
 echo "Installing GStreaming dependencies"
 "$SCRIPT_DIR"/gstreaming/setup/install_gstreamer.sh
 

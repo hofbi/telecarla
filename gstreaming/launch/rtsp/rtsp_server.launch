@@ -13,7 +13,7 @@
     <env name="GST_DEBUG_DUMP_DOT_DIR" value="." if="$(arg graph_viz)"/>
 
     <group ns="server/$(arg server_id)">
-        <node name="rtsp_server" pkg="gstreaming" type="rtsp_server_node" output="screen">
+        <node name="rtsp_server" pkg="gstreaming" type="rtsp_server_node" output="screen" respawn="true">
             <param name="port" value="$(arg port)"/>
             <param name="mount" value="$(arg mount)"/>
             <param name="stream_source" value="$(arg stream_source)"/>

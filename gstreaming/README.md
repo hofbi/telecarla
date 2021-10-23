@@ -2,7 +2,34 @@
 
 GStreamer ROS nodes for multimedia streaming
 
-## Code format
+## Steup
+
+1. Run `setup/install_gstreamer.sh` to install GStreamer or `setup/install_gstreamer_from_src.sh` to install from source
+1. Now you should be able to build the project inside your catkin workspace with `catkin build`
+
+## Run
+
+```shell
+# RTSP Server
+roslaunch rtsp_server.launch
+
+# RTSP Client
+roslaunch rtsp_client host:=HOST_IP
+```
+
+Find all available configuration options in the above mention launch files.
+
+### Additional Launch Files
+
+```shell
+# RTSP Server with video test source
+roslaunch rtsp_server_videotestsrc.launch
+
+# RTSP Server with video from v4l2 devices such as webcams
+roslaunch rtsp_server_v4l2src.launch
+```
+
+## Development
 
 ```shell
 # Fomrat the code
@@ -11,11 +38,6 @@ make format
 # Check format
 make check_format
 ```
-
-## Steup
-
-1. Run `setup/install_gstreamer.sh` to install GStreamer or `setup/install_gstreamer_from_src.sh` to install from source
-1. Now you should be able to build the project inside your catkin workspace with `catkin build`
 
 ### CLion
 

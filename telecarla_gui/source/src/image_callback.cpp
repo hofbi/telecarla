@@ -6,7 +6,7 @@ using namespace lmt;
 
 namespace
 {
-const auto timeDiffHistoryBufferSize{20U};
+constexpr auto timeDiffHistoryBufferSize = 20U;
 }  // namespace
 
 ImageCallback::ImageCallback(const SDL_Rect& position, RenderCallback renderCallback) noexcept
@@ -18,13 +18,13 @@ ImageCallback::ImageCallback(const SDL_Rect& position, RenderCallback renderCall
 
 void ImageCallback::operator()(const sensor_msgs::ImageConstPtr& msg)
 {
-    ros::Duration diff = ros::Time::now() - lastCallbackTime_;
+    const auto diff = ros::Time::now() - lastCallbackTime_;
     lastCallbackTime_ = ros::Time::now();
 
     callbackTimeDiffHistory_.push_back(diff.toSec());
 
-    double mean = std::accumulate(callbackTimeDiffHistory_.begin(), callbackTimeDiffHistory_.end(), 0.0) /
-                  callbackTimeDiffHistory_.size();
+    const auto mean = std::accumulate(callbackTimeDiffHistory_.begin(), callbackTimeDiffHistory_.end(), 0.0) /
+                      static_cast<double>(callbackTimeDiffHistory_.size());
 
-    renderCallback_(position_, msg, 1 / mean);
+    renderCallback_(position_, msg, static_cast<int>(1 / mean));
 }

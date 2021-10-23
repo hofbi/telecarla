@@ -55,8 +55,8 @@ void SDL_GUI::show()
                                       {},
                                       {"Teleop Modes:", ""},
                                       {},
-                                      {"  Monitoring:", "0 || Circle"},
-                                      {"  Manual:", "1 || X"}};
+                                      {"  Monitoring:", "M || Circle"},
+                                      {"  Manual Control:", "C || X"}};
 
     SDL_RenderClear(renderer_.get());  // replace everything with the drawing color (default: #000000);
     if (staticTextParameters_)
@@ -75,7 +75,7 @@ void SDL_GUI::renderImage(const SDL_Rect& pos, const sensor_msgs::ImageConstPtr&
     text << "Cam: " << msg->header.frame_id.substr(msg->header.frame_id.find_last_of('/') + 1)
          << " | Size: " << msg->width << "x" << msg->height << " | FPS: " << imageFrequency;
     const cv::Point bottomLeftOfText{15, 30};  // NOLINT(readability-magic-numbers)
-    const auto fontScale{1.5};
+    constexpr auto fontScale = 1.5;
     const cv::Scalar grey{125, 125, 125};
     cv::putText(image, text.str(), bottomLeftOfText, cv::FONT_HERSHEY_PLAIN, fontScale, grey, 2);
 
@@ -87,16 +87,21 @@ void SDL_GUI::renderStaticText(const SDL_Rect& pos, const TextLines& textLines) 
     cv::Mat image(pos.h, pos.w, CV_8UC3, cv::Scalar(0, 0, 0));
 
     cv::Point bottomLeftOfText{15, 30};  // NOLINT(readability-magic-numbers)
-    const cv::Scalar grey{125, 125, 125};
-    const auto verticalOffsetBetweenTextLines{20};
+    const cv::Scalar grey{200, 200, 200};
+    constexpr auto fontScale = 1.2;
+    constexpr auto verticalOffsetBetweenTextLines{20 * fontScale};
 
     for (const auto& line : textLines)
     {
-        cv::putText(image, std::string(line.first), bottomLeftOfText, cv::FONT_HERSHEY_PLAIN, 1.0, grey, 1);
+        cv::putText(image, std::string(line.first), bottomLeftOfText, cv::FONT_HERSHEY_PLAIN, fontScale, grey);
 
-        cv::Point horizontalOffset{150, 0};  // NOLINT(readability-magic-numbers)
-        cv::putText(
-            image, std::string(line.second), bottomLeftOfText + horizontalOffset, cv::FONT_HERSHEY_PLAIN, 1.0, grey, 1);
+        cv::Point horizontalOffset{static_cast<int>(180 * fontScale), 0};  // NOLINT(readability-magic-numbers)
+        cv::putText(image,
+                    std::string(line.second),
+                    bottomLeftOfText + horizontalOffset,
+                    cv::FONT_HERSHEY_PLAIN,
+                    fontScale,
+                    grey);
         bottomLeftOfText.y += verticalOffsetBetweenTextLines;
     }
 
@@ -105,7 +110,7 @@ void SDL_GUI::renderStaticText(const SDL_Rect& pos, const TextLines& textLines) 
 
 void SDL_GUI::renderCvMat(const SDL_Rect& pos, const cv::Mat& image) const
 {
-    SDL_UpdateTexture(texture_.get(), &pos, image.data, image.step[0]);
+    SDL_UpdateTexture(texture_.get(), &pos, image.data, static_cast<int>(image.step[0]));
 
     SDL_RenderCopy(renderer_.get(), texture_.get(), &pos, &pos);
     SDL_RenderPresent(renderer_.get());

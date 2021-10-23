@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenSCENARIO>
+  <FileHeader revMajor="0" revMinor="0" date="2021-10-05T10:00:00" description="Example - Maneuver Catalog" author="" />
+  <Catalog name="ManeuverCatalog">
+    <Maneuver name="SpeedingManeuver">
+        <ParameterDeclarations>
+            <ParameterDeclaration name="speed" parameterType="string" value="10" />
+            <ParameterDeclaration name="adversary" parameterType="string" value="adv1" />
+            <ParameterDeclaration name="distance" parameterType="string" value="40.0" />
+            <ParameterDeclaration name="nb" parameterType="string" value="1" />
+            <ParameterDeclaration name="how" parameterType="string" value="lessThan" />
+        </ParameterDeclarations>
+        <Event name="AdversaryAccelerates$nb" priority="overwrite">
+            <Action name="AdversaryAccelerates$nb">
+            <PrivateAction>
+                <LongitudinalAction>
+                <SpeedAction>
+                    <SpeedActionDynamics dynamicsShape="step" value="0" dynamicsDimension="distance"/>
+                    <SpeedActionTarget>
+                    <AbsoluteTargetSpeed value="$speed"/>
+                    </SpeedActionTarget>
+                </SpeedAction>
+                </LongitudinalAction>
+            </PrivateAction>
+            </Action>
+            <StartTrigger>
+            <ConditionGroup>
+                <Condition name="StartCondition$nb" delay="0" conditionEdge="rising">
+                <ByEntityCondition>
+                    <TriggeringEntities triggeringEntitiesRule="any">
+                    <EntityRef entityRef="hero"/>
+                    </TriggeringEntities>
+                    <EntityCondition>
+                    <RelativeDistanceCondition entityRef="$adversary" relativeDistanceType="cartesianDistance" value="$distance" freespace="false" rule="$how"/>
+                    </EntityCondition>
+                </ByEntityCondition>
+                </Condition>
+            </ConditionGroup>
+            </StartTrigger>
+        </Event>
+    </Maneuver>
+    <Maneuver name="PedestrianCrossingManeuver">
+        <ParameterDeclarations>
+            <ParameterDeclaration name="speedaction1" parameterType="string" value="1.5" />
+            <ParameterDeclaration name="speedaction2" parameterType="string" value="6.5" />
+            <ParameterDeclaration name="absolutetargetspeed1" parameterType="string" value="10.0" />
+            <ParameterDeclaration name="absolutetargetspeed2" parameterType="string" value="10.0" />
+            <ParameterDeclaration name="adversary" parameterType="string" value="adv1" />
+            <ParameterDeclaration name="dist" parameterType="string" value="14.0" />
+            <ParameterDeclaration name="waitingtime" parameterType="string" value="10" />
+            <ParameterDeclaration name="nb" parameterType="string" value="1" />
+        </ParameterDeclarations>
+        <Event name="PedestrianStartsWalking$nb" priority="overwrite">
+            <Action name="PedestrianStartsWalking$nb">
+            <PrivateAction>
+                <LongitudinalAction>
+                <SpeedAction>
+                    <SpeedActionDynamics dynamicsShape="step" value="$speedaction1" dynamicsDimension="distance"/>
+                    <SpeedActionTarget>
+                    <AbsoluteTargetSpeed value="$absolutetargetspeed1"/>
+                    </SpeedActionTarget>
+                </SpeedAction>
+                </LongitudinalAction>
+            </PrivateAction>
+            </Action>
+            <StartTrigger>
+            <ConditionGroup>
+                <Condition name="StartCondition$nb" delay="0" conditionEdge="rising">
+                <ByEntityCondition>
+                    <TriggeringEntities triggeringEntitiesRule="any">
+                    <EntityRef entityRef="hero"/>
+                    </TriggeringEntities>
+                    <EntityCondition>
+                    <RelativeDistanceCondition entityRef="$adversary" relativeDistanceType="cartesianDistance" value="$dist" freespace="false" rule="lessThan"/>
+                    </EntityCondition>
+                </ByEntityCondition>
+                </Condition>
+            </ConditionGroup>
+            </StartTrigger>
+        </Event>
+        <Event name="PedestrianStopsAndWaits$nb" priority="overwrite">
+            <Action name="PedestrianStopsAndWaits$nb">
+            <PrivateAction>
+                <LongitudinalAction>
+                <SpeedAction>
+                    <SpeedActionDynamics dynamicsShape="step" value="$waitingtime" dynamicsDimension="time"/>
+                    <SpeedActionTarget>
+                    <AbsoluteTargetSpeed value="0.0"/>
+                    </SpeedActionTarget>
+                </SpeedAction>
+                </LongitudinalAction>
+            </PrivateAction>
+            </Action>
+            <StartTrigger>
+            <ConditionGroup>
+                <Condition name="AfterPedestrianWalks$nb" delay="0" conditionEdge="rising">
+                <ByValueCondition>
+                    <StoryboardElementStateCondition storyboardElementType="action" storyboardElementRef="PedestrianStartsWalking$nb" state="completeState"/>
+                </ByValueCondition>
+                </Condition>
+            </ConditionGroup>
+            </StartTrigger>
+        </Event>
+        <Event name="PedestrianWalksAway$nb" priority="overwrite">
+            <Action name="PedestrianStartsWalkingAway$nb">
+            <PrivateAction>
+                <LongitudinalAction>
+                <SpeedAction>
+                    <SpeedActionDynamics dynamicsShape="step" value="$speedaction2" dynamicsDimension="distance"/>
+                    <SpeedActionTarget>
+                    <AbsoluteTargetSpeed value="$absolutetargetspeed2"/>
+                    </SpeedActionTarget>
+                </SpeedAction>
+                </LongitudinalAction>
+            </PrivateAction>
+            </Action>
+            <StartTrigger>
+            <ConditionGroup>
+                <Condition name="StartCondition$nb" delay="0" conditionEdge="rising">
+                <ByEntityCondition>
+                    <TriggeringEntities triggeringEntitiesRule="any">
+                    <EntityRef entityRef="hero"/>
+                    </TriggeringEntities>
+                    <EntityCondition>
+                    <StandStillCondition duration="0.1"/>
+                    </EntityCondition>
+                </ByEntityCondition>
+                </Condition>
+                <Condition name="AfterPedestrianStopsAndWaits$nb" delay="0" conditionEdge="rising">
+                <ByValueCondition>
+                    <StoryboardElementStateCondition storyboardElementType="action" storyboardElementRef="PedestrianStopsAndWaits$nb" state="completeState"/>
+                </ByValueCondition>
+                </Condition>
+            </ConditionGroup>
+            </StartTrigger>
+        </Event>
+        <Event name="PedestrianWaits$nb" priority="overwrite">
+            <Action name="PedestrianWaits$nb">
+            <PrivateAction>
+                <LongitudinalAction>
+                <SpeedAction>
+                    <SpeedActionDynamics dynamicsShape="step" value="$waitingtime" dynamicsDimension="time"/>
+                    <SpeedActionTarget>
+                    <AbsoluteTargetSpeed value="0.0"/>
+                    </SpeedActionTarget>
+                </SpeedAction>
+                </LongitudinalAction>
+            </PrivateAction>
+            </Action>
+            <StartTrigger>
+            <ConditionGroup>
+                <Condition name="StartCondition$nb" delay="0" conditionEdge="rising">
+                <ByEntityCondition>
+                    <TriggeringEntities triggeringEntitiesRule="any">
+                    <EntityRef entityRef="$adversary"/>
+                    </TriggeringEntities>
+                    <EntityCondition>
+                    <StandStillCondition duration="0.1"/>
+                    </EntityCondition>
+                </ByEntityCondition>
+                </Condition>
+                <Condition name="AfterPedestrianStartsWalking$nb" delay="0" conditionEdge="rising">
+                <ByValueCondition>
+                    <StoryboardElementStateCondition storyboardElementType="action" storyboardElementRef="PedestrianStartsWalkingAway$nb" state="completeState"/>
+                </ByValueCondition>
+                </Condition>
+            </ConditionGroup>
+            </StartTrigger>
+        </Event>
+    </Maneuver>
+    <Maneuver name="CyclistCrossingManeuver">
+        <ParameterDeclarations>
+            <ParameterDeclaration name="speedaction1" parameterType="string" value="2.5" />
+            <ParameterDeclaration name="speedaction2" parameterType="string" value="6.5" />
+            <ParameterDeclaration name="absolutetargetspeed1" parameterType="string" value="6.0" />
+            <ParameterDeclaration name="absolutetargetspeed2" parameterType="string" value="2.0" />
+            <ParameterDeclaration name="adversary" parameterType="string" value="adv1" />
+            <ParameterDeclaration name="distance" parameterType="string" value="22.0" />
+            <ParameterDeclaration name="waitingtime" parameterType="string" value="10" />
+            <ParameterDeclaration name="nb" parameterType="string" value="1" />
+        </ParameterDeclarations>
+        <Event name="CyclistStartsWalking$nb" priority="overwrite">
+            <Action name="CyclistStartsWalking$nb">
+            <PrivateAction>
+                <LongitudinalAction>
+                <SpeedAction>
+                    <SpeedActionDynamics dynamicsShape="step" value="$speedaction1" dynamicsDimension="distance"/>
+                    <SpeedActionTarget>
+                    <AbsoluteTargetSpeed value="$absolutetargetspeed1"/>
+                    </SpeedActionTarget>
+                </SpeedAction>
+                </LongitudinalAction>
+            </PrivateAction>
+            </Action>
+            <StartTrigger>
+            <ConditionGroup>
+                <Condition name="StartCondition$nb" delay="0" conditionEdge="rising">
+                <ByEntityCondition>
+                    <TriggeringEntities triggeringEntitiesRule="any">
+                    <EntityRef entityRef="hero"/>
+                    </TriggeringEntities>
+                    <EntityCondition>
+                    <RelativeDistanceCondition entityRef="$adversary" relativeDistanceType="cartesianDistance" value="$distance" freespace="false" rule="lessThan"/>
+                    </EntityCondition>
+                </ByEntityCondition>
+                </Condition>
+            </ConditionGroup>
+            </StartTrigger>
+        </Event>
+        <Event name="CyclistStopsAndWaits$nb" priority="overwrite">
+            <Action name="CyclistStopsAndWaits$nb">
+            <PrivateAction>
+                <LongitudinalAction>
+                <SpeedAction>
+                    <SpeedActionDynamics dynamicsShape="step" value="$waitingtime" dynamicsDimension="time"/>
+                    <SpeedActionTarget>
+                    <AbsoluteTargetSpeed value="0.0"/>
+                    </SpeedActionTarget>
+                </SpeedAction>
+                </LongitudinalAction>
+            </PrivateAction>
+            </Action>
+            <StartTrigger>
+            <ConditionGroup>
+                <Condition name="StartCondition$nb" delay="0" conditionEdge="rising">
+                <ByEntityCondition>
+                    <TriggeringEntities triggeringEntitiesRule="any">
+                    <EntityRef entityRef="$adversary"/>
+                    </TriggeringEntities>
+                    <EntityCondition>
+                    <StandStillCondition duration="0.1"/>
+                    </EntityCondition>
+                </ByEntityCondition>
+                </Condition>
+                <Condition name="AfterCyclistStartsWalking$nb" delay="0" conditionEdge="rising">
+                <ByValueCondition>
+                    <StoryboardElementStateCondition storyboardElementType="action" storyboardElementRef="CyclistStartsWalking$nb" state="completeState"/>
+                </ByValueCondition>
+                </Condition>
+            </ConditionGroup>
+            </StartTrigger>
+        </Event>
+        <Event name="CyclistWalksAway$nb" priority="overwrite">
+            <Action name="CyclistStartsWalkingAway$nb">
+            <PrivateAction>
+                <LongitudinalAction>
+                <SpeedAction>
+                    <SpeedActionDynamics dynamicsShape="step" value="$speedaction2" dynamicsDimension="distance"/>
+                    <SpeedActionTarget>
+                    <AbsoluteTargetSpeed value="$absolutetargetspeed2"/>
+                    </SpeedActionTarget>
+                </SpeedAction>
+                </LongitudinalAction>
+            </PrivateAction>
+            </Action>
+            <StartTrigger>
+            <ConditionGroup>
+                <Condition name="StartCondition$nb" delay="0" conditionEdge="rising">
+                <ByEntityCondition>
+                    <TriggeringEntities triggeringEntitiesRule="any">
+                    <EntityRef entityRef="hero"/>
+                    </TriggeringEntities>
+                    <EntityCondition>
+                    <StandStillCondition duration="0.1"/>
+                    </EntityCondition>
+                </ByEntityCondition>
+                </Condition>
+                <Condition name="AfterCyclistStopsAndWaits$nb" delay="0" conditionEdge="rising">
+                <ByValueCondition>
+                    <StoryboardElementStateCondition storyboardElementType="action" storyboardElementRef="CyclistStopsAndWaits$nb" state="completeState"/>
+                </ByValueCondition>
+                </Condition>
+            </ConditionGroup>
+            </StartTrigger>
+        </Event>
+        <Event name="CyclistWaits$nb" priority="overwrite">
+            <Action name="CyclistWaits$nb">
+            <PrivateAction>
+                <LongitudinalAction>
+                <SpeedAction>
+                    <SpeedActionDynamics dynamicsShape="step" value="$waitingtime" dynamicsDimension="time"/>
+                    <SpeedActionTarget>
+                    <AbsoluteTargetSpeed value="0.0"/>
+                    </SpeedActionTarget>
+                </SpeedAction>
+                </LongitudinalAction>
+            </PrivateAction>
+            </Action>
+            <StartTrigger>
+            <ConditionGroup>
+                <Condition name="StartCondition$nb" delay="0" conditionEdge="rising">
+                <ByEntityCondition>
+                    <TriggeringEntities triggeringEntitiesRule="any">
+                    <EntityRef entityRef="adv1"/>
+                    </TriggeringEntities>
+                    <EntityCondition>
+                    <StandStillCondition duration="0.1"/>
+                    </EntityCondition>
+                </ByEntityCondition>
+                </Condition>
+                <Condition name="AfterCyclistStartsWalking$nb" delay="0" conditionEdge="rising">
+                <ByValueCondition>
+                    <StoryboardElementStateCondition storyboardElementType="action" storyboardElementRef="CyclistStartsWalkingAway$nb" state="completeState"/>
+                </ByValueCondition>
+                </Condition>
+            </ConditionGroup>
+            </StartTrigger>
+        </Event>
+    </Maneuver>
+  </Catalog>
+</OpenSCENARIO>

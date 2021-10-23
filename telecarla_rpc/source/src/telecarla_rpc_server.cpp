@@ -10,8 +10,8 @@
 using namespace lmt;
 
 TeleCarlaRpcServer::TeleCarlaRpcServer(ros::NodeHandle& nh, ros::NodeHandle& pnh)
-    : server_(pnh.param("rpc_port", 2002)  // NOLINT(readability-magic-numbers)
-      )
+    : server_(pnh.param("rpc_port", 2002)),  // NOLINT(readability-magic-numbers)
+      egoVehicleStatus_(boost::make_shared<carla_msgs::CarlaEgoVehicleStatus>())
 {
     ROS_INFO_STREAM("Opening RPC Server at port " << pnh.param("rpc_port", 2002));  // NOLINT(readability-magic-numbers)
 

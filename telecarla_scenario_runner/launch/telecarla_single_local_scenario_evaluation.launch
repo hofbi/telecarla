@@ -1,0 +1,15 @@
+<launch>
+    <arg name="bag_input" default="false"/>
+    <arg name="role_name" default="hero"/>
+    <arg name="sensor_definition_file" default="$(find telecarla_scenario_runner)/config/single_sensors.json"/>
+    <arg name="town" default="Town01"/>
+
+    <!-- TeleCarla Single Local-->
+    <include file="$(find telecarla)/launch/telecarla_single_local.launch">
+        <arg name="bag_input" value="$(arg bag_input)"/>
+        <arg name="role_name" value="$(arg role_name)"/>
+        <arg name="sensor_definition_file" value="$(arg sensor_definition_file)"/>
+        <arg name="town" value="$(arg town)"/>
+    </include>
+
+</launch>

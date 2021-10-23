@@ -1,10 +1,12 @@
 <launch>
     <arg name="host" default="127.0.0.1"/>
     <arg name='role_name' default='ego_vehicle'/>
+    <arg name="port" default="8551"/>
 
     <!--  GStreamer Client  -->
     <include file="$(find gstreaming)/launch/rtsp/rtsp_client.launch">
         <arg name='host' value='$(arg host)'/>
+        <arg name='port' value='$(arg port)'/>
         <arg name='mount' value='front'/>
     </include>
 
