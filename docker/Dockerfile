@@ -27,7 +27,11 @@ RUN ./install.sh
 
 WORKDIR /home/catkin_ws
 RUN python3 -m easy_install --no-deps /opt/carla/PythonAPI/carla/dist/carla-${CARLA_VERSION}-py3.7-linux-x86_64.egg && \
-    ln -s /usr/bin/python3 /usr/bin/python
+    ln -s /usr/bin/python3 /usr/bin/python && \
+    ln -s /home/catkin_ws/src/telecarla/telecarla_scenario_runner/script/launchfile_runner_based_on_adaptation_param.sh /usr/bin/run-scenario
+
+ENV PYTHONPATH=${PYTHONPATH}:/opt/carla/PythonAPI:/opt/carla/PythonAPI/carla/dist/carla-${CARLA_VERSION}-py3.7-linux-x86_64.egg:/opt/carla/PythonAPI/carla/agents:/opt/carla/PythonAPI/carla
+
 RUN bash -c "source /opt/ros/noetic/setup.bash && catkin build"
 
 ENTRYPOINT [ "src/telecarla/docker/entrypoint.sh" ]

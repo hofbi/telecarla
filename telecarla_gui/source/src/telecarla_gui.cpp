@@ -105,7 +105,7 @@ void TeleCarlaGui::teleopModeCallback(const telecarla_msgs::TeleopMode& teleopMo
             controlOverridePublisher_.publish(boolMsg);
             boolMsg.data = false;
             enableAutopilotPublisher_.publish(boolMsg);
-            ROS_INFO("Switch to teleop mode: Manual");
+            ROS_INFO("Switch to teleop mode: Manual Control");
             break;
         }
     }

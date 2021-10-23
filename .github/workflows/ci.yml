@@ -29,7 +29,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Lint Code Base
-      uses: docker://github/super-linter:v4.6.1
+      uses: docker://github/super-linter:v4.8.1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         VALIDATE_BASH: false # Already configured in make check
@@ -47,8 +47,8 @@ jobs:
         include:
           - ros_distro: melodic
             python_suffix: ""
-          # - ros_distro: noetic
-          #   python_suffix: 3
+          - ros_distro: noetic
+            python_suffix: 3
     container:
       image: ros:${{ matrix.ros_distro }}-robot
       env:

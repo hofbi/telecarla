@@ -62,11 +62,11 @@ void SDL_EventParser::pollEvents()
             {
                 carlaEgoVehicleControl_.gear = carlaEgoVehicleControl_.reverse ? 1 : -1;
             }
-            else if (event.key.keysym.sym == SDLK_0)
+            else if (event.key.keysym.sym == SDLK_m)
             {
                 switchTeleopMode(telecarla_msgs::TeleopMode::MONITORING);
             }
-            else if (event.key.keysym.sym == SDLK_1)
+            else if (event.key.keysym.sym == SDLK_c)
             {
                 switchTeleopMode(telecarla_msgs::TeleopMode::MANUAL);
             }
@@ -97,16 +97,16 @@ void SDL_EventParser::pollEvents()
                 }
                 if (event.jaxis.axis == joystickParameter_.aThrottle)  // Throttle
                 {
-                    carlaEgoVehicleControl_.throttle = pedalFunction_(event.jaxis.value);
+                    carlaEgoVehicleControl_.throttle = static_cast<float>(pedalFunction_(event.jaxis.value));
                 }
                 if (event.jaxis.axis == joystickParameter_.aBrake)  // Brake
                 {
-                    carlaEgoVehicleControl_.brake = pedalFunction_(event.jaxis.value);
+                    carlaEgoVehicleControl_.brake = static_cast<float>(pedalFunction_(event.jaxis.value));
                 }
             }
         }
     }
-    carlaEgoVehicleControl_.steer = steerCache_.get();
+    carlaEgoVehicleControl_.steer = static_cast<float>(steerCache_.get());
     carlaEgoVehicleControl_.reverse = carlaEgoVehicleControl_.gear < 0;
 }
 

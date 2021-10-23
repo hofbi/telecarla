@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+<OpenSCENARIO>
+  <FileHeader revMajor="0" revMinor="0" date="2021-10-05" description="CARLA:VehicleCatalog" author=""/>
+  <Catalog name="VehicleCatalog">
+    <Vehicle name="vehicle.volkswagen.t2" vehicleCategory="car">
+      <ParameterDeclarations>
+        <ParameterDeclaration name="vehicle_type" parameterType="string" value="ego_vehicle" />
+      </ParameterDeclarations>
+      <Performance maxSpeed="69.444" maxAcceleration="200" maxDeceleration="10.0"/>
+      <BoundingBox>
+        <Center x="1.5" y="0.0" z="0.9"/>
+        <Dimensions width="2.1" length="4.5" height="1.8"/>
+      </BoundingBox>
+      <Axles>
+        <FrontAxle maxSteering="0.5" wheelDiameter="0.6" trackWidth="1.8" positionX="3.1" positionZ="0.3"/>
+        <RearAxle maxSteering="0.0" wheelDiameter="0.6" trackWidth="1.8" positionX="0.0" positionZ="0.3"/>
+      </Axles>
+      <Properties>
+        <Property name="type" value="$vehicle_type"/>
+      </Properties>
+    </Vehicle>
+    <Vehicle name="vehicle.lincoln.mkz_2017" vehicleCategory="car">
+        <ParameterDeclarations>
+          <ParameterDeclaration name="vehicle_type" parameterType="string" value="ego_vehicle" />
+          <ParameterDeclaration name="color" parameterType="string" value="255,255,255" />
+        </ParameterDeclarations>
+        <Performance maxSpeed="69.444" maxAcceleration="200" maxDeceleration="10.0"/>
+        <BoundingBox>
+            <Center x="1.5" y="0.0" z="0.9"/>
+            <Dimensions width="2.1" length="4.5" height="1.8"/>
+        </BoundingBox>
+        <Axles>
+            <FrontAxle maxSteering="0.5" wheelDiameter="0.6" trackWidth="1.8" positionX="3.1" positionZ="0.3"/>
+            <RearAxle maxSteering="0.0" wheelDiameter="0.6" trackWidth="1.8" positionX="0.0" positionZ="0.3"/>
+        </Axles>
+        <Properties>
+            <Property name="type" value="$vehicle_type"/>
+            <Property name="color" value="$carcolor"/>
+        </Properties>
+    </Vehicle>
+    <Vehicle name="vehicle.nissan.micra" vehicleCategory="car">
+        <ParameterDeclarations>
+          <ParameterDeclaration name="vehicle_type" parameterType="string" value="ego_vehicle" />
+        </ParameterDeclarations>
+        <Performance maxSpeed="69.444" maxAcceleration="200" maxDeceleration="10.0"/>
+        <BoundingBox>
+          <Center x="1.5" y="0.0" z="0.9"/>
+          <Dimensions width="2.1" length="4.5" height="1.8"/>
+        </BoundingBox>
+        <Axles>
+          <FrontAxle maxSteering="0.5" wheelDiameter="0.6" trackWidth="1.8" positionX="3.1" positionZ="0.3"/>
+          <RearAxle maxSteering="0.0" wheelDiameter="0.6" trackWidth="1.8" positionX="0.0" positionZ="0.3"/>
+        </Axles>
+        <Properties>
+          <Property name="type" value="$vehicle_type"/>
+        </Properties>
+    </Vehicle>
+      <Vehicle name="vehicle.diamondback.century" vehicleCategory="bicycle">
+        <ParameterDeclarations/>
+        <Performance maxSpeed="69.444" maxAcceleration="200" maxDeceleration="10.0"/>
+        <BoundingBox>
+          <Center x="1.5" y="0.0" z="0.9"/>
+          <Dimensions width="2.1" length="4.5" height="1.8"/>
+        </BoundingBox>
+        <Axles>
+          <FrontAxle maxSteering="0.5" wheelDiameter="0.6" trackWidth="1.8" positionX="3.1" positionZ="0.3"/>
+          <RearAxle maxSteering="0.0" wheelDiameter="0.6" trackWidth="1.8" positionX="0.0" positionZ="0.3"/>
+        </Axles>
+        <Properties>
+          <Property name="type" value="simulation"/>
+        </Properties>
+      </Vehicle>
+  </Catalog>
+</OpenSCENARIO>

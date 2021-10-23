@@ -23,8 +23,9 @@ PipelineState RTSPServer::start(int serverPort, const std::string& src)
                 << " is-live=true ! videorate ! videoconvert ! timeoverlay halignment=right valignment=top text=\""
                 << context_->app->getName()
                 << "\" font-desc=\"12\" !"
-                   " x264enc tune=zerolatency speed-preset=ultrafast"
-                   " sliced-threads=true byte-stream=true threads=1 key-int-max=15 intra-refresh=true name="
+                   " x264enc tune=zerolatency speed-preset=ultrafast bitrate="
+                << gstreaming::RateControlConfig::__getDefault__().bitrate
+                << " sliced-threads=true byte-stream=true threads=1 key-int-max=15 intra-refresh=true name="
                 << context_->encoder->getName() << " ! h264parse ! rtph264pay pt=96 name=pay0";
 
         GstRTSPMediaFactory* factory = gst_rtsp_media_factory_new();

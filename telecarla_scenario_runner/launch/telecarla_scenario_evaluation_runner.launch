@@ -1,0 +1,20 @@
+<launch>
+  <arg name="host" default="localhost"/>
+  <arg name="port" default="2000"/>
+  <arg name="output_dir" default="$(find telecarla_scenario_runner)/output"/>
+  <arg name="timeout" default="100000"/>
+  <arg name="scenario_runner_root" default="$(find telecarla_scenario_runner)/../../scenario_runner"/>
+  <arg name="scenario_splitting_mode" default="0"/>
+  <arg name="scenario_index" default="0"/>
+
+  <node pkg="telecarla_scenario_runner" type="telecarla_scenario_runner_node.py" name="telecarla_scenario_runner" output="screen" required="true">
+    <param name="host" value="$(arg host)"/>
+    <param name="port" value='$(arg port)'/>
+    <param name="output_dir" value="$(arg output_dir)"/>
+    <param name="timeout" value="$(arg timeout)"/>
+    <param name="scenario_runner_root" value="$(arg scenario_runner_root)"/>
+    <param name="scenario_splitting_mode" value="$(arg scenario_splitting_mode)"/>
+    <param name="scenario_index" value="$(arg scenario_index)"/>
+  </node>
+
+</launch>

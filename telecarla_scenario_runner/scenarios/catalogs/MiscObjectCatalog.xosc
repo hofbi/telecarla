@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<OpenSCENARIO>
+  <FileHeader revMajor="0" revMinor="0" date="2021-10-05" description="CARLA:MiscObject" author=""/>
+  <Catalog name="MiscObjectCatalog">
+    <MiscObject mass="500.0" name="static.prop.container" miscObjectCategory="obstacle">
+        <ParameterDeclarations/>
+        <BoundingBox>
+          <Center x="-1.0" y="0.0" z="0.85"/>
+          <Dimensions width="1.0" length="2.0" height="1.7"/>
+        </BoundingBox>
+        <Properties>
+          <Property name="type" value="simulation"/>
+        </Properties>
+      </MiscObject>
+      <MiscObject mass="500.0" name="static.prop.streetbarrier" miscObjectCategory="obstacle">
+        <ParameterDeclarations/>
+        <BoundingBox>
+          <Center x="-1.0" y="0.0" z="0.85"/>
+          <Dimensions width="1.0" length="2.0" height="1.7"/>
+        </BoundingBox>
+        <Properties>
+          <Property name="type" value="simulation"/>
+        </Properties>
+      </MiscObject>
+  </Catalog>
+</OpenSCENARIO>

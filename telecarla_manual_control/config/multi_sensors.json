@@ -80,8 +80,8 @@
                         "pitch": 0.0,
                         "yaw": 180.0
                     },
-                    "image_size_x": 640,
-                    "image_size_y": 480,
+                    "image_size_x": 800,
+                    "image_size_y": 450,
                     "fov": 90.0
                 },
                 {
@@ -89,14 +89,14 @@
                     "id": "rear_left",
                     "spawn_point": {
                         "x": 0.61,
-                        "y": -0.95,
+                        "y": 0.95,
                         "z": 1.1,
                         "roll": 0.0,
                         "pitch": 0.0,
-                        "yaw": 200.0
+                        "yaw": 160.0
                     },
-                    "image_size_x": 640,
-                    "image_size_y": 480,
+                    "image_size_x": 800,
+                    "image_size_y": 450,
                     "fov": 90.0
                 },
                 {
@@ -104,14 +104,14 @@
                     "id": "rear_right",
                     "spawn_point": {
                         "x": 0.61,
-                        "y": 0.95,
+                        "y": -0.95,
                         "z": 1.1,
                         "roll": 0.0,
                         "pitch": 0.0,
-                        "yaw": -200.0
+                        "yaw": -160.0
                     },
-                    "image_size_x": 640,
-                    "image_size_y": 480,
+                    "image_size_x": 800,
+                    "image_size_y": 450,
                     "fov": 90.0
                 },
                 {

@@ -1,0 +1,305 @@
+<?xml version="1.0"?>
+<OpenSCENARIO>
+  <FileHeader revMajor="1" revMinor="0" date="2021-09-15T12:00:00" description="CARLA:Boxed" author=""/>
+  <ParameterDeclarations/>
+  <CatalogLocations>
+    <VehicleCatalog>
+      <Directory path="catalogs"/>
+    </VehicleCatalog>
+    <ManeuverCatalog>
+      <Directory path="catalogs"/>
+    </ManeuverCatalog>
+  </CatalogLocations>
+  <RoadNetwork>
+    <LogicFile filepath="Town04"/>
+    <SceneGraphFile filepath=""/>
+  </RoadNetwork>
+  <Entities>
+    <ScenarioObject name="hero">
+      <CatalogReference catalogName="VehicleCatalog" entryName="vehicle.lincoln.mkz_2017">
+        <ParameterAssignments>
+          <ParameterAssignment parameterRef = "carcolor" value = "0,0,255"/>
+        </ParameterAssignments>
+      </CatalogReference>
+    </ScenarioObject>
+     <ScenarioObject name="adv0">
+      <CatalogReference catalogName="VehicleCatalog" entryName="vehicle.lincoln.mkz_2017">
+        <ParameterAssignments>
+          <ParameterAssignment parameterRef = "carcolor" value = "255,255,255"/>
+          <ParameterAssignment parameterRef = "vehicle_type" value = "simulation"/>
+        </ParameterAssignments>
+      </CatalogReference>
+    </ScenarioObject>
+    <ScenarioObject name="adv1">
+      <CatalogReference catalogName="VehicleCatalog" entryName="vehicle.lincoln.mkz_2017">
+        <ParameterAssignments>
+          <ParameterAssignment parameterRef = "carcolor" value = "255,255,255"/>
+          <ParameterAssignment parameterRef = "vehicle_type" value = "simulation"/>
+        </ParameterAssignments>
+      </CatalogReference>
+    </ScenarioObject>
+    <ScenarioObject name="adv2">
+      <CatalogReference catalogName="VehicleCatalog" entryName="vehicle.volkswagen.t2">
+        <ParameterAssignments>
+          <ParameterAssignment parameterRef = "carcolor" value = "255,255,255"/>
+          <ParameterAssignment parameterRef = "vehicle_type" value = "simulation"/>
+        </ParameterAssignments>
+      </CatalogReference>
+    </ScenarioObject>
+    <ScenarioObject name="adv3">
+      <CatalogReference catalogName="VehicleCatalog" entryName="vehicle.nissan.micra">
+        <ParameterAssignments>
+          <ParameterAssignment parameterRef = "vehicle_type" value = "simulation"/>
+        </ParameterAssignments>
+      </CatalogReference>
+    </ScenarioObject>
+  </Entities>
+  <Storyboard>
+    <Init>
+      <Actions>
+        <Private entityRef="hero">
+          <PrivateAction>
+            <LongitudinalAction>
+              <SpeedAction>
+                <SpeedActionDynamics dynamicsShape="step" value="0" dynamicsDimension="time"/>
+                <SpeedActionTarget>
+                  <AbsoluteTargetSpeed value="10"/>
+                </SpeedActionTarget>
+              </SpeedAction>
+            </LongitudinalAction>
+          </PrivateAction>
+          <PrivateAction>
+            <TeleportAction>
+              <Position>
+                <WorldPosition x="-9.4" y="-127.0" z="0.5" h="1.57079632679"/>
+              </Position>
+            </TeleportAction>
+          </PrivateAction>
+          <PrivateAction>
+            <ControllerAction>
+              <AssignControllerAction>
+                <Controller name="HeroAgent">
+                  <Properties>
+                    <Property name="module" value="external_control"/>
+                  </Properties>
+                </Controller>
+              </AssignControllerAction>
+              <OverrideControllerValueAction>
+                <Throttle value="0" active="false"/>
+                <Brake value="0" active="false"/>
+                <Clutch value="0" active="false"/>
+                <ParkingBrake value="0" active="false"/>
+                <SteeringWheel value="0" active="false"/>
+                <Gear number="0" active="false"/>
+              </OverrideControllerValueAction>
+            </ControllerAction>
+          </PrivateAction>
+        </Private>
+        <Private entityRef="adv0">
+        <PrivateAction>
+          <LongitudinalAction>
+            <SpeedAction>
+              <SpeedActionDynamics dynamicsShape="step" value="0" dynamicsDimension="time"/>
+              <SpeedActionTarget>
+                <AbsoluteTargetSpeed value="5.0"/>
+              </SpeedActionTarget>
+            </SpeedAction>
+          </LongitudinalAction>
+        </PrivateAction>
+        <PrivateAction>
+          <TeleportAction>
+            <Position>
+              <WorldPosition x="-9.4" y="-18.0" z="0.5" h="1.57079632679"/>
+            </Position>
+          </TeleportAction>
+        </PrivateAction>
+      </Private>
+      <Private entityRef="adv1">
+        <PrivateAction>
+          <LongitudinalAction>
+            <SpeedAction>
+              <SpeedActionDynamics dynamicsShape="step" value="0" dynamicsDimension="time"/>
+              <SpeedActionTarget>
+                <AbsoluteTargetSpeed value="5.0"/>
+              </SpeedActionTarget>
+            </SpeedAction>
+          </LongitudinalAction>
+        </PrivateAction>
+        <PrivateAction>
+          <TeleportAction>
+            <Position>
+              <WorldPosition x="-9.4" y="-68.0" z="0.5" h="1.57079632679"/>
+            </Position>
+          </TeleportAction>
+        </PrivateAction>
+      </Private>
+      <Private entityRef="adv2">
+        <PrivateAction>
+          <LongitudinalAction>
+            <SpeedAction>
+              <SpeedActionDynamics dynamicsShape="step" value="0" dynamicsDimension="time"/>
+              <SpeedActionTarget>
+                <AbsoluteTargetSpeed value="3.0"/>
+              </SpeedActionTarget>
+            </SpeedAction>
+          </LongitudinalAction>
+        </PrivateAction>
+        <PrivateAction>
+          <TeleportAction>
+            <Position>
+              <WorldPosition x="-9.4" y="-147.0" z="0.5" h="1.57079632679"/>
+            </Position>
+          </TeleportAction>
+        </PrivateAction>
+      </Private>
+      <Private entityRef="adv3">
+        <PrivateAction>
+          <LongitudinalAction>
+            <SpeedAction>
+              <SpeedActionDynamics dynamicsShape="step" value="0" dynamicsDimension="time"/>
+              <SpeedActionTarget>
+                <AbsoluteTargetSpeed value="5.0"/>
+              </SpeedActionTarget>
+            </SpeedAction>
+          </LongitudinalAction>
+        </PrivateAction>
+        <PrivateAction>
+          <TeleportAction>
+            <Position>
+              <WorldPosition x="-5.4" y="-177.0" z="0.5" h="1.57079632679"/>
+            </Position>
+          </TeleportAction>
+        </PrivateAction>
+      </Private>
+      </Actions>
+    </Init>
+    <Story name="MyStory1">
+      <Act name="MyAct1">
+        <ManeuverGroup name="ManeuverSequence1" maximumExecutionCount="1">
+          <Actors selectTriggeringEntities="false">
+            <EntityRef entityRef="adv3"/>
+          </Actors>
+          <CatalogReference catalogName="ManeuverCatalog" entryName="SpeedingManeuver">
+            <ParameterAssignments>
+              <ParameterAssignment parameterRef = "speed" value = "30.0"/>
+              <ParameterAssignment parameterRef = "adversary" value = "adv1"/>
+              <ParameterAssignment parameterRef = "distance" value = "30.0"/>
+            </ParameterAssignments>
+          </CatalogReference>
+        </ManeuverGroup>
+        <StartTrigger>
+          <ConditionGroup>
+            <Condition name="OverallStartCondition" delay="0" conditionEdge="rising">
+              <ByEntityCondition>
+                <TriggeringEntities triggeringEntitiesRule="any">
+                  <EntityRef entityRef="hero"/>
+                </TriggeringEntities>
+                <EntityCondition>
+                  <TraveledDistanceCondition value="0.0"/>
+                </EntityCondition>
+              </ByEntityCondition>
+            </Condition>
+          </ConditionGroup>
+        </StartTrigger>
+        <StopTrigger>
+          <ConditionGroup>
+            <Condition name="EndCondition" delay="0" conditionEdge="rising">
+              <ByEntityCondition>
+                <TriggeringEntities triggeringEntitiesRule="any">
+                  <EntityRef entityRef="hero"/>
+                </TriggeringEntities>
+                <EntityCondition>
+                  <TraveledDistanceCondition value="2000.0"/>
+                </EntityCondition>
+              </ByEntityCondition>
+            </Condition>
+          </ConditionGroup>
+        </StopTrigger>
+      </Act>
+    </Story>
+    <Story name="MyStory2">
+      <Act name="MyAct2">
+        <ManeuverGroup name="ManeuverSequence2" maximumExecutionCount="1">
+          <Actors selectTriggeringEntities="false">
+            <EntityRef entityRef="adv0"/>
+          </Actors>
+          <CatalogReference catalogName="ManeuverCatalog" entryName="SpeedingManeuver">
+            <ParameterAssignments>
+              <ParameterAssignment parameterRef = "speed" value = "20.0"/>
+              <ParameterAssignment parameterRef = "adversary" value = "adv0"/>
+              <ParameterAssignment parameterRef = "distance" value = "10.0"/>
+              <ParameterAssignment parameterRef = "nb" value = "2"/>
+            </ParameterAssignments>
+          </CatalogReference>
+        </ManeuverGroup>
+        <StartTrigger>
+          <ConditionGroup>
+            <Condition name="OverallStartCondition2" delay="0" conditionEdge="rising">
+              <ByEntityCondition>
+                <TriggeringEntities triggeringEntitiesRule="any">
+                  <EntityRef entityRef="hero"/>
+                </TriggeringEntities>
+                <EntityCondition>
+                  <TraveledDistanceCondition value="0.0"/>
+                </EntityCondition>
+              </ByEntityCondition>
+            </Condition>
+          </ConditionGroup>
+        </StartTrigger>
+        <StopTrigger>
+          <ConditionGroup>
+            <Condition name="EndCondition2" delay="0" conditionEdge="rising">
+              <ByEntityCondition>
+                <TriggeringEntities triggeringEntitiesRule="any">
+                  <EntityRef entityRef="hero"/>
+                </TriggeringEntities>
+                <EntityCondition>
+                  <TraveledDistanceCondition value="2000.0"/>
+                </EntityCondition>
+              </ByEntityCondition>
+            </Condition>
+          </ConditionGroup>
+        </StopTrigger>
+      </Act>
+    </Story>
+    <StopTrigger>
+      <ConditionGroup>
+        <Condition name="criteria_RunningStopTest" delay="0" conditionEdge="rising">
+          <ByValueCondition>
+            <ParameterCondition parameterRef="" value="" rule="lessThan"/>
+          </ByValueCondition>
+        </Condition>
+        <Condition name="criteria_RunningRedLightTest" delay="0" conditionEdge="rising">
+          <ByValueCondition>
+            <ParameterCondition parameterRef="" value="" rule="lessThan"/>
+          </ByValueCondition>
+        </Condition>
+        <Condition name="criteria_WrongLaneTest" delay="0" conditionEdge="rising">
+          <ByValueCondition>
+            <ParameterCondition parameterRef="" value="" rule="lessThan"/>
+          </ByValueCondition>
+        </Condition>
+        <Condition name="criteria_OnSidewalkTest" delay="0" conditionEdge="rising">
+          <ByValueCondition>
+            <ParameterCondition parameterRef="" value="" rule="lessThan"/>
+          </ByValueCondition>
+        </Condition>
+        <Condition name="criteria_KeepLaneTest" delay="0" conditionEdge="rising">
+          <ByValueCondition>
+            <ParameterCondition parameterRef="" value="" rule="lessThan"/>
+          </ByValueCondition>
+        </Condition>
+        <Condition name="criteria_CollisionTest" delay="0" conditionEdge="rising">
+          <ByValueCondition>
+            <ParameterCondition parameterRef="" value="" rule="lessThan"/>
+          </ByValueCondition>
+        </Condition>
+        <Condition name="criteria_DrivenDistanceTest" delay="0" conditionEdge="rising">
+          <ByValueCondition>
+            <ParameterCondition parameterRef="distance_success" value="10" rule="lessThan"/>
+          </ByValueCondition>
+        </Condition>
+      </ConditionGroup>
+    </StopTrigger>
+  </Storyboard>
+</OpenSCENARIO>

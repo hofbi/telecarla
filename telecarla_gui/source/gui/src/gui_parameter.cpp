@@ -5,8 +5,8 @@
 #include <nlohmann/json.hpp>
 #include <ros/console.h>
 
-using namespace lmt::gui;
-
+namespace lmt::gui
+{
 GuiParameter::GuiParameter(const std::string_view& sensorJsonPath)
 {
     std::ifstream jsonStream(sensorJsonPath.begin());
@@ -17,20 +17,19 @@ GuiParameter::GuiParameter(const std::string_view& sensorJsonPath)
     }
 
     nlohmann::json matrix = nlohmann::json::parse(jsonStream);
-    std::vector<std::vector<SDL_Rect>> tiles;
-    int indexY = 0;
-    auto heightCompare = [](const SDL_Rect& lhs, const SDL_Rect& rhs) { return lhs.h < rhs.h; };
+    std::vector<GuiParameter::TilesRow> tiles;
+    auto indexY = 0;
 
     for (const auto& row : matrix)
     {
-        std::vector<SDL_Rect> tileRow;
-        int indexX = 0;
+        GuiParameter::TilesRow tilesRow;
+        auto indexX = 0;
         for (const auto& element : row)
         {
-            int width = element.at("w");
-            int height = element.at("h");
-            tileRow.push_back({indexX, indexY, width, height});
-            const SDL_Rect& lastTile = tileRow.back();
+            const auto width = static_cast<int>(element.at("w"));
+            const auto height = static_cast<int>(element.at("h"));
+            tilesRow.push_back({indexX, indexY, width, height});
+            const auto& lastTile = tilesRow.back();
             indexX += width;
 
             if (element.at("type") == "camera")
@@ -47,11 +46,11 @@ GuiParameter::GuiParameter(const std::string_view& sensorJsonPath)
                 staticTextParameter_ = lastTile;
             }
         }
-        windowWidth_ = std::max(windowWidth_, tileRow.back().x + tileRow.back().w);
-        indexY = std::max_element(tileRow.begin(), tileRow.end(), heightCompare)->h;
-        tiles.push_back(tileRow);
+        windowWidth_ = std::max(windowWidth_, tilesRow.back().x + tilesRow.back().w);
+        indexY = getMaxHeight(tilesRow);
+        tiles.push_back(tilesRow);
     }
-    windowHeight_ = tiles.back().back().y + tiles.back().back().h;
+    windowHeight_ = tiles.back().back().y + getMaxHeight(tiles.back());
 }
 
 const std::map<std::string, SDL_Rect>& GuiParameter::getCameraParameter() const
@@ -77,3 +76,12 @@ const std::optional<SDL_Rect>& GuiParameter::getStaticTextParameters() const noe
 {
     return staticTextParameter_;
 }
+
+int getMaxHeight(const GuiParameter::TilesRow& tilesRow) noexcept
+{
+    return std::max_element(tilesRow.cbegin(),
+                            tilesRow.cend(),
+                            [](const SDL_Rect& lhs, const SDL_Rect& rhs) { return lhs.h < rhs.h; })
+        ->h;
+}
+}  // namespace lmt::gui

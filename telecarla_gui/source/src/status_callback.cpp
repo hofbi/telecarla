@@ -9,7 +9,7 @@ StatusCallback::StatusCallback(const SDL_Rect& position, StatusCallback::RenderC
 
 void StatusCallback::operator()(const carla_msgs::CarlaEgoVehicleStatusConstPtr& vehicleStatusMessage)
 {
-    const auto factorMpsToKph{3.6};
+    constexpr auto factorMpsToKph = 3.6;
     renderCallback_(position_,
                     {{"Vehicle Status:", ""},
                      {},

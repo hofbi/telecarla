@@ -3,6 +3,7 @@
 
 #include <map>
 #include <optional>
+#include <vector>
 
 #include <SDL2/SDL_rect.h>
 
@@ -11,6 +12,8 @@ namespace lmt::gui
 class GuiParameter
 {
   public:
+    using TilesRow = std::vector<SDL_Rect>;
+
     explicit GuiParameter(const std::string_view& sensorJsonPath);
 
     [[nodiscard]] const std::map<std::string, SDL_Rect>& getCameraParameter() const;
@@ -28,6 +31,8 @@ class GuiParameter
     std::optional<SDL_Rect> vehicleStatusParameter_;
     std::optional<SDL_Rect> staticTextParameter_;
 };
+
+int getMaxHeight(const GuiParameter::TilesRow& tilesRow) noexcept;
 }  // namespace lmt::gui
 
 #endif  // TELECARLA_GUI_GUI_PARAMETER_H

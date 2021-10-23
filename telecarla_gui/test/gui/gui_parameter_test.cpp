@@ -176,3 +176,23 @@ TEST(GuiParameter, getCameraParameterSize_WhenNotExistingCameraTestFile)
 
     EXPECT_TRUE(unit.getCameraParameter().empty());
 }
+
+TEST(GuiParameter, getMaxHeight_listWithOneElementOfHeight100ShouldHave100)
+{
+    GuiParameter::TilesRow tilesRow{{.x = 0, .y = 0, .w = 200, .h = 100}};  // NOLINT(readability-magic-numbers)
+
+    const auto maxHeight = getMaxHeight(tilesRow);
+
+    EXPECT_EQ(100, maxHeight);
+}
+
+TEST(GuiParameter, getMaxHeight_listWithMaxHeight300ShouldHave300)
+{
+    GuiParameter::TilesRow tilesRow{{.x = 0, .y = 0, .w = 200, .h = 100},   // NOLINT(readability-magic-numbers)
+                                    {.x = 0, .y = 0, .w = 200, .h = 300},   // NOLINT(readability-magic-numbers)
+                                    {.x = 0, .y = 0, .w = 200, .h = 200}};  // NOLINT(readability-magic-numbers)
+
+    const auto maxHeight = getMaxHeight(tilesRow);
+
+    EXPECT_EQ(300, maxHeight);
+}
