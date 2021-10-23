@@ -58,7 +58,8 @@ roslaunch telecarla telecarla_multi_client.launch host:=<IP-address-of-the-remot
 
 ### Further Usages
 
-* It's possible to mix and match the scenarios to include view adaptation or not. This is provided through the use of `script/launchfile_runner_based_on_adaptation_param.sh` and the **scenario_splitting_mode** argument defined in the launch file. `script/launchfile_runner_based_on_adaptation_param.sh` will automatically run the correct server version based on whether view adaptation is required or not.
+It's possible to mix and match the scenarios to include view adaptation or not.
+This is provided through the use of `script/launchfile_runner_based_on_adaptation_param.sh` and the **scenario_splitting_mode** argument defined in the launch file. `script/launchfile_runner_based_on_adaptation_param.sh` will automatically run the correct server version based on whether view adaptation is required or not.
 
 | Value of scenario_splitting_mode  | Splitting Method |
 | ----------- | ----------- |
@@ -78,7 +79,8 @@ docker exec -it <name-of-view_adaptation-container> /bin/bash
 run-scenario
 ```
 
-* It's possible to start the evaluation from a certain scenario index to avoid restarting the evaluation from the beginning. Stopping te scenario in the middle of its execution is not a clean operation and it will yield to execution problems, so it's sometimes necessary to restart to the scenario evaluation node. So this feature makes it easier to do so without the need of going through the already executed scenarios:
+It's possible to start the evaluation from a certain scenario index to avoid restarting the evaluation from the beginning.
+Stopping te scenario in the middle of its execution is not a clean operation and it will yield to execution problems, so it's sometimes necessary to restart to the scenario evaluation node. So this feature makes it easier to do so without the need of going through the already executed scenarios:
 `roslaunch telecarla_scenario_runner telecarla_scenario_evaluation_runner.launch scenario_index:=<index>`
 
 ### Additional Requirements
