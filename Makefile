@@ -1,11 +1,11 @@
-file_finder = find . -type f $(1) -not -path './venv/*'
+file_finder = find . -type f $(1) -not -path '*/venv/*'
 
 CMAKE_FILES = $(call file_finder,-name "*.cmake" -o -name "CMakeLists.txt")
 PY_FILES = $(call file_finder,-name "*.py")
 CPP_FILES = $(call file_finder,-regex '.*\.\(cpp\|hpp\|cu\|c\|h\)')
 SH_FILES = $(call file_finder,-name "*.sh")
 
-check: check_format check_sh_format pylint shellcheck flake8
+check: check_format pylint shellcheck flake8 check_sh_format
 
 format:
 	$(PY_FILES) | xargs black

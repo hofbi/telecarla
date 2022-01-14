@@ -1,0 +1,3 @@
+add_library(static_unit_tests linear_function_test.cpp)
+
+target_link_libraries(static_unit_tests util)

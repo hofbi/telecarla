@@ -1,2 +1,5 @@
 bs4
 lxml
+matplotlib
+tikzplotlib
+numpy

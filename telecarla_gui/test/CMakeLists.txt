@@ -1,3 +1,7 @@
+# Static unit tests
+add_subdirectory(static)
+
+# Configure runtime unit test files
 configure_file(
   ${CMAKE_CURRENT_SOURCE_DIR}/config/one_camera_config.json
   ${CMAKE_CURRENT_BINARY_DIR}/gui/config/one_camera_config.json COPYONLY)

@@ -3,107 +3,80 @@ Plot results of one or multiple scenario runner evaluations
 """
 
 import argparse
-import os
 import re
+from pathlib import Path
 import statistics
-import sys
+from typing import List
 import xml.etree.cElementTree as ET
+import tikzplotlib
+from dataclasses import dataclass, field
 
 import matplotlib.pyplot as plt
 import numpy as np
 
 
+@dataclass
 class ScenarioResult:
     """
     Collection of multiple results for the same scenario
     """
 
-    def __init__(self, name):
-        self._name = name
-        self._collisions = []
-        self._durations = []
+    name: str = ""
+    collisions: List[int] = field(default_factory=lambda: [])
+    red_lights: List[int] = field(default_factory=lambda: [])
+    failures: List[int] = field(default_factory=lambda: [])
+    tests: List[int] = field(default_factory=lambda: [])
+    durations: List[float] = field(default_factory=lambda: [])
 
     def __lt__(self, other):
         return self.name < other.name
 
-    def add_result(self, collision, duration):
-        self._collisions.append(collision)
-        self._durations.append(duration)
+    def add_result(self, test_suite):
+        self.collisions.append(self.parse_test_failure(test_suite, "CollisionTest"))
+        self.red_lights.append(
+            self.parse_test_failure(test_suite, "RunningRedLightTest")
+        )
+        self.failures.append(int(test_suite.attrib["failures"]))
+        self.tests.append(int(test_suite.attrib["tests"]))
+        self.durations.append(float(test_suite.attrib["time"]))
 
     @property
-    def collision_rate(self):
+    def failure_rate(self) -> float:
+        return np.sum(self.failures) / np.sum(self.tests)
+
+    @property
+    def collision_rate(self) -> float:
         return np.sum(self.collisions) / len(self.collisions)
 
     @property
-    def mean_duration(self):
+    def red_light_rate(self) -> float:
+        return np.sum(self.red_lights) / len(self.red_lights)
+
+    @property
+    def mean_duration(self) -> float:
         return statistics.mean(self.durations)
 
     @property
-    def std_dev_duration(self):
+    def std_dev_duration(self) -> float:
         return statistics.stdev(self.durations)
 
-    @property
-    def collisions(self):
-        return self._collisions
-
-    @property
-    def durations(self):
-        return self._durations
-
-    @property
-    def name(self):
-        return self._name
-
-
-def main():
-    """main"""
-    parser = argparse.ArgumentParser(
-        description="Plot the results from the scenario evaluation",
-        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
-    )
-    parser.add_argument(
-        "--eval_dir",
-        type=str,
-        default=os.path.join(
-            os.path.dirname(os.path.abspath(sys.argv[0])), "..", "output"
-        ),
-        help="Path to the scenario runner results",
-    )
-    parser.add_argument(
-        "--out_dir",
-        type=str,
-        default=os.path.join(
-            os.path.dirname(os.path.abspath(sys.argv[0])), "..", "output"
-        ),
-        help="Path to the output directory",
-    )
-    parser.add_argument(
-        "--yerr", action="store_true", help="Show the standard deviation"
-    )
-    parser.add_argument("--show", action="store_true", help="Show the plot")
-
-    args = parser.parse_args()
-
-    scenario_result_files = get_scenario_result_file_paths(args.eval_dir)
-    scenario_results = get_scenario_results(scenario_result_files)
-    plot_results(scenario_results, args.yerr)
-    plt.savefig(os.path.join(args.out_dir, os.path.basename(args.eval_dir)))
-
-    if args.show:
-        plt.show()
+    @staticmethod
+    def parse_test_failure(test_suite, failure_condition: str) -> int:
+        for test in test_suite:
+            failure = test.find("failure")
+            if failure is not None and failure_condition in failure.get("message"):
+                return int(re.findall(rf"{failure_condition} = (\d+)", failure.text)[0])
+        return 0
 
 
 def plot_results(scenario_results, show_yerr):
-    """
-    Plot the results
-    :param scenario_results:
-    :param show_yerr:
-    :return:
-    """
+    """Plot the results"""
     plt.figure("Scenario Runner Results")
+    # plt.rc("text", usetex=True)
+    # plt.rc("font", size=15)
     sorted_results = sorted(scenario_results.values())
     durations = [result.mean_duration for result in sorted_results]
-    failure_rates = [result.collision_rate for result in sorted_results]
+    failure_rates = [result.failure_rate for result in sorted_results]
     failures = [a * b for a, b in zip(durations, failure_rates)]
     indices = range(1, len(scenario_results) + 1)
 
@@ -115,36 +88,52 @@ def plot_results(scenario_results, show_yerr):
             durations,
             yerr=duration_errors,
             align="center",
-            label="Mean Duration (∅%.0fs)" % average,
+            label="Mean Duration (%.0fs)" % average,
         )
+        # top_ylim = 130
     else:
         plt.bar(
-            indices, durations, align="center", label="Mean Duration (∅%.0fs)" % average
+            indices, durations, align="center", label="Mean Duration (%.0fs)" % average
         )
+        # top_ylim = 100
     average = sum(failure_rates) / len(failure_rates) * 100
     rects = plt.bar(
         indices,
         failures,
         align="center",
-        label="Collision Rate (∅{0:.0f}%)".format(average),
+        label=f"Failure Rate (∅{0:.0f}%)".format(average),
     )
 
     auto_label(rects, failure_rates)
     plt.xlabel("Scenario")
     plt.ylabel("Mean Scenario Duration [s]")
-    plt.legend()
+    # plt.ylim(top=top_ylim)
+    plt.legend(loc="upper left")
+
+    print(
+        f"Duration {sum(durations) / len(durations):.0f}s ({statistics.stdev(durations):.1f}s)"
+    )
+    print(
+        f"Failure Rate {sum(failure_rates) / len(failure_rates) * 100:.0f}%"
+        f"({statistics.stdev(failure_rates) * 100:.1f}%)"
+    )
+    collision_rates = [result.collision_rate for result in sorted_results]
+    print(
+        f"Collision Rate {sum(collision_rates) / len(collision_rates) * 100:.0f}%"
+        f"({statistics.stdev(collision_rates) * 100:.1f}%)"
+    )
+    red_light_rates = [result.red_light_rate for result in sorted_results]
+    print(
+        f"Red Light Rate {sum(red_light_rates) / len(red_light_rates) * 100:.0f}%"
+        f"({statistics.stdev(red_light_rates) * 100:.1f}%)"
+    )
 
 
 def auto_label(rects, values):
-    """
-    Add labels to the bar plot
-    :param rects:
-    :param values:
-    :return:
-    """
+    """Add labels to the bar plot"""
     for index, rect in enumerate(rects):
         plt.annotate(
-            "{0:.2f}%".format(100 * float(values[index])),
+            f"{100 * float(values[index]):.2f}%",
             xy=(rect.get_x() + rect.get_width() / 2, rect.get_height()),
             xytext=(0, 3),  # 3 points vertical offset
             textcoords="offset points",
@@ -154,11 +143,7 @@ def auto_label(rects, values):
 
 
 def get_scenario_results(scenario_result_files):
-    """
-    Parse scenario results from files
-    :param scenario_result_files:
-    :return:
-    """
+    """Parse scenario results from files"""
     scenario_results = {}
     for scenario_result_file in scenario_result_files:
         fix_cdata(scenario_result_file)
@@ -168,73 +153,79 @@ def get_scenario_results(scenario_result_files):
         if test_name not in scenario_results:
             scenario_results[test_name] = ScenarioResult(test_name)
 
-        scenario_results[test_name].add_result(
-            has_collision(test_suite), get_duration(test_suite)
-        )
+        scenario_results[test_name].add_result(test_suite)
 
     return scenario_results
 
 
-def fix_cdata(scenario_result_file):
+def fix_cdata(scenario_result_file: Path):
     """
     Currently the scenario runner produces invalid XML CDATA,
     which is fixed by this function to have a valid XML for the parser
     :param scenario_result_file:
     :return:
     """
-    with open(scenario_result_file, "r") as file:
-        file_data = file.read()
+    file_data = scenario_result_file.read_text()
 
     file_data = file_data.replace(r"\[CDATA\[", r"[CDATA[")
     file_data = file_data.replace(r"\]\]", "]]")
 
-    with open(scenario_result_file, "w") as file:
-        file.write(file_data)
+    scenario_result_file.write_text(file_data)
 
 
-def has_collision(test_suite):
-    """
-    Check if a run has a colition
-    :param test_suite:
-    :return:
-    """
-    return test_suite[0].find("failure") is not None
+def get_scenario_result_file_paths(eval_dir: Path) -> List[Path]:
+    """Get all scenario result file paths located in the given directory"""
+    return [file.absolute() for file in sorted(eval_dir.rglob("*.xml"))]
 
 
-def get_duration(test_suite):
-    """
-    Get the duration of a single run
-    :param test_suite:
-    :return:
-    """
-    duration_case = test_suite[1]
-    if len(list(duration_case)) > 0:
-        text = duration_case[0].text
-    else:
-        text = duration_case.text
-    durations = re.findall(r"[-+]?\d*\.\d+|\d+", text)
-    return float(durations[0])
+def parse_arguments():
+    """Parse command line arguments"""
+
+    def dir_path(path_string: str) -> Path:
+        """Argparse type check if path is a directory"""
+        if Path(path_string).absolute().is_dir():
+            return Path(path_string)
+        else:
+            raise NotADirectoryError(path_string)
+
+    parser = argparse.ArgumentParser(
+        description="Plot the results from the scenario evaluation",
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
+    )
+    parser.add_argument(
+        "-e",
+        "--eval-dir",
+        type=dir_path,
+        default=Path(__file__).parent.parent / "output",
+        help="Path to the scenario runner results",
+    )
+    parser.add_argument(
+        "-o",
+        "--out-dir",
+        type=dir_path,
+        default=Path(__file__).parent.parent / "output",
+        help="Path to the output directory",
+    )
+    parser.add_argument(
+        "--yerr", action="store_true", help="Show the standard deviation"
+    )
+    parser.add_argument("--show", action="store_true", help="Show the plot")
+    return parser.parse_args()
 
 
-def get_scenario_result_file_paths(eval_dir):
-    """
-    Get all scenario result file paths located in the given directory
-    :param eval_dir:
-    :return:
-    """
-    scenario_results = []
-    for root, dirs, files in os.walk(eval_dir):
-        for scenario_file in files:
-            if scenario_file.endswith(".xml"):
-                scenario_results.append(
-                    os.path.abspath(os.path.join(root, scenario_file))
-                )
+def main():
+    """main"""
+    args = parse_arguments()
+    args.out_dir.mkdir(parents=True, exist_ok=True)
 
-    return scenario_results
+    scenario_result_files = get_scenario_result_file_paths(args.eval_dir)
+    scenario_results = get_scenario_results(scenario_result_files)
+    plot_results(scenario_results, args.yerr)
+    tikzplotlib.save(args.out_dir / args.eval_dir.with_suffix(".tex").name)
+
+    if args.show:
+        plt.show()
 
 
 if __name__ == "__main__":
-    try:
-        main()
-    except KeyboardInterrupt:
-        pass
+    main()
