@@ -83,9 +83,9 @@ class World(object):
         Callback on collision event
         """
         intensity = math.sqrt(
-            data.normal_impulse.x ** 2
-            + data.normal_impulse.y ** 2
-            + data.normal_impulse.z ** 2
+            data.normal_impulse.x**2
+            + data.normal_impulse.y**2
+            + data.normal_impulse.z**2
         )
         self.hud.notification(
             "Collision with {} (impulse {})".format(data.other_actor_id, intensity)
@@ -275,7 +275,7 @@ class HUD(object):
             "",
             "Vehicle: % 20s" % " ".join(self.vehicle_info.type.title().split(".")[1:]),
             "Speed:   % 15.0f km/h" % (3.6 * self.vehicle_status.velocity),
-            u"Heading:% 16.0f\N{DEGREE SIGN} % 2s" % (yaw, heading),
+            "Heading:% 16.0f\N{DEGREE SIGN} % 2s" % (yaw, heading),
             "Location:% 20s" % ("(% 5.1f, % 5.1f)" % (x_pos, y_pos)),
             "GNSS:% 24s" % ("(% 2.6f, % 3.6f)" % (self.latitude, self.longitude)),
             "Height:  % 18.0f m" % z_pos,
