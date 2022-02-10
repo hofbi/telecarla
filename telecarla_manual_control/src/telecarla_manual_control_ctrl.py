@@ -15,41 +15,37 @@ Use ARROWS or WASD keys for control.
     ESC          : quit
 """
 
-from __future__ import print_function
-
-import sys
 
 import math
+from configparser import ConfigParser
+
 import rospy
 from carla_msgs.msg import CarlaEgoVehicleControl
 from std_msgs.msg import Bool
 
-if sys.version_info >= (3, 0):
-    from configparser import ConfigParser
-else:
-    from ConfigParser import RawConfigParser as ConfigParser
-
 try:
     import pygame
-    from pygame.locals import KMOD_CTRL
-    from pygame.locals import K_DOWN
-    from pygame.locals import K_ESCAPE
-    from pygame.locals import K_LEFT
-    from pygame.locals import K_RIGHT
-    from pygame.locals import K_SPACE
-    from pygame.locals import K_UP
-    from pygame.locals import K_a
-    from pygame.locals import K_d
-    from pygame.locals import K_p
-    from pygame.locals import K_q
-    from pygame.locals import K_s
-    from pygame.locals import K_w
-    from pygame.locals import K_b
+    from pygame.locals import (
+        K_DOWN,
+        K_ESCAPE,
+        K_LEFT,
+        K_RIGHT,
+        K_SPACE,
+        K_UP,
+        KMOD_CTRL,
+        K_a,
+        K_b,
+        K_d,
+        K_p,
+        K_q,
+        K_s,
+        K_w,
+    )
 except ImportError:
     raise RuntimeError("cannot import pygame, make sure pygame package is installed")
 
 
-class BaseControl(object):
+class BaseControl:
     """
     Handle input events
     """
@@ -58,17 +54,17 @@ class BaseControl(object):
         self.role_name = role_name
 
         self.vehicle_control_manual_override_publisher = rospy.Publisher(
-            "/carla/{}/vehicle_control_manual_override".format(self.role_name),
+            f"/carla/{self.role_name}/vehicle_control_manual_override",
             Bool,
             queue_size=1,
             latch=True,
         )
         self.vehicle_control_manual_override = True
         self.auto_pilot_enable_publisher = rospy.Publisher(
-            "/carla/{}/enable_autopilot".format(self.role_name), Bool, queue_size=1
+            f"/carla/{self.role_name}/enable_autopilot", Bool, queue_size=1
         )
         self.vehicle_control_publisher = rospy.Publisher(
-            "/carla/{}/vehicle_control_cmd_manual".format(self.role_name),
+            f"/carla/{self.role_name}/vehicle_control_cmd_manual",
             CarlaEgoVehicleControl,
             queue_size=1,
         )
@@ -89,7 +85,7 @@ class BaseControl(object):
         """
         Set the manual control override
         """
-        self.vehicle_control_manual_override_publisher.publish((Bool(data=enable)))
+        self.vehicle_control_manual_override_publisher.publish(Bool(data=enable))
 
     def set_autopilot(self, enable):
         """
@@ -158,7 +154,7 @@ class PWSteering(BaseControl):
     """
 
     def __init__(self, role_name, config_file):
-        super(PWSteering, self).__init__(role_name)
+        super().__init__(role_name)
 
         # initialize steering wheel
         pygame.joystick.init()

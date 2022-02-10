@@ -10,7 +10,7 @@ target_link_libraries(telecarla_gui PUBLIC gui)
 
 target_include_directories(
   telecarla_gui
-  PRIVATE include SYSTEM
+  PRIVATE include
   INTERFACE include)
 
 # Executeables

@@ -5,8 +5,9 @@ It can either be integrated in another python moduleby including `kill_heroes.ki
 Or be called as a standalone script.
 """
 
-import carla
 import argparse
+
+import carla
 
 
 def kill_heroes(role_name="hero", host="127.0.0.1", port=2000):

@@ -3,15 +3,16 @@
 Automatically runs a group of scenarios in a ROS node.
 """
 
-import os
-import sys
-import subprocess
 import glob
-import ros_compatibility as roscomp
-import rospy
-import rospkg
-from bs4 import BeautifulSoup as bs
+import os
+import subprocess
+import sys
 from random import shuffle
+
+import ros_compatibility as roscomp
+import rospkg
+import rospy
+from bs4 import BeautifulSoup as bs
 
 
 class ScenarioRunner:
@@ -45,13 +46,13 @@ class ScenarioRunner:
         """
 
         list_of_openscenario_files = sorted(
-            glob.glob("{}/srunner/examples/*.xosc".format(runner_path))
+            glob.glob(f"{runner_path}/srunner/examples/*.xosc")
         )
 
         rospack = rospkg.RosPack()
         scenario_runner_path = rospack.get_path("telecarla_scenario_runner")
         list_of_openscenario_files += sorted(
-            glob.glob("{}/scenarios/*.xosc".format(scenario_runner_path))
+            glob.glob(f"{scenario_runner_path}/scenarios/*.xosc")
         )
 
         scenario_adaptation_labels = []
@@ -79,7 +80,7 @@ def create_town_param(scenario_file):
     Create a ros parameter as /town for telecarla's use.
     """
 
-    with open(scenario_file, "r") as file:
+    with open(scenario_file) as file:
 
         lines = file.readlines()
         lines = "".join(lines)
@@ -126,9 +127,9 @@ def main(args=None):
 
         cmdline = [
             "python3",
-            "{}/scenario_runner.py".format(scenario_runner._path),
+            f"{scenario_runner._path}/scenario_runner.py",
             "--openscenario",
-            "{}".format(scenario_file),
+            f"{scenario_file}",
             "--timeout",
             str(scenario_runner._timeout),
             "--host",

@@ -3,7 +3,7 @@ add_library(util src/linear_function.cpp include/linear_function.h
 
 target_include_directories(
   util
-  PRIVATE include SYSTEM
+  PRIVATE include
   INTERFACE include)
 
 target_compile_features(util PUBLIC cxx_std_17)

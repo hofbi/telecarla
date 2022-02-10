@@ -1,5 +1,1 @@
-black
-pylint
-cmake_format
-shellcheck-py
-flake8
+pre-commit
