@@ -5,10 +5,8 @@ add_library(rpc_com src/ros_msg_callback.cpp include/com/ros_msg_callback.h
 
 target_include_directories(
   rpc_com
-  PRIVATE include/com
-  PRIVATE ${catkin_INCLUDE_DIRS} SYSTEM
-  INTERFACE include/com
-  INTERFACE ${catkin_INCLUDE_DIRS} SYSTEM)
+  PRIVATE include/com ${catkin_INCLUDE_DIRS}
+  INTERFACE include/com ${catkin_INCLUDE_DIRS})
 
 target_link_libraries(rpc_com INTERFACE rpclib::rpc pthread)
 

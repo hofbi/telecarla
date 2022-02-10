@@ -6,3 +6,6 @@ switch_case_indent = true
 
 [venv/**]
 ignore = true
+
+[.cache/**]
+ignore = true

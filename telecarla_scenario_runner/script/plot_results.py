@@ -4,15 +4,15 @@ Plot results of one or multiple scenario runner evaluations
 
 import argparse
 import re
-from pathlib import Path
 import statistics
-from typing import List
-import xml.etree.cElementTree as ET
-import tikzplotlib
+import xml.etree.ElementTree as ET
 from dataclasses import dataclass, field
+from pathlib import Path
+from typing import List
 
 import matplotlib.pyplot as plt
 import numpy as np
+import tikzplotlib
 
 
 @dataclass

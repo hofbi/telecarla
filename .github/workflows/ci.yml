@@ -22,7 +22,9 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
     - name: Check
-      run: make check
+      run: |
+        pre-commit run --all-files
+        make check
 
   super-lint:
     runs-on: ubuntu-latest
@@ -32,13 +34,13 @@ jobs:
       uses: docker://github/super-linter:v4.8.1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        VALIDATE_BASH: false # Already configured in make check
+        VALIDATE_BASH: false # Already configured in check
         VALIDATE_CPP: false
         VALIDATE_DOCKERFILE_HADOLINT: false
         VALIDATE_GITHUB_ACTIONS: false
-        VALIDATE_PYTHON_BLACK: false  # Already configured in make check
-        VALIDATE_PYTHON_FLAKE8: false  # Already configured in make check
-        VALIDATE_PYTHON_PYLINT: false  # Already configured in make check
+        VALIDATE_PYTHON_BLACK: false  # Already configured in check
+        VALIDATE_PYTHON_FLAKE8: false  # Already configured in check
+        VALIDATE_PYTHON_PYLINT: false  # Already configured in check
         VALIDATE_PYTHON_ISORT: false
 
   ros:

@@ -6,10 +6,8 @@ add_library(rpc_server STATIC src/telecarla_rpc_server.cpp
 
 target_include_directories(
   rpc_server
-  PRIVATE include
-  PRIVATE ${catkin_INCLUDE_DIRS} SYSTEM
-  INTERFACE include
-  INTERFACE ${catkin_INCLUDE_DIRS} SYSTEM)
+  PRIVATE include ${catkin_INCLUDE_DIRS}
+  INTERFACE include ${catkin_INCLUDE_DIRS})
 
 target_link_libraries(rpc_server PRIVATE rpc_com rpc_data)
 
@@ -18,10 +16,8 @@ add_library(rpc_client STATIC src/telecarla_rpc_client.cpp
 
 target_include_directories(
   rpc_client
-  PRIVATE include
-  PRIVATE ${catkin_INCLUDE_DIRS} SYSTEM
-  INTERFACE include
-  INTERFACE ${catkin_INCLUDE_DIRS} SYSTEM)
+  PRIVATE include ${catkin_INCLUDE_DIRS}
+  INTERFACE include ${catkin_INCLUDE_DIRS})
 
 target_link_libraries(rpc_client PRIVATE rpc_com rpc_data)
 

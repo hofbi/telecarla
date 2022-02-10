@@ -7,9 +7,7 @@ add_library(
 
 target_include_directories(
   rpc_data
-  PRIVATE include
-  PRIVATE ${catkin_INCLUDE_DIRS} SYSTEM
-  INTERFACE include
-  INTERFACE ${catkin_INCLUDE_DIRS} SYSTEM)
+  PRIVATE include ${catkin_INCLUDE_DIRS}
+  INTERFACE include ${catkin_INCLUDE_DIRS})
 
 target_link_libraries(rpc_data INTERFACE rpclib::rpc pthread)

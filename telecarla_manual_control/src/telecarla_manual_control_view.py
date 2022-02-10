@@ -19,23 +19,23 @@ Use ARROWS or WASD keys for control.
     ESC          : quit
 """
 
-from __future__ import print_function
 
 import datetime
 import math
+import os
 
 import numpy
 import rospy
 import tf
-from carla_msgs.msg import CarlaCollisionEvent
-from carla_msgs.msg import CarlaEgoVehicleInfo
-from carla_msgs.msg import CarlaEgoVehicleStatus
-from carla_msgs.msg import CarlaLaneInvasionEvent
-from carla_msgs.msg import CarlaStatus
-from sensor_msgs.msg import Image
-from sensor_msgs.msg import NavSatFix
+from carla_msgs.msg import (
+    CarlaCollisionEvent,
+    CarlaEgoVehicleInfo,
+    CarlaEgoVehicleStatus,
+    CarlaLaneInvasionEvent,
+    CarlaStatus,
+)
+from sensor_msgs.msg import Image, NavSatFix
 from std_msgs.msg import Bool
-import os
 
 try:
     import pygame
@@ -53,7 +53,7 @@ def set_pygame_windows_origin(pos_x, pos_y):
 # ==============================================================================
 
 
-class World(object):
+class World:
     """
     Handle the rendering
     """
@@ -63,17 +63,17 @@ class World(object):
         self.hud = hud
         self.role_name = role_name
         self.image_subscriber = rospy.Subscriber(
-            "/carla/{}/front/image".format(self.role_name),
+            f"/carla/{self.role_name}/front/image",
             Image,
             self.on_view_image,
         )
         self.collision_subscriber = rospy.Subscriber(
-            "/carla/{}/collision".format(self.role_name),
+            f"/carla/{self.role_name}/collision",
             CarlaCollisionEvent,
             self.on_collision,
         )
         self.lane_invasion_subscriber = rospy.Subscriber(
-            "/carla/{}/lane_invasion".format(self.role_name),
+            f"/carla/{self.role_name}/lane_invasion",
             CarlaLaneInvasionEvent,
             self.on_lane_invasion,
         )
@@ -88,7 +88,7 @@ class World(object):
             + data.normal_impulse.z**2
         )
         self.hud.notification(
-            "Collision with {} (impulse {})".format(data.other_actor_id, intensity)
+            f"Collision with {data.other_actor_id} (impulse {intensity})"
         )
 
     def on_lane_invasion(self, data):
@@ -139,7 +139,7 @@ class World(object):
 # ==============================================================================
 
 
-class HUD(object):
+class HUD:
     """
     Handle the info display
     """
@@ -160,13 +160,13 @@ class HUD(object):
         self.vehicle_status = CarlaEgoVehicleStatus()
         self.tf_listener = tf.TransformListener()
         self.vehicle_status_subscriber = rospy.Subscriber(
-            "/carla/{}/vehicle_status".format(self.role_name),
+            f"/carla/{self.role_name}/vehicle_status",
             CarlaEgoVehicleStatus,
             self.vehicle_status_updated,
         )
         self.vehicle_info = CarlaEgoVehicleInfo()
         self.vehicle_info_subscriber = rospy.Subscriber(
-            "/carla/{}/vehicle_info".format(self.role_name),
+            f"/carla/{self.role_name}/vehicle_info",
             CarlaEgoVehicleInfo,
             self.vehicle_info_updated,
         )
@@ -174,12 +174,12 @@ class HUD(object):
         self.longitude = 0
         self.manual_control = False
         self.gnss_subscriber = rospy.Subscriber(
-            "/carla/{}/gnss/gnss1/fix".format(self.role_name),
+            f"/carla/{self.role_name}/gnss/gnss1/fix",
             NavSatFix,
             self.gnss_updated,
         )
         self.manual_control_subscriber = rospy.Subscriber(
-            "/carla/{}/vehicle_control_manual_override".format(self.role_name),
+            f"/carla/{self.role_name}/vehicle_control_manual_override",
             Bool,
             self.manual_control_override_updated,
         )
@@ -276,8 +276,8 @@ class HUD(object):
             "Vehicle: % 20s" % " ".join(self.vehicle_info.type.title().split(".")[1:]),
             "Speed:   % 15.0f km/h" % (3.6 * self.vehicle_status.velocity),
             "Heading:% 16.0f\N{DEGREE SIGN} % 2s" % (yaw, heading),
-            "Location:% 20s" % ("(% 5.1f, % 5.1f)" % (x_pos, y_pos)),
-            "GNSS:% 24s" % ("(% 2.6f, % 3.6f)" % (self.latitude, self.longitude)),
+            "Location:% 20s" % (f"({x_pos: 5.1f}, {y_pos: 5.1f})"),
+            "GNSS:% 24s" % (f"({self.latitude: 2.6f}, {self.longitude: 3.6f})"),
             "Height:  % 18.0f m" % z_pos,
             "",
         ]
@@ -381,7 +381,7 @@ class HUD(object):
 # ==============================================================================
 
 
-class FadingText(object):
+class FadingText:
     """
     Support Class for info display, fade out text
     """
@@ -423,7 +423,7 @@ class FadingText(object):
 # ==============================================================================
 
 
-class HelpText(object):
+class HelpText:
     """
     Show the help text
     """
