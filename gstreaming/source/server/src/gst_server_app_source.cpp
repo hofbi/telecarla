@@ -12,17 +12,15 @@ GstServerAppSource::GstServerAppSource(std::string mountName) noexcept : name_(s
 
 void GstServerAppSource::setVideoData(const sensor_msgs::ImageConstPtr& msg)
 {
-    mutexLock_.lock();
+    const std::lock_guard<std::mutex> lock(mutexLock_);
 
     imageMsg_ = getScaledImagePtr(msg);
     caps_ = gstCapsFromImage(imageMsg_, fps_);
-
-    mutexLock_.unlock();
 }
 
 sensor_msgs::ImageConstPtr GstServerAppSource::getScaledImagePtr(const sensor_msgs::ImageConstPtr& msg) const
 {
-    const auto defaultSpatialScale{100};
+    constexpr auto defaultSpatialScale{100};
     if (spatialScale_ != defaultSpatialScale)
     {
         cv::Mat image;
@@ -62,7 +60,7 @@ void GstServerAppSource::bufferNewData(GstElement* appSrc)
 
     GST_BUFFER_FLAG_SET(buffer, GST_BUFFER_FLAG_LIVE);
     GST_BUFFER_PTS(buffer) = timestamp_;
-    const auto denominator{20};
+    constexpr auto denominator{20};
     GST_BUFFER_DURATION(buffer) = gst_util_uint64_scale_int(1, GST_SECOND, denominator);
     timestamp_ += GST_BUFFER_DURATION(buffer);
 
@@ -70,6 +68,7 @@ void GstServerAppSource::bufferNewData(GstElement* appSrc)
 
     GstFlowReturn ret;
     g_signal_emit_by_name(appSrc, "push-buffer", buffer, &ret);
+    gst_buffer_unref(buffer);
 }
 
 void GstServerAppSource::updateSpatioTemporalResolution(uint8_t fps, uint8_t spatialScale) noexcept

@@ -36,6 +36,7 @@ jobs:
         VALIDATE_CPP: false
         VALIDATE_DOCKERFILE_HADOLINT: false
         VALIDATE_GITHUB_ACTIONS: false
+        VALIDATE_PYTHON_BLACK: false  # Already configured in make check
         VALIDATE_PYTHON_FLAKE8: false  # Already configured in make check
         VALIDATE_PYTHON_PYLINT: false  # Already configured in make check
         VALIDATE_PYTHON_ISORT: false
