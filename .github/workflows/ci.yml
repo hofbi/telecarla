@@ -11,16 +11,6 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
     - uses: actions/checkout@v2
-      with:
-        ref: ${{ github.head_ref }}
-        repository: ${{github.event.pull_request.head.repo.full_name}}
-    - uses: rmacklin/fetch-through-merge-base@v0
-    - name: Set merge_base environment variable
-      run: |
-        echo "merge_base=$(git merge-base ${{ github.head_ref }} ${{ github.base_ref }})" >> $GITHUB_ENV
-    - uses: pre-commit/action@v2.0.3
-      with:
-        extra_args: --from-ref ${{github.event.pull_request.head.repo.full_name}}/${{ env.merge_base }} --to-ref ${{github.event.pull_request.head.repo.full_name}}/${{ github.head_ref }}
     - name: Set up Python 3.8
       uses: actions/setup-python@v1
       with:

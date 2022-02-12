@@ -1,4 +1,8 @@
 default_stages: [commit]
+
+ci:
+  skip: []
+
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.1.0
