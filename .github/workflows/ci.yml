@@ -20,7 +20,7 @@ jobs:
         echo "merge_base=$(git merge-base ${{ github.head_ref }} ${{ github.base_ref }})" >> $GITHUB_ENV
     - uses: pre-commit/action@v2.0.3
       with:
-        extra_args: --from-ref ${{ env.merge_base }} --to-ref ${{ github.head_ref }}
+        extra_args: --from-ref ${{github.event.pull_request.head.repo.full_name}}/${{ env.merge_base }} --to-ref ${{github.event.pull_request.head.repo.full_name}}/${{ github.head_ref }}
     - name: Set up Python 3.8
       uses: actions/setup-python@v1
       with:
