@@ -13,6 +13,7 @@ jobs:
     - uses: actions/checkout@v2
       with:
         ref: ${{ github.head_ref }}
+        repository: ${{github.event.pull_request.head.repo.full_name}}
     - uses: rmacklin/fetch-through-merge-base@v0
     - name: Set merge_base environment variable
       run: |
