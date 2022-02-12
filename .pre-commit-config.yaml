@@ -1,7 +1,8 @@
 default_stages: [commit]
 
 ci:
-  skip: []
+  autoupdate_commit_msg: "chore(deps): pre-commit.ci autoupdate"
+  autofix_commit_msg: "style: pre-commit.ci fixes"
 
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
