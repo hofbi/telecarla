@@ -50,3 +50,7 @@ repos:
     rev: v0.8.0.3
     hooks:
       - id: shellcheck
+  - repo: https://github.com/scop/pre-commit-shfmt
+    rev: v3.4.2-1
+    hooks:
+      - id: shfmt-docker
