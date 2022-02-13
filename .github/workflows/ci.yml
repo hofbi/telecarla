@@ -7,15 +7,6 @@ on:
     branches: [ master ]
 
 jobs:
-  check:
-    runs-on: ubuntu-20.04
-    steps:
-    - uses: actions/checkout@v2
-    - name: Install shfmt
-      run: sudo snap install shfmt
-    - name: Check
-      run: make check
-
   super-lint:
     runs-on: ubuntu-latest
     steps:
