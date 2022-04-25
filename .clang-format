@@ -35,3 +35,8 @@ IncludeCategories:
 IndentWidth: 4
 KeepEmptyLinesAtTheStartOfBlocks: true
 ...
+
+---
+Language: Json
+BasedOnStyle: Google
+...
