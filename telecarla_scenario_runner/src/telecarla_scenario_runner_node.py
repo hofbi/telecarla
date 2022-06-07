@@ -4,9 +4,9 @@ Automatically runs a group of scenarios in a ROS node.
 """
 
 import glob
-import os
 import subprocess
 import sys
+from pathlib import Path
 from random import shuffle
 
 import ros_compatibility as roscomp
@@ -28,17 +28,15 @@ class ScenarioRunner:
         self._splitting_mode = rospy.get_param(
             "/telecarla_scenario_runner/scenario_splitting_mode"
         )
-        self._output_dir = rospy.get_param("/telecarla_scenario_runner/output_dir")
+        self._output_dir_with_prio = (
+            Path(rospy.get_param("/telecarla_scenario_runner/output_dir"))
+            / "view_adaptation"
+        )
         self._scenario_index = rospy.get_param(
             "/telecarla_scenario_runner/scenario_index", 0
         )
 
-        if not os.path.exists(self._output_dir):
-            os.makedirs(self._output_dir)
-
-        self._output_dir_with_prio = self._output_dir + "/view_adaptation"
-        if not os.path.exists(self._output_dir_with_prio):
-            os.makedirs(self._output_dir_with_prio)
+        self._output_dir_with_prio.mkdir(parents=True, exist_ok=True)
 
     def get_scenarios(self, runner_path):
         """
@@ -80,7 +78,7 @@ def create_town_param(scenario_file):
     Create a ros parameter as /town for telecarla's use.
     """
 
-    with open(scenario_file) as file:
+    with Path(scenario_file).open() as file:
 
         lines = file.readlines()
         lines = "".join(lines)

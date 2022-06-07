@@ -39,8 +39,10 @@ from std_msgs.msg import Bool
 
 try:
     import pygame
-except ImportError:
-    raise RuntimeError("cannot import pygame, make sure pygame package is installed")
+except ImportError as exc:
+    raise RuntimeError(
+        "cannot import pygame, make sure pygame package is installed"
+    ) from exc
 
 
 def set_pygame_windows_origin(pos_x, pos_y):

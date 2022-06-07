@@ -41,8 +41,10 @@ try:
         K_s,
         K_w,
     )
-except ImportError:
-    raise RuntimeError("cannot import pygame, make sure pygame package is installed")
+except ImportError as exc:
+    raise RuntimeError(
+        "cannot import pygame, make sure pygame package is installed"
+    ) from exc
 
 
 class BaseControl:
