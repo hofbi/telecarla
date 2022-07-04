@@ -7,18 +7,18 @@ ci:
 
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.2.0
+    rev: v4.3.0
     hooks:
       - id: trailing-whitespace
       - id: end-of-file-fixer
   - repo: https://github.com/psf/black
-    rev: 22.3.0
+    rev: 22.6.0
     hooks:
       - id: black
         language_version: python3
         args: [--quiet]
   - repo: https://github.com/pre-commit/mirrors-clang-format
-    rev: v14.0.1
+    rev: v14.0.6
     hooks:
       - id: clang-format
   - repo: https://github.com/cheshirekow/cmake-format-precommit
@@ -42,7 +42,7 @@ repos:
       - id: isort
         args: [--profile, black, --multi-line, "3"]
   - repo: https://github.com/PyCQA/pylint
-    rev: v2.14.1
+    rev: v2.14.4
     hooks:
       - id: pylint
   - repo: https://github.com/asottile/pyupgrade
