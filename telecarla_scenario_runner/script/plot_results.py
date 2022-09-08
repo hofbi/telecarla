@@ -88,12 +88,12 @@ def plot_results(scenario_results, show_yerr):
             durations,
             yerr=duration_errors,
             align="center",
-            label="Mean Duration (%.0fs)" % average,
+            label="Mean Duration ({average:.0f}s)",
         )
         # top_ylim = 130
     else:
         plt.bar(
-            indices, durations, align="center", label="Mean Duration (%.0fs)" % average
+            indices, durations, align="center", label=f"Mean Duration ({average:.0f}s)"
         )
         # top_ylim = 100
     average = sum(failure_rates) / len(failure_rates) * 100
@@ -101,7 +101,7 @@ def plot_results(scenario_results, show_yerr):
         indices,
         failures,
         align="center",
-        label=f"Failure Rate (∅{0:.0f}%)".format(average),
+        label=f"Failure Rate (∅{average:.0f}%)",
     )
 
     auto_label(rects, failure_rates)
@@ -185,8 +185,7 @@ def parse_arguments():
         """Argparse type check if path is a directory"""
         if Path(path_string).absolute().is_dir():
             return Path(path_string)
-        else:
-            raise NotADirectoryError(path_string)
+        raise NotADirectoryError(path_string)
 
     parser = argparse.ArgumentParser(
         description="Plot the results from the scenario evaluation",

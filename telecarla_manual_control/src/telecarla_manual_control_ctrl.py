@@ -52,6 +52,8 @@ class BaseControl:
     Handle input events
     """
 
+    # pylint: disable=too-many-instance-attributes
+
     def __init__(self, role_name):
         self.role_name = role_name
 
@@ -112,17 +114,17 @@ class KeyboardControl(BaseControl):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return True
-            elif event.type == pygame.KEYUP:
+            if event.type == pygame.KEYUP:
                 if self._is_quit_shortcut(event.key):
                     return True
-                elif event.key == K_b:
+                if event.key == K_b:
                     self.vehicle_control_manual_override = (
                         not self.vehicle_control_manual_override
                     )
                     self.set_vehicle_control_manual_override(
                         self.vehicle_control_manual_override
                     )
-                if event.key == K_q:
+                elif event.key == K_q:
                     self._control.gear = 1 if self._control.reverse else -1
                 elif event.key == K_p:
                     self._autopilot_enabled = not self._autopilot_enabled
@@ -131,6 +133,7 @@ class KeyboardControl(BaseControl):
             self._parse_vehicle_keys(pygame.key.get_pressed(), clock.get_time())
             self._control.reverse = self._control.gear < 0
             self.vehicle_control_publisher.publish(self._control)
+        return False
 
     def _parse_vehicle_keys(self, keys, milliseconds):
         """
@@ -155,6 +158,8 @@ class PWSteering(BaseControl):
     Handle pedals and wheel input events
     """
 
+    # pylint: disable=too-many-instance-attributes
+
     def __init__(self, role_name, config_file):
         super().__init__(role_name)
 
@@ -177,14 +182,14 @@ class PWSteering(BaseControl):
         self._k2 = float(self._parser.get("G29Pedal", "k2"))
         self._sensitivity = float(self._parser.get("G29Pedal", "sensitivity"))
 
-    def parse_events(self, clock):
+    def parse_events(self, _):
         """
         parse an input event
         """
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return True
-            elif event.type == pygame.JOYBUTTONDOWN:
+            if event.type == pygame.JOYBUTTONDOWN:
                 if event.button == int(self._parser.get("G29WheelButton", "handbrake")):
                     self._control.hand_brake = not self._control.hand_brake
                 elif event.button == int(self._parser.get("G29WheelButton", "reverse")):
@@ -193,6 +198,7 @@ class PWSteering(BaseControl):
             self._parse_vehicle_wheel()
             self._control.reverse = self._control.gear < 0
             self.vehicle_control_publisher.publish(self._control)
+        return False
 
     def _parse_vehicle_wheel(self):
         num_axes = self._joystick.get_numaxes()
@@ -229,9 +235,7 @@ class PWSteering(BaseControl):
 
 
 def main():
-    """
-    main function
-    """
+    # pylint: disable=duplicate-code
     rospy.init_node("telecarla_manual_control_ctrl", anonymous=True)
 
     role_name = rospy.get_param("~role_name", "ego_vehicle")

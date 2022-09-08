@@ -38,6 +38,30 @@ class ScenarioRunner:
 
         self._output_dir_with_prio.mkdir(parents=True, exist_ok=True)
 
+    @property
+    def host(self):
+        return self._host
+
+    @property
+    def port(self):
+        return self._port
+
+    @property
+    def path(self):
+        return self._path
+
+    @property
+    def timeout(self):
+        return self._timeout
+
+    @property
+    def output_dir(self):
+        return self._output_dir_with_prio
+
+    @property
+    def output_dir_with_prio(self):
+        return self._output_dir_with_prio
+
     def get_scenarios(self, runner_path):
         """
         Return all openscenario files to run the evaluation on them.
@@ -97,17 +121,16 @@ def main(args=None):
 
     scenario_runner = ScenarioRunner()
     scenarios, scenario_adaptation_labels = scenario_runner.get_scenarios(
-        scenario_runner._path
+        scenario_runner.path
     )
-    output_dir = scenario_runner._output_dir
-
     for index, scenario_file in enumerate(scenarios):
 
         rospy.set_param("/adaptation", scenario_adaptation_labels[index])
-        if scenario_adaptation_labels[index] == 1:
-            output_dir = scenario_runner._output_dir_with_prio
-        else:
-            output_dir = scenario_runner._output_dir
+        output_dir = (
+            scenario_runner.output_dir_with_prio
+            if scenario_adaptation_labels[index] == 1
+            else scenario_runner.output_dir
+        )
 
         create_town_param(scenario_file)
         ind = scenario_file.rfind("/")
@@ -117,23 +140,21 @@ def main(args=None):
         print(
             "\n==============================================================================\n"
         )
-        print(
-            "Running scenario %s (%d/%d)" % (scenario_name, index + 1, len(scenarios))
-        )
+        print(f"Running scenario {scenario_name} ({index + 1}/{len(scenarios)})")
 
         print("Start your client in a few seconds, after the world has loaded.")
 
         cmdline = [
             "python3",
-            f"{scenario_runner._path}/scenario_runner.py",
+            f"{scenario_runner.path}/scenario_runner.py",
             "--openscenario",
             f"{scenario_file}",
             "--timeout",
-            str(scenario_runner._timeout),
+            str(scenario_runner.timeout),
             "--host",
-            scenario_runner._host,
+            scenario_runner.host,
             "--port",
-            str(scenario_runner._port),
+            str(scenario_runner.port),
             "--waitForEgo",
             "--junit",
             "--outputDir",

@@ -107,7 +107,7 @@ class World:
                 text.append("Solid")
             else:
                 text.append("Unknown ")
-        self.hud.notification("Crossed line %s" % " and ".join(text))
+        self.hud.notification(f"Crossed line {' and '.join(text)}")
 
     def on_view_image(self, image):
         """
@@ -145,6 +145,8 @@ class HUD:
     """
     Handle the info display
     """
+
+    # pylint: disable=too-many-instance-attributes
 
     def __init__(self, role_name, width, height):
         self.role_name = role_name
@@ -270,19 +272,19 @@ class HUD:
         if self.carla_status.fixed_delta_seconds:
             fps = 1 / self.carla_status.fixed_delta_seconds
         self._info_text = [
-            "Frame: % 22s" % self.carla_status.frame,
-            "Simulation time: % 12s"
-            % datetime.timedelta(seconds=int(rospy.get_rostime().to_sec())),
-            "FPS: % 24.1f" % fps,
+            f"Frame: {self.carla_status.frame:22s}",
+            f"Simulation time: {datetime.timedelta(seconds=int(rospy.get_rostime().to_sec())):12s}",
+            f"FPS: {fps:24.1f}",
             "",
-            "Vehicle: % 20s" % " ".join(self.vehicle_info.type.title().split(".")[1:]),
-            "Speed:   % 15.0f km/h" % (3.6 * self.vehicle_status.velocity),
-            "Heading:% 16.0f\N{DEGREE SIGN} % 2s" % (yaw, heading),
-            "Location:% 20s" % (f"({x_pos: 5.1f}, {y_pos: 5.1f})"),
-            "GNSS:% 24s" % (f"({self.latitude: 2.6f}, {self.longitude: 3.6f})"),
-            "Height:  % 18.0f m" % z_pos,
+            f"Vehicle: {' '.join(self.vehicle_info.type.title().split('.')[1:]):20s}",
+            f"Speed:   {3.6 * self.vehicle_status.velocity:15.0f} km/h",
+            f"Heading: {yaw:16.0f}\N{DEGREE SIGN} {heading}",
+            f"Location: ({x_pos: 5.1f}, {y_pos: 5.1f})",
+            f"GNSS: {self.latitude: 2.6f}, {self.longitude: 3.6f}",
+            f"Height:  {z_pos:18.0f} m",
             "",
         ]
+        gear_dict = {-1: "R", 0: "N"}
         self._info_text += [
             ("Throttle:", self.vehicle_status.control.throttle, 0.0, 1.0),
             ("Steer:", self.vehicle_status.control.steer, -1.0, 1.0),
@@ -290,10 +292,7 @@ class HUD:
             ("Reverse:", self.vehicle_status.control.reverse),
             ("Hand brake:", self.vehicle_status.control.hand_brake),
             ("Manual:", self.vehicle_status.control.manual_gear_shift),
-            "Gear:        %s"
-            % {-1: "R", 0: "N"}.get(
-                self.vehicle_status.control.gear, self.vehicle_status.control.gear
-            ),
+            f"Gear:        {gear_dict.get(self.vehicle_status.control.gear, self.vehicle_status.control.gear)}",
             "",
         ]
         self._info_text += [("Manual ctrl:", self.manual_control)]
@@ -319,7 +318,7 @@ class HUD:
         """
         display an error
         """
-        self._notifications.set_text("Error: %s" % text, (255, 0, 0))
+        self._notifications.set_text(f"Error: {text}", (255, 0, 0))
 
     def render(self, display):
         """
@@ -464,9 +463,7 @@ class HelpText:
 
 
 def main():
-    """
-    main function
-    """
+    # pylint: disable=duplicate-code
     rospy.init_node("carla_manual_control", anonymous=True)
 
     role_name = rospy.get_param("~role_name", "ego_vehicle")

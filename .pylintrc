@@ -6,16 +6,22 @@ ignore=venv
 
 [BASIC]
 
-# Naming style matching correct argument names.
-argument-naming-style=snake_case
+# Stick to snake case, but accept setUp and tearDown from unittest
+method-rgx=(([a-z_][a-z0-9_]*)|(setUp)|(tearDown))$
+
+[MESSAGES CONTROL]
+
+# Only show warnings with the listed confidence levels. Leave empty to show
+# all. Valid levels: HIGH, INFERENCE, INFERENCE_FAILURE, UNDEFINED
+confidence=
+
+disable=
+    missing-function-docstring,
+    import-error, # disabled since pre-commit runs pylint in a separate venv
+    unspecified-encoding,
+    fixme
 
 [FORMAT]
 
 # Maximum number of characters on a single line.
 max-line-length=120
-
-[MESSAGES CONTROL]
-
-# Only show warnings with the listed confidence levels. Leave empty to show
-# all. Valid levels: HIGH, INFERENCE, INFERENCE_FAILURE, UNDEFINED.
-confidence=HIGH

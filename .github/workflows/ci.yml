@@ -10,7 +10,7 @@ jobs:
   check:
     runs-on: ubuntu-20.04
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - name: Install shfmt
       run: sudo snap install shfmt
     - name: Check
@@ -23,14 +23,14 @@ jobs:
         include:
           - ros_distro: melodic
             python_suffix: ""
-          # - ros_distro: noetic
-          #   python_suffix: 3
+          - ros_distro: noetic
+            python_suffix: 3
     container:
       image: ros:${{ matrix.ros_distro }}-robot
       env:
         DEBIAN_FRONTEND: "noninteractive"
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - name: Setup
       shell: bash
       run: |
