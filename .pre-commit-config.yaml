@@ -56,17 +56,17 @@ repos:
       - id: isort
         args: [--profile, black, --multi-line, "3"]
   - repo: https://github.com/PyCQA/pylint
-    rev: v2.15.0
+    rev: v2.15.3
     hooks:
       - id: pylint
         exclude: (?x)( telecarla_depth_rgb | telecarla_lidar )
   - repo: https://github.com/asottile/pyupgrade
-    rev: v2.37.3
+    rev: v2.38.2
     hooks:
       - id: pyupgrade
         args: [--py38-plus, --keep-runtime-typing]
   - repo: https://github.com/PyCQA/autoflake
-    rev: v1.5.3
+    rev: v1.6.1
     hooks:
       - id: autoflake
   - repo: https://github.com/asottile/yesqa
