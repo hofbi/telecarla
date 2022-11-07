@@ -26,7 +26,7 @@ repos:
       - id: requirements-txt-fixer
       - id: trailing-whitespace
   - repo: https://github.com/psf/black
-    rev: 22.8.0
+    rev: 22.10.0
     hooks:
       - id: black
         language_version: python3
@@ -56,17 +56,17 @@ repos:
       - id: isort
         args: [--profile, black, --multi-line, "3"]
   - repo: https://github.com/PyCQA/pylint
-    rev: v2.15.3
+    rev: v2.15.5
     hooks:
       - id: pylint
         exclude: (?x)( telecarla_depth_rgb | telecarla_lidar )
   - repo: https://github.com/asottile/pyupgrade
-    rev: v3.0.0
+    rev: v3.2.0
     hooks:
       - id: pyupgrade
         args: [--py38-plus, --keep-runtime-typing]
   - repo: https://github.com/PyCQA/autoflake
-    rev: v1.6.1
+    rev: v1.7.7
     hooks:
       - id: autoflake
   - repo: https://github.com/asottile/yesqa
