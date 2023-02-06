@@ -103,7 +103,6 @@ def create_town_param(scenario_file):
     """
 
     with Path(scenario_file).open() as file:
-
         lines = file.readlines()
         lines = "".join(lines)
         lines_structured = bs(lines, "lxml")
@@ -124,7 +123,6 @@ def main(args=None):
         scenario_runner.path
     )
     for index, scenario_file in enumerate(scenarios):
-
         rospy.set_param("/adaptation", scenario_adaptation_labels[index])
         output_dir = (
             scenario_runner.output_dir_with_prio
