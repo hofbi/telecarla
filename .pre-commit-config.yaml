@@ -31,7 +31,7 @@ repos:
       - id: black
         language_version: python3
   - repo: https://github.com/pre-commit/mirrors-clang-format
-    rev: v16.0.0
+    rev: v16.0.2
     hooks:
       - id: clang-format
   - repo: https://github.com/cheshirekow/cmake-format-precommit
@@ -61,12 +61,12 @@ repos:
       - id: pylint
         exclude: (?x)( telecarla_depth_rgb | telecarla_lidar )
   - repo: https://github.com/asottile/pyupgrade
-    rev: v3.3.1
+    rev: v3.3.2
     hooks:
       - id: pyupgrade
         args: [--py38-plus, --keep-runtime-typing]
   - repo: https://github.com/PyCQA/autoflake
-    rev: v2.0.2
+    rev: v2.1.1
     hooks:
       - id: autoflake
   - repo: https://github.com/asottile/yesqa
