@@ -21,10 +21,8 @@ jobs:
     strategy:
       matrix:
         include:
-          - ros_distro: melodic
-            python_suffix: ""
-          # - ros_distro: noetic
-          #   python_suffix: 3
+          - ros_distro: noetic
+            python_suffix: 3
     container:
       image: ros:${{ matrix.ros_distro }}-robot
       env:
@@ -34,6 +32,7 @@ jobs:
     - name: Setup
       shell: bash
       run: |
+        export DEBIAN_FRONTEND=noninteractive
         sudo apt-get update
         sudo apt-get install -y python${{ matrix.python_suffix }}-catkin-tools clang-tidy-10
         $GITHUB_WORKSPACE/install.sh
