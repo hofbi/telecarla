@@ -21,10 +21,8 @@ jobs:
     strategy:
       matrix:
         include:
-          - ros_distro: melodic
-            python_suffix: ""
-          # - ros_distro: noetic
-          #   python_suffix: 3
+          - ros_distro: noetic
+            python_suffix: 3
     container:
       image: ros:${{ matrix.ros_distro }}-robot
       env:

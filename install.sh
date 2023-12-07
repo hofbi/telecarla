@@ -25,21 +25,21 @@ WS_SRC="${SCRIPT_DIR}"/..
 pushd "$WS_SRC" || exit
 
 echo "Installing General Packages"
-sudo apt-get update
-sudo apt-get install -y \
+sudo DEBIAN_FRONTEND=noninteractive apt-get update
+sudo DEBIAN_FRONTEND=noninteractive apt-get install -y \
     git \
     software-properties-common \
     apt-utils \
     python3-pip
 
 if [ -z "$PYTHON_SUFFIX" ]; then
-    sudo apt-get install -y \
+    sudo DEBIAN_FRONTEND=noninteractive apt-get install -y \
         python-pip \
         python-protobuf
 fi
 
 echo "Installing Carla Ros Bridge"
-sudo apt-get install -y \
+sudo DEBIAN_FRONTEND=noninteractive apt-get install -y \
     ros-$ROS_VERSION-opencv-apps \
     ros-$ROS_VERSION-ackermann-msgs \
     ros-$ROS_VERSION-derived-object-msgs \
