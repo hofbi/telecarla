@@ -37,6 +37,7 @@ from carla_msgs.msg import (
 from sensor_msgs.msg import Image, NavSatFix
 from std_msgs.msg import Bool
 
+# pylint: disable=duplicate-code
 try:
     import pygame
 except ImportError as exc:
