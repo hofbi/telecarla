@@ -279,7 +279,7 @@ class HUD:
             "",
             f"Vehicle: {' '.join(self.vehicle_info.type.title().split('.')[1:]):20s}",
             f"Speed:   {3.6 * self.vehicle_status.velocity:15.0f} km/h",
-            f"Heading: {yaw:16.0f}\N{DEGREE SIGN} {heading}",
+            f"Heading: {yaw:16.0f}\N{{DEGREE SIGN}} {heading}",
             f"Location: ({x_pos: 5.1f}, {y_pos: 5.1f})",
             f"GNSS: {self.latitude: 2.6f}, {self.longitude: 3.6f}",
             f"Height:  {z_pos:18.0f} m",
