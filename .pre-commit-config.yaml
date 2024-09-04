@@ -61,7 +61,7 @@ repos:
       - id: pylint
         exclude: (?x)( telecarla_depth_rgb | telecarla_lidar )
   - repo: https://github.com/asottile/pyupgrade
-    rev: v3.17.0
+    rev: v3.16.0  # Last version supporting Python 3.8
     hooks:
       - id: pyupgrade
         args: [--py38-plus, --keep-runtime-typing]
