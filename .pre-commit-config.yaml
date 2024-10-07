@@ -1,4 +1,4 @@
-default_stages: [Nonepre-commitNone]
+default_stages: [pre-commit]
 
 ci:
   autoupdate_commit_msg: "chore(deps): pre-commit.ci autoupdate"
