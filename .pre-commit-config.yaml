@@ -1,4 +1,4 @@
-default_stages: [commit]
+default_stages: [Nonepre-commitNone]
 
 ci:
   autoupdate_commit_msg: "chore(deps): pre-commit.ci autoupdate"
@@ -7,7 +7,7 @@ ci:
 
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.6.0
+    rev: v5.0.0
     hooks:
       - id: check-added-large-files
       - id: check-case-conflict
@@ -31,7 +31,7 @@ repos:
       - id: black
         language_version: python3
   - repo: https://github.com/pre-commit/mirrors-clang-format
-    rev: v18.1.8
+    rev: v19.1.1
     hooks:
       - id: clang-format
   - repo: https://github.com/cheshirekow/cmake-format-precommit
@@ -56,7 +56,7 @@ repos:
       - id: isort
         args: [--profile, black, --multi-line, "3"]
   - repo: https://github.com/PyCQA/pylint
-    rev: v3.2.6
+    rev: v3.3.1
     hooks:
       - id: pylint
         exclude: (?x)( telecarla_depth_rgb | telecarla_lidar )
