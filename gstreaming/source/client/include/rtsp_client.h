@@ -2,6 +2,7 @@
 #define _LMT_RTSP_CLIENT_HH_
 
 #include <functional>
+#include <string>
 
 #include <gst/app/gstappsink.h>
 #include <gst/gstpipeline.h>
