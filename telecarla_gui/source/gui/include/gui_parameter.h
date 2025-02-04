@@ -3,6 +3,8 @@
 
 #include <map>
 #include <optional>
+#include <string>
+#include <string_view>
 #include <vector>
 
 #include <SDL2/SDL_rect.h>
