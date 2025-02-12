@@ -9,6 +9,9 @@ TELECARLA is an extension of the [CARLA simulator](https://carla.org/) for teleo
 
 ![TELECARLA](doc/telecarla.jpg "TELECARLA Architecture")
 
+> [!IMPORTANT]
+> If you have questions, please use the [GitHub Discussions](https://github.com/hofbi/telecarla/discussions) of this repository instead of sending an email.
+
 ## Paper
 
 If you use TELECARLA please cite our paper.
