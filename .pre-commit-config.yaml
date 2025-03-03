@@ -43,7 +43,7 @@ repos:
         additional_dependencies: ["cmakelang"]
         exclude: "cmake/.*"
   - repo: https://github.com/PyCQA/flake8
-    rev: 7.1.1
+    rev: 7.1.2
     hooks:
       - id: flake8
         additional_dependencies:
@@ -51,7 +51,7 @@ repos:
           - flake8-bugbear
           - flake8-comprehensions
   - repo: https://github.com/PyCQA/isort
-    rev: 6.0.0
+    rev: 6.0.1
     hooks:
       - id: isort
         args: [--profile, black, --multi-line, "3"]
