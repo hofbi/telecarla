@@ -31,7 +31,7 @@ repos:
       - id: black
         language_version: python3
   - repo: https://github.com/pre-commit/mirrors-clang-format
-    rev: v19.1.7
+    rev: v20.1.0
     hooks:
       - id: clang-format
   - repo: https://github.com/cheshirekow/cmake-format-precommit
@@ -43,7 +43,7 @@ repos:
         additional_dependencies: ["cmakelang"]
         exclude: "cmake/.*"
   - repo: https://github.com/PyCQA/flake8
-    rev: 7.1.2
+    rev: 7.2.0
     hooks:
       - id: flake8
         additional_dependencies:
@@ -56,7 +56,7 @@ repos:
       - id: isort
         args: [--profile, black, --multi-line, "3"]
   - repo: https://github.com/PyCQA/pylint
-    rev: v3.3.4
+    rev: v3.3.6
     hooks:
       - id: pylint
         exclude: (?x)( telecarla_depth_rgb | telecarla_lidar )
