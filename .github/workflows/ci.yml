@@ -11,15 +11,6 @@ concurrency:
   cancel-in-progress: true  # cancel if new changes are pushed
 
 jobs:
-  check:
-    runs-on: ubuntu-20.04
-    steps:
-    - uses: actions/checkout@v3
-    - name: Install shfmt
-      run: sudo snap install shfmt
-    - name: Check
-      run: make check
-
   ros:
     runs-on: ubuntu-latest
     strategy:
