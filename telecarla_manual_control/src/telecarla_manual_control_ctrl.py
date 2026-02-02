@@ -15,7 +15,6 @@ Use ARROWS or WASD keys for control.
     ESC          : quit
 """
 
-
 import math
 from configparser import ConfigParser
 

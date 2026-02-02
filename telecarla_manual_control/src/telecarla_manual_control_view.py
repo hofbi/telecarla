@@ -19,7 +19,6 @@ Use ARROWS or WASD keys for control.
     ESC          : quit
 """
 
-
 import datetime
 import math
 import os
@@ -248,7 +247,7 @@ class HUD:
         if not self._show_info:
             return
         try:
-            (position, quaternion) = self.tf_listener.lookupTransform(
+            position, quaternion = self.tf_listener.lookupTransform(
                 "/map", self.role_name, rospy.Time()
             )
             _, _, yaw = tf.transformations.euler_from_quaternion(quaternion)
