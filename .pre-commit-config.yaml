@@ -2,7 +2,7 @@ default_stages: [pre-commit]
 
 ci:
   autoupdate_commit_msg: "chore(deps): pre-commit.ci autoupdate"
-  autoupdate_schedule: "monthly"
+  autoupdate_schedule: "quarterly"
   autofix_commit_msg: "style: pre-commit.ci fixes"
 
 repos:
