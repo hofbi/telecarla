@@ -13,7 +13,7 @@ enum class PipelineState
     starting,
     stopping
 };
-}
+}  // namespace common
 }  // namespace lmt
 
 #endif  // LMT_PIPELINE_STATE_H
